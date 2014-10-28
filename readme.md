@@ -37,7 +37,7 @@ var zip = require('bestzip');
 
 var files = [];
 
-zip('./destination.zip', 'source/', function(err) {
+zip('./destination.zip', ['source/', 'other_soure_file.js'], function(err) {
     if  (err) {
         console.error(err.stack);
         process.exit(1);
@@ -49,8 +49,7 @@ zip('./destination.zip', 'source/', function(err) {
 
 ## Todo
 
-* add support for more than one source
-* jshint
+* Fix bug when source contains `../`
 * Test if using a vbscript or whatever on Windows results in significantly better performance.
 
 ## MIT License
