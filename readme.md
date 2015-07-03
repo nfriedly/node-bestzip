@@ -10,7 +10,7 @@ native `zip` command.
 ## Global command line usage
 
     npm install -g bestzip
-    bestzip source/ [other sources...] destination.zip
+    bestzip destination.zip source/ [other sources...]
 
 ## Command line usage within `package.json` scripts
 
@@ -23,7 +23,7 @@ package.json:
     //...
     "scripts": {
         "build" "...",
-        "zip": "bestzip out/* bundle.zip",
+        "zip": "bestzip bundle.zip source/*",
         "upload": "....",
         "deploy": "npm run build && npm run zip && npm run upload"
     }
