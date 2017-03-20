@@ -49,6 +49,8 @@ zip('./destination.zip', ['source/', 'other_soure_file.js'], function(err) {
 
 ## Todo
 
+* Automated tests - at least lint code and test the node.js version 
+* Automated deployment
 * Fix bug when source contains `../`
 * Test if using a vbscript or whatever on Windows results in significantly better performance.
 
