@@ -2,25 +2,8 @@ module.exports = {
     "env": {
         "node": true
     },
-    "extends": "eslint:recommended",
+    "extends": ["eslint:recommended", "plugin:prettier/recommended"],
     "rules": {
-        "indent": [
-            "error",
-            4
-        ],
-        "linebreak-style": [
-            "error",
-            "unix"
-        ],
-        "quotes": [
-            "error",
-            "single"
-        ],
-        "no-console": 0,
-        "semi": [
-            "error",
-            "always"
-        ],
         "strict": [
             "error",
             "global"

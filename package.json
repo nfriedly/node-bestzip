@@ -26,8 +26,11 @@
     "chai": "^4.1.2",
     "command-line-test": "^1.0.10",
     "eslint": "^4.19.1",
+    "eslint-config-prettier": "^2.9.0",
+    "eslint-plugin-prettier": "^2.6.0",
     "fs": "0.0.1-security",
     "mocha": "^5.2.0",
+    "prettier": "^1.13.3",
     "rimraf": "^2.6.2",
     "unzip-stream": "^0.3.0"
   }
