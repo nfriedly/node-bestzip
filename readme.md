@@ -1,5 +1,8 @@
 # bestzip
 
+[![Linux and MacOS build status](https://travis-ci.org/nfriedly/node-bestzip.svg?branch=master)](https://travis-ci.org/nfriedly/node-bestzip)
+[![Windows build status](https://ci.appveyor.com/api/projects/status/6gk3igwk2l85djnn?svg=true)](https://ci.appveyor.com/project/nfriedly/node-bestzip)
+
 This module provides a `bestzip` command that calls the native `zip` command if available and otherwise falls back to a
 Node.js implementation.
 
@@ -49,7 +52,6 @@ zip('./destination.zip', ['source/', 'other_soure_file.js'], function(err) {
 
 ## Todo
 
-* Automated tests - at least lint code and test the node.js version 
 * Automated deployment
 * Fix bug when source contains `../`
 * Test if using a vbscript or whatever on Windows results in significantly better performance.
