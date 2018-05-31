@@ -3,7 +3,7 @@
 var zip = require('../lib/bestzip.js');
 
 var argv = require('yargs')
-    .usage("\nUsage: bestzip destination.zip sources/")
+    .usage('\nUsage: bestzip destination.zip sources/')
     .demand(2)
     .argv._;
 
@@ -12,7 +12,7 @@ var sources = argv;
 
 console.log('Writing %s to %s...', sources.join(', '), dest);
 
-var archive = zip(dest, sources, function(err) {
+zip(dest, sources, function(err) {
     if (err) {
         console.error(err);
         return process.exit(1);
