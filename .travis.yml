@@ -6,9 +6,13 @@ os:
  - linux
  - osx
 
+# https://docs.npmjs.com/cli/ci
+install:
+- npm ci
+
 script:
  - npm run test
 
 cache:
   directories:
-    - node_modules
+    - "$HOME/.npm"
