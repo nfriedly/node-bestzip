@@ -1,3 +1,5 @@
+'use strict';
+
 var chai = require('chai');
 var expect = chai.expect;
 var path = require('path');
@@ -16,7 +18,7 @@ describe('bestzip', function() {
     });
 
     describe('When archiving a dummy file', function() {
-        var destinationFile, file1File, extractFolder, fixturesFolder, destinationFilePath, file1Path, extractFolderPath, extractedFile1;
+        var destinationFile, file1File, extractFolder, fixturesFolder, destinationFilePath, file1Path, extractFolderPath;
 
         beforeEach(function(done) {
             destinationFile = 'fakeDestination.zip';
@@ -27,7 +29,6 @@ describe('bestzip', function() {
             destinationFilePath = path.join(__dirname, destinationFile);
             file1Path = path.join(__dirname, fixturesFolder, file1File);
             extractFolderPath = path.join(__dirname, extractFolder);
-            extractedFile1 = path.join(extractFolderPath, file1File);
 
             fs.mkdir(extractFolderPath, done);
         });
@@ -69,6 +70,8 @@ describe('bestzip', function() {
                 validArchiveExtractedFile1Path = path.join(__dirname, 'validArchiveExtract', file1File);
 
                 zip(validArchiveFilePath, [file1Path], function(zipError) {
+                    expect(zipError).to.not.exist;
+
                     var unzipExtractor = unzip.Extract({ path: validArchiveExtractFolder });
 
                     unzipExtractor

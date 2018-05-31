@@ -1,5 +1,7 @@
 #!/usr/bin/env node
 
+'use strict';
+
 var zip = require('../lib/bestzip.js');
 
 var argv = require('yargs')
