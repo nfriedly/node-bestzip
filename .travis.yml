@@ -1,18 +1,11 @@
 language: node_js
 node_js:
  - "8"
+ - "stable"
 
 os:
  - linux
  - osx
 
-# https://docs.npmjs.com/cli/ci
-install:
-- npm ci
-
 script:
  - npm run test
-
-cache:
-  directories:
-    - "$HOME/.npm"
