@@ -1,21 +1,22 @@
 #!/usr/bin/env node
 
-var zip = require('../lib/bestzip.js');
+"use strict";
 
-var argv = require('yargs')
-    .usage("\nUsage: bestzip destination.zip sources/")
-    .demand(2)
-    .argv._;
+var zip = require("../lib/bestzip.js");
+
+var argv = require("yargs")
+  .usage("\nUsage: bestzip destination.zip sources/")
+  .demand(2).argv._;
 
 var dest = argv.shift();
 var sources = argv;
 
-console.log('Writing %s to %s...', sources.join(', '), dest);
+console.log("Writing %s to %s...", sources.join(", "), dest);
 
-var archive = zip(dest, sources, function(err) {
-    if (err) {
-        console.error(err);
-        return process.exit(1);
-    }
-    console.log('zipped!');
+zip(dest, sources, function(err) {
+  if (err) {
+    console.error(err);
+    return process.exit(1);
+  }
+  console.log("zipped!");
 });
