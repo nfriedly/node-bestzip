@@ -7,7 +7,10 @@
     "bestzip": "bin/cli.js"
   },
   "scripts": {
-    "test": "mocha --timeout 5000 ./test/bestzip.js"
+    "lint": "eslint .",
+    "lint-fix": "eslint --fix .",
+    "unit-test": "mocha --timeout 5000 ./test/bestzip.js",
+    "test": "npm run lint && npm run unit-test"
   },
   "author": "Nathan Friedly - http://nfriedly.com/",
   "license": "MIT",
@@ -22,6 +25,7 @@
   "devDependencies": {
     "chai": "^4.1.2",
     "command-line-test": "^1.0.10",
+    "eslint": "^4.19.1",
     "fs": "0.0.1-security",
     "mocha": "^5.2.0",
     "rimraf": "^2.6.2",
