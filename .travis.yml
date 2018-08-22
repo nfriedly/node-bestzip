@@ -1,11 +1,16 @@
 language: node_js
 node_js:
- - "8"
- - "stable"
-
+- 6
+- 8
+- stable
 os:
- - linux
- - osx
-
-script:
- - npm run test
+- linux
+- osx
+deploy:
+  provider: npm
+  email: nathan@nfriedly.com
+  api_key:
+    secure: HYHIPxjT+yWICdi1R2pNbE02rtX6iTOnPjlwrraNYadq+ggDoWKczM5uZbCpBJO9e1F7aWZeq85NeOqtsaKxpPHB4J2P9peNyVpQx1G5qENmkNICRLUPfOqOKZNnQAdJN66MfVOTI/za1HJUKjC3C6X/xyB4faW6Pk/PoCt+x8A=
+  on:
+    tags: true
+    repo: nfriedly/node-bestzip
