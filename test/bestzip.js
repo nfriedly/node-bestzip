@@ -180,7 +180,7 @@ describe("bestzip", function() {
         validArchiveExtractedFile1Path = path.join(
           __dirname,
           "validArchiveExtract",
-          __dirname, // yes, it has this path twice. This will change in a major version, but right now we're trying to keep compatibility
+          __dirname.replace(/^[A-Z]:/, ''), // yes, it has the path twice. Regex to strip the leading C: or whatever on windows
           fixturesFolder,
           file1File
         );
