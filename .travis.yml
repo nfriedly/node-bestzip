@@ -10,7 +10,7 @@ deploy:
   provider: npm
   email: nathan@nfriedly.com
   api_key:
-    secure: HYHIPxjT+yWICdi1R2pNbE02rtX6iTOnPjlwrraNYadq+ggDoWKczM5uZbCpBJO9e1F7aWZeq85NeOqtsaKxpPHB4J2P9peNyVpQx1G5qENmkNICRLUPfOqOKZNnQAdJN66MfVOTI/za1HJUKjC3C6X/xyB4faW6Pk/PoCt+x8A=
+    secure: "PqdjuvDkum+7h4Aq1hZFe8N2+ed4PGKEe3FgyZ4D7GnOBWi+oMYd2z111okvqOtPkPSsC8NE/J5h2vaPC/XWlUJVlP+r2bbD5lUdhFUw7+3gyAyuWIC+TQWoZNTgJWpNThvysTnVIpw7UwfP66FkcmpU+KyClpNnpGrhBD+8WFI="
   on:
     tags: true
     repo: nfriedly/node-bestzip
