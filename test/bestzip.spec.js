@@ -54,6 +54,8 @@ const getStructure = tmpdir => {
 describe("file structure", () => {
   const hasNativeZip = bestzip.hasNativeZip();
 
+  console.log({ hasNativeZip });
+
   beforeEach(cleanup);
 
   // these tests have known good snapshots
