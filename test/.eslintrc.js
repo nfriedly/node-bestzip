@@ -1,7 +1,12 @@
 module.exports = {
     "env": {
-        "node": "true",
-        "es6": true,
-        "mocha": true
+        "jest": true
+    },
+    "parserOptions": {
+        "ecmaVersion": 2018,
+    },
+    "rules": {
+        "prefer-const": "error",
+        "no-console": "off"
     }
 };

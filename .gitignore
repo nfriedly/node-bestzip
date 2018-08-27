@@ -1,2 +1,5 @@
 node_modules/
 .idea
+tmp/
+test/validArchive.zip
+test/validARchiveExtract
