@@ -51,6 +51,22 @@ zip('./destination.zip', ['source/', 'other_soure_file.js'], function(err) {
 });
 ```
 
+## How to control the directory structure
+
+The directory structure in the .zip is going to match your input files. To have more or less directories, change your starting directory.
+
+For example:
+
+`bestzip build.zip build/*`
+
+This include the build/ folder inside of the .zip
+
+Alternatively:
+
+`cd build/ && bestzip ../build.zip *`
+
+Will not include the build/ folder, it's contents will be top-level.
+
 ## Breaking changes for v2
 
 * `bestzip output.zip foo/bar/file.txt` now includes the foo/bar/ folders, previously it would place file.txt at the top-level
