@@ -54,8 +54,6 @@ const getStructure = tmpdir => {
 describe("file structure", () => {
   const hasNativeZip = bestzip.hasNativeZip();
 
-  console.log({ hasNativeZip });
-
   beforeEach(cleanup);
 
   // these tests have known good snapshots
@@ -79,16 +77,17 @@ describe("file structure", () => {
         // on systems *with* a native zip, this validates that both methods output the same thing (mac, linux)
 
         // note: this was initially two tests, but we want to match them against the same snapshot -
-        // but jest includes the test name in the snapshot name, so it has to go into a single test
+        // but jest doesn't allow multiple expect's to target the same snapshot, so we match the first to the snapshot
+        // and match the second to the first
         child_process.execSync(
           `node ${cli} --force=node ${zipfile} ${testCase.args}`,
           { cwd: path.join(__dirname, "../", testCase.cwd) }
         );
 
         await unzip(zipfile, tmpdir);
-        const forcedNodestructure = getStructure(tmpdir);
+        const forcedNodeStructure = getStructure(tmpdir);
 
-        expect(forcedNodestructure).toMatchSnapshot();
+        expect(forcedNodeStructure).toEqual(structure);
       }
     }
   );
