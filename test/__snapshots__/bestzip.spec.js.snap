@@ -1,0 +1,167 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`file structure bestzip with relative paths test/> bestzip [tmp]/test.zip fixtures/*: {"cwd":"test/","args":["fixtures/*"]} 1`] = `
+Object {
+  "0": "/fixtures",
+  "1": "/fixtures/file.txt",
+  "2": "/fixtures/multiline.txt",
+  "3": "/fixtures/obama.jpg",
+  "4": "/fixtures/subdir",
+  "5": "/fixtures/subdir/subfile.txt",
+  "6": "/test.zip",
+}
+`;
+
+exports[`file structure bestzip with relative paths test/> bestzip [tmp]/test.zip fixtures/: {"cwd":"test/","args":["fixtures/"]} 1`] = `
+Object {
+  "0": "/fixtures",
+  "1": "/fixtures/.dotfile",
+  "2": "/fixtures/file.txt",
+  "3": "/fixtures/multiline.txt",
+  "4": "/fixtures/obama.jpg",
+  "5": "/fixtures/subdir",
+  "6": "/fixtures/subdir/subfile.txt",
+  "7": "/test.zip",
+}
+`;
+
+exports[`file structure bestzip with relative paths test/fixtures/> bestzip [tmp]/test.zip *: {"cwd":"test/fixtures/","args":["*"]} 1`] = `
+Object {
+  "0": "/file.txt",
+  "1": "/multiline.txt",
+  "2": "/obama.jpg",
+  "3": "/subdir",
+  "4": "/subdir/subfile.txt",
+  "5": "/test.zip",
+}
+`;
+
+exports[`file structure bestzip with relative paths test/fixtures> bestzip [tmp]/test.zip file.txt .dotfile: {"cwd":"test/fixtures","args":["file.txt",".dotfile"]} 1`] = `
+Object {
+  "0": "/.dotfile",
+  "1": "/file.txt",
+  "2": "/test.zip",
+}
+`;
+
+exports[`file structure bestzip with relative paths test/fixtures> bestzip [tmp]/test.zip file.txt obama.jpg: {"cwd":"test/fixtures","args":["file.txt","obama.jpg"]} 1`] = `
+Object {
+  "0": "/file.txt",
+  "1": "/obama.jpg",
+  "2": "/test.zip",
+}
+`;
+
+exports[`file structure bestzip with relative paths test/fixtures> bestzip [tmp]/test.zip file.txt subdir: {"cwd":"test/fixtures","args":["file.txt","subdir"]} 1`] = `
+Object {
+  "0": "/file.txt",
+  "1": "/subdir",
+  "2": "/subdir/subfile.txt",
+  "3": "/test.zip",
+}
+`;
+
+exports[`file structure bestzip with relative paths test/fixtures> bestzip [tmp]/test.zip file.txt: {"cwd":"test/fixtures","args":["file.txt"]} 1`] = `
+Object {
+  "0": "/file.txt",
+  "1": "/test.zip",
+}
+`;
+
+exports[`file structure bestzip with relative paths test/fixtures> bestzip [tmp]/test.zip obama.jpg: {"cwd":"test/fixtures","args":["obama.jpg"]} 1`] = `
+Object {
+  "0": "/obama.jpg",
+  "1": "/test.zip",
+}
+`;
+
+exports[`file structure bestzip with relative paths test/fixtures> bestzip [tmp]/test.zip subdir/subfile.txt: {"cwd":"test/fixtures","args":["subdir/subfile.txt"]} 1`] = `
+Object {
+  "0": "/subdir",
+  "1": "/subdir/subfile.txt",
+  "2": "/test.zip",
+}
+`;
+
+exports[`file structure forced nodezip with relative paths test/> bestzip --force=node [tmp]/test.zip fixtures/*: {"cwd":"test/","args":["fixtures/*"]} 1`] = `
+Object {
+  "0": "/fixtures",
+  "1": "/fixtures/file.txt",
+  "2": "/fixtures/multiline.txt",
+  "3": "/fixtures/obama.jpg",
+  "4": "/fixtures/subdir",
+  "5": "/fixtures/subdir/subfile.txt",
+  "6": "/test.zip",
+}
+`;
+
+exports[`file structure forced nodezip with relative paths test/> bestzip --force=node [tmp]/test.zip fixtures/: {"cwd":"test/","args":["fixtures/"]} 1`] = `
+Object {
+  "0": "/fixtures",
+  "1": "/fixtures/.dotfile",
+  "2": "/fixtures/file.txt",
+  "3": "/fixtures/multiline.txt",
+  "4": "/fixtures/obama.jpg",
+  "5": "/fixtures/subdir",
+  "6": "/fixtures/subdir/subfile.txt",
+  "7": "/test.zip",
+}
+`;
+
+exports[`file structure forced nodezip with relative paths test/fixtures/> bestzip --force=node [tmp]/test.zip *: {"cwd":"test/fixtures/","args":["*"]} 1`] = `
+Object {
+  "0": "/file.txt",
+  "1": "/multiline.txt",
+  "2": "/obama.jpg",
+  "3": "/subdir",
+  "4": "/subdir/subfile.txt",
+  "5": "/test.zip",
+}
+`;
+
+exports[`file structure forced nodezip with relative paths test/fixtures> bestzip --force=node [tmp]/test.zip file.txt .dotfile: {"cwd":"test/fixtures","args":["file.txt",".dotfile"]} 1`] = `
+Object {
+  "0": "/.dotfile",
+  "1": "/file.txt",
+  "2": "/test.zip",
+}
+`;
+
+exports[`file structure forced nodezip with relative paths test/fixtures> bestzip --force=node [tmp]/test.zip file.txt obama.jpg: {"cwd":"test/fixtures","args":["file.txt","obama.jpg"]} 1`] = `
+Object {
+  "0": "/file.txt",
+  "1": "/obama.jpg",
+  "2": "/test.zip",
+}
+`;
+
+exports[`file structure forced nodezip with relative paths test/fixtures> bestzip --force=node [tmp]/test.zip file.txt subdir: {"cwd":"test/fixtures","args":["file.txt","subdir"]} 1`] = `
+Object {
+  "0": "/file.txt",
+  "1": "/subdir",
+  "2": "/subdir/subfile.txt",
+  "3": "/test.zip",
+}
+`;
+
+exports[`file structure forced nodezip with relative paths test/fixtures> bestzip --force=node [tmp]/test.zip file.txt: {"cwd":"test/fixtures","args":["file.txt"]} 1`] = `
+Object {
+  "0": "/file.txt",
+  "1": "/test.zip",
+}
+`;
+
+exports[`file structure forced nodezip with relative paths test/fixtures> bestzip --force=node [tmp]/test.zip obama.jpg: {"cwd":"test/fixtures","args":["obama.jpg"]} 1`] = `
+Object {
+  "0": "/obama.jpg",
+  "1": "/test.zip",
+}
+`;
+
+exports[`file structure forced nodezip with relative paths test/fixtures> bestzip --force=node [tmp]/test.zip subdir/subfile.txt: {"cwd":"test/fixtures","args":["subdir/subfile.txt"]} 1`] = `
+Object {
+  "0": "/subdir",
+  "1": "/subdir/subfile.txt",
+  "2": "/test.zip",
+}
+`;

@@ -1,5 +1,6 @@
 "use strict";
 
+const assert = require('assert');
 var chai = require("chai");
 var expect = chai.expect;
 var path = require("path");
@@ -28,7 +29,7 @@ describe("bestzip", function() {
 
     beforeEach(function(done) {
       destinationFile = "fakeDestination.zip";
-      file1File = "file1.js";
+      file1File = "file.txt";
       extractFolder = "extract";
       fixturesFolder = "fixtures";
 
@@ -60,7 +61,7 @@ describe("bestzip", function() {
       var cliTest = new CliTest();
       var bestzip = "node ./bin/cli.js";
 
-      // $ bestzip fakeDestination.zip fixtures/file1.js
+      // $ bestzip fakeDestination.zip fixtures/file.txt
       cliTest.exec(`${bestzip} ${destinationFilePath} ${file1Path}`, function(
         err,
         res
@@ -75,7 +76,14 @@ describe("bestzip", function() {
         validArchiveExtractFolder,
         validArchiveExtractedFile1Path;
 
-      beforeEach(function(done) {
+      afterEach(function(done) {
+        rimraf(validArchiveExtractFolder, function() {
+          rimraf(validArchiveFilePath, done);
+        });
+      });
+
+      it("should contain valid data after unarchive", function(done) {
+
         validArchiveFilePath = path.join(__dirname, "validArchive.zip");
         validArchiveExtractFolder = path.join(__dirname, "validArchiveExtract");
         validArchiveExtractedFile1Path = path.join(
@@ -95,17 +103,12 @@ describe("bestzip", function() {
 
           fs.createReadStream(validArchiveFilePath).pipe(unzipExtractor);
         });
-      });
 
-      afterEach(function(done) {
-        rimraf(validArchiveExtractFolder, function() {
-          rimraf(validArchiveFilePath, done);
-        });
-      });
-
-      it("should contain valid data after unarchive", function(done) {
+        console.log(file1Path)
         fs.readFile(validArchiveExtractedFile1Path, function(readError, data) {
-          expect(readError).to.not.exist;
+          if (readError) {
+            return done(readError);
+          }
 
           var content = data.toString();
           expect(content).to.be.equal("1;\n");
@@ -127,7 +130,7 @@ describe("bestzip", function() {
 
     beforeEach(function(done) {
       destinationFile = "fakeDestination.zip";
-      file1File = "file1.js";
+      file1File = "file.txt";
       extractFolder = "extract";
       fixturesFolder = "fixtures";
 
@@ -159,7 +162,7 @@ describe("bestzip", function() {
       var cliTest = new CliTest();
       var bestzip = "node ./bin/cli.js";
 
-      // $ bestzip fakeDestination.zip fixtures/file1.js
+      // $ bestzip fakeDestination.zip fixtures/file.txt
       cliTest.exec(`${bestzip} ${destinationFilePath} ${file1Path}`, function(
         err,
         res
@@ -206,10 +209,12 @@ describe("bestzip", function() {
 
       it("should contain valid data after unarchive", function(done) {
         fs.readFile(validArchiveExtractedFile1Path, function(readError, data) {
-          expect(readError).to.not.exist;
+          if (readError) {
+            return done(readError);
+          }
 
-          var content = data.toString();
-          expect(content).to.be.equal("1;\n");
+          var content = data.toString().trim();
+          expect(content).to.be.equal("this is a plain text file");
 
           done();
         });

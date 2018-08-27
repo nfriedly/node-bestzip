@@ -9,7 +9,7 @@
   "scripts": {
     "lint": "eslint .",
     "lint-fix": "eslint --fix .",
-    "unit-test": "mocha --timeout 5000 ./test/bestzip.js",
+    "unit-test": "jest",
     "test": "npm run lint && npm run unit-test"
   },
   "author": "Nathan Friedly - http://nfriedly.com/",
@@ -32,7 +32,6 @@
     "eslint-plugin-prettier": "^2.6.2",
     "fs": "0.0.1-security",
     "klaw-sync": "^4.0.0",
-    "mocha": "^5.2.0",
     "prettier": "^1.14.2",
     "rimraf": "^2.6.2",
     "unzip-stream": "^0.3.0"

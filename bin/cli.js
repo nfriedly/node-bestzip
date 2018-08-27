@@ -6,12 +6,22 @@ var zip = require("../lib/bestzip.js");
 
 var argv = require("yargs")
   .usage("\nUsage: bestzip destination.zip sources/")
-  .demand(2).argv._;
+  .option('force', {
+    describe: 'Force use of node.js or native zip methods',
+    choices: ['node', 'native']
+  })
+  .demand(2).argv;
 
-var dest = argv.shift();
-var sources = argv;
+var dest = argv._.shift();
+var sources = argv._;
 
 console.log("Writing %s to %s...", sources.join(", "), dest);
+
+if (argv.force === 'node') {
+  zip = zip.nodeZip;
+} else if (argv.force === 'native') {
+  zip = zip.nativeZip;
+}
 
 zip(dest, sources, function(err) {
   if (err) {
