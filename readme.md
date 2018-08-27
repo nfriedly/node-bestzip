@@ -6,10 +6,10 @@
 This module provides a `bestzip` command that calls the native `zip` command if available and otherwise falls back to a
 Node.js implementation.
 
-The native `zip` method on OS X is both faster and ~ twice as efficient as the Node.js version, while Windows has no
-native `zip` command.
+The native `zip` method on macOS is significantly faster and more as efficient than the Node.js version, but Windows has no
+native `zip` command. This module provides the best of both worlds.
 
-The `--recurse-directories` (`-r`)option is automatically enabled.
+The `--recurse-directories` (`-r`) option is automatically enabled.
 
 ## Global command line usage
 
@@ -34,7 +34,7 @@ package.json:
 }
 ```
 
-## Pragmatic usage from within Node.js
+## Programmatic usage from within Node.js
 
 ```javascript
 var zip = require('bestzip');
@@ -53,19 +53,19 @@ zip('./destination.zip', ['source/', 'other_soure_file.js'], function(err) {
 
 ## How to control the directory structure
 
-The directory structure in the .zip is going to match your input files. To have more or less directories, change your starting directory.
+The directory structure in the .zip is going to match your input files. To have greater or fewer levels of directories, change your starting directory.
 
 For example:
 
 `bestzip build.zip build/*`
 
-This include the build/ folder inside of the .zip
+This includes the build/ folder inside of the .zip
 
 Alternatively:
 
 `cd build/ && bestzip ../build.zip *`
 
-Will not include the build/ folder, it's contents will be top-level.
+This will not include the build/ folder, it's contents will be top-level.
 
 ## Breaking changes for v2
 
