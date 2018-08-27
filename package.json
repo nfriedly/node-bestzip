@@ -26,6 +26,9 @@
   "repository": "git@github.com:nfriedly/node-bestzip.git",
   "homepage": "https://github.com/nfriedly/node-bestzip",
   "devDependencies": {
+    "babel-core": "^6.26.3",
+    "babel-jest": "^23.4.2",
+    "babel-preset-es2017": "^6.24.1",
     "chai": "^4.1.2",
     "command-line-test": "^1.0.10",
     "eslint": "^5.4.0",
@@ -34,6 +37,7 @@
     "fs": "0.0.1-security",
     "klaw-sync": "^4.0.0",
     "prettier": "^1.14.2",
+    "regenerator-runtime": "^0.12.1",
     "rimraf": "^2.6.2",
     "unzip-stream": "^0.3.0"
   }
