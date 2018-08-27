@@ -46,7 +46,9 @@ const cleanup = () =>
 
 const getStructure = tmpdir => {
   // strip the tmp dir and convert to unix-style file paths on windows
-  return klaw(tmpdir).map(({ path }) => path.replace(tmpdir, "").replace(/\\/g, '/'));
+  return klaw(tmpdir).map(({ path }) =>
+    path.replace(tmpdir, "").replace(/\\/g, "/")
+  );
 };
 
 describe("file structure", () => {
