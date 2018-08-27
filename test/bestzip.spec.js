@@ -48,7 +48,7 @@ const getStructure = tmpdir => {
   return klaw(tmpdir).map(({ path }) => path.replace(tmpdir, ""));
 };
 
-describe("file structure", async () => {
+describe("file structure", () => {
   const hasNativeZip = bestzip.hasNativeZip();
 
   beforeEach(cleanup);
