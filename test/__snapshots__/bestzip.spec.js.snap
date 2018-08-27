@@ -1,5 +1,14 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
+exports[`file structure bestzip with relative paths test/> bestzip [tmp]/test.zip fixtures/*/*.txt: {"cwd":"test/","args":["fixtures/*/*.txt"]} 1`] = `
+Object {
+  "0": "/fixtures",
+  "1": "/fixtures/subdir",
+  "2": "/fixtures/subdir/subfile.txt",
+  "3": "/test.zip",
+}
+`;
+
 exports[`file structure bestzip with relative paths test/> bestzip [tmp]/test.zip fixtures/*: {"cwd":"test/","args":["fixtures/*"]} 1`] = `
 Object {
   "0": "/fixtures",
@@ -80,6 +89,13 @@ Object {
   "0": "/subdir",
   "1": "/subdir/subfile.txt",
   "2": "/test.zip",
+}
+`;
+
+exports[`file structure forced nodezip with relative paths test/> bestzip --force=node [tmp]/test.zip fixtures/*/*.txt: {"cwd":"test/","args":["fixtures/*/*.txt"]} 1`] = `
+Object {
+  "0": "/subfile.txt",
+  "1": "/test.zip",
 }
 `;
 

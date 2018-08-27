@@ -42,7 +42,8 @@ const testCases = [
   { cwd: "test/fixtures", args: ["file.txt", "obama.jpg"] },
   { cwd: "test/fixtures", args: ["file.txt", ".dotfile"] },
   { cwd: "test/fixtures", args: ["file.txt", "subdir"] },
-  { cwd: "test/fixtures", args: ["subdir/subfile.txt"] }
+  { cwd: "test/fixtures", args: ["subdir/subfile.txt"] },
+  { cwd: "test/", args: ["fixtures/*/*.txt"] },
 ];
 
 describe("file structure", () => {
