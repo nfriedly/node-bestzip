@@ -201,3 +201,17 @@ Array [
   "/test.zip",
 ]
 `;
+
+exports[`file structure correct structure with relative paths: {"cwd":"test/fixtures/subdir","args":"../file.txt"} 1`] = `
+Array [
+  "/file.txt",
+  "/test.zip",
+]
+`;
+
+exports[`file structure correct structure with relative paths: {"cwd":"test/fixtures/subdir","args":"../file.txt"} 2`] = `
+Array [
+  "/file.txt",
+  "/test.zip",
+]
+`;

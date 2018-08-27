@@ -1,5 +1,4 @@
 "use strict";
-//const assert = require("assert");
 const child_process = require("child_process");
 const fs = require("fs");
 const path = require("path");
@@ -26,7 +25,8 @@ const testCases = [
   { cwd: "test/fixtures", args: "file.txt subdir" },
   { cwd: "test/fixtures", args: "subdir/subfile.txt" },
   { cwd: "test/", args: "fixtures/subdir/subfile.txt" },
-  { cwd: "test/", args: "fixtures/*/*.txt" }
+  { cwd: "test/", args: "fixtures/*/*.txt" },
+  { cwd: "test/fixtures/subdir", args: "../file.txt" }
 ];
 
 const cleanup = () =>

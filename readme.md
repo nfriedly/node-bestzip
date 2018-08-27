@@ -9,6 +9,7 @@ Node.js implementation.
 The native `zip` method on OS X is both faster and ~ twice as efficient as the Node.js version, while Windows has no
 native `zip` command.
 
+The `--recurse-directories` (`-r`)option is automatically enabled.
 
 ## Global command line usage
 
@@ -54,12 +55,6 @@ zip('./destination.zip', ['source/', 'other_soure_file.js'], function(err) {
 
 * `bestzip output.zip foo/bar/file.txt` now includes the foo/bar/ folders, previously it would place file.txt at the top-level
   * This was done to more closely align with the native zip command
-
-## Todo
-
-* Automated deployment
-* Fix bug when source contains `../`
-* Test if using a vbscript or whatever on Windows results in significantly better performance.
 
 ## MIT License
 
