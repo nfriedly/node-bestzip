@@ -5,10 +5,10 @@ var expect = chai.expect;
 var path = require("path");
 var fs = require("fs");
 var rimraf = require("rimraf");
-var unzip = require("unzip-stream");
 var CliTest = require("command-line-test");
 
 var zip = require("../lib/bestzip.js");
+var unzip = require("./unzip");
 
 describe("bestzip", function() {
   describe("when initialized", function() {
@@ -47,7 +47,9 @@ describe("bestzip", function() {
 
     it("should create archive", function(done) {
       zip(destinationFilePath, [file1Path], function(zipError) {
-        expect(zipError).to.not.exist;
+        if (zipError) {
+          return done(zipError);
+        }
 
         fs.stat(destinationFilePath, function(_error, stat) {
           expect(stat).to.haveOwnProperty("birthtime");
@@ -65,6 +67,9 @@ describe("bestzip", function() {
         err,
         res
       ) {
+        if (err) {
+          return done(err);
+        }
         expect(res.stdout).to.contain("zipped!");
         done();
       });
@@ -87,31 +92,33 @@ describe("bestzip", function() {
         validArchiveExtractedFile1Path = path.join(
           __dirname,
           "validArchiveExtract",
+          __dirname.replace(/^[A-Z]:/, ""), // yes, it has the path twice. Regex to strip the leading C: or whatever on windows
+          fixturesFolder,
           file1File
         );
 
         zip(validArchiveFilePath, [file1Path], function(zipError) {
-          expect(zipError).to.not.exist;
-
-          var unzipExtractor = unzip.Extract({
-            path: validArchiveExtractFolder
-          });
-
-          unzipExtractor.on("error", done).on("close", done);
-
-          fs.createReadStream(validArchiveFilePath).pipe(unzipExtractor);
-        });
-
-        console.log(file1Path);
-        fs.readFile(validArchiveExtractedFile1Path, function(readError, data) {
-          if (readError) {
-            return done(readError);
+          if (zipError) {
+            return done(zipError);
           }
 
-          var content = data.toString();
-          expect(content).to.be.equal("1;\n");
+          unzip(validArchiveFilePath, validArchiveExtractFolder)
+            .then(() => {
+              fs.readFile(validArchiveExtractedFile1Path, function(
+                readError,
+                data
+              ) {
+                if (readError) {
+                  return done(readError);
+                }
 
-          done();
+                var content = data.toString().trim();
+                expect(content).to.be.equal("this is a plain text file");
+
+                done();
+              });
+            })
+            .catch(done);
         });
       });
     });
@@ -147,8 +154,9 @@ describe("bestzip", function() {
 
     it("should create archive", function(done) {
       zip(destinationFilePath, [file1Path], function(zipError) {
-        expect(zipError).to.not.exist;
-
+        if (zipError) {
+          return done(zipError);
+        }
         fs.stat(destinationFilePath, function(_error, stat) {
           expect(stat).to.haveOwnProperty("birthtime");
           done();
@@ -165,6 +173,9 @@ describe("bestzip", function() {
         err,
         res
       ) {
+        if (err) {
+          return done(err);
+        }
         expect(res.stdout).to.contain("zipped!");
         done();
       });
@@ -187,15 +198,13 @@ describe("bestzip", function() {
         );
 
         zip(validArchiveFilePath, [file1Path], function(zipError) {
-          expect(zipError).to.not.exist;
+          if (zipError) {
+            return done(zipError);
+          }
 
-          var unzipExtractor = unzip.Extract({
-            path: validArchiveExtractFolder
-          });
-
-          unzipExtractor.on("error", done).on("close", done);
-
-          fs.createReadStream(validArchiveFilePath).pipe(unzipExtractor);
+          unzip(validArchiveFilePath, validArchiveExtractFolder)
+            .then(done)
+            .catch(done);
         });
       });
 

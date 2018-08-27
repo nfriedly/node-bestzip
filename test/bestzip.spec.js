@@ -6,9 +6,28 @@ const path = require("path");
 const rimraf = require("rimraf");
 const klaw = require("klaw-sync");
 
+var unzip = require("./unzip");
+
+const bestzip = require("../lib/bestzip");
+
+const cli = path.join(__dirname, "../bin/cli.js");
+
 const tmpdir = path.join(__dirname, "tmp");
 const zipfile = path.join(tmpdir, "test.zip");
-const command = path.join(__dirname, "../bin/cli.js");
+
+const testCases = [
+  { cwd: "test/fixtures/", args: "*" },
+  { cwd: "test/", args: "fixtures/*" },
+  { cwd: "test/", args: "fixtures/" },
+  { cwd: "test/fixtures", args: "file.txt" },
+  { cwd: "test/fixtures", args: "obama.jpg" },
+  { cwd: "test/fixtures", args: "file.txt obama.jpg" },
+  { cwd: "test/fixtures", args: "file.txt .dotfile" },
+  { cwd: "test/fixtures", args: "file.txt subdir" },
+  { cwd: "test/fixtures", args: "subdir/subfile.txt" },
+  { cwd: "test/", args: "fixtures/subdir/subfile.txt" },
+  { cwd: "test/", args: "fixtures/*/*.txt" }
+];
 
 const cleanup = () =>
   new Promise((resolve, reject) => {
@@ -25,123 +44,77 @@ const cleanup = () =>
     });
   });
 
-// todo: make a fallback for windows systems
-const unzip = zipfile =>
-  child_process.execSync(`unzip ${zipfile}`, { cwd: tmpdir });
-
 const getStructure = tmpdir => {
   return klaw(tmpdir).map(({ path }) => path.replace(tmpdir, ""));
 };
 
-const testCases = [
-  { cwd: "test/fixtures/", args: ["*"] },
-  { cwd: "test/", args: ["fixtures/*"] },
-  { cwd: "test/", args: ["fixtures/"] },
-  { cwd: "test/fixtures", args: ["file.txt"] },
-  { cwd: "test/fixtures", args: ["obama.jpg"] },
-  { cwd: "test/fixtures", args: ["file.txt", "obama.jpg"] },
-  { cwd: "test/fixtures", args: ["file.txt", ".dotfile"] },
-  { cwd: "test/fixtures", args: ["file.txt", "subdir"] },
-  { cwd: "test/fixtures", args: ["subdir/subfile.txt"] },
-  { cwd: "test/", args: ["fixtures/*/*.txt"] },
-];
+describe("file structure", async () => {
+  const hasNativeZip = bestzip.hasNativeZip();
 
-describe("file structure", () => {
   beforeEach(cleanup);
 
-  describe("bestzip with relative paths", () => {
-    testCases.forEach(testCase => {
-      it(`${testCase.cwd}> bestzip [tmp]/test.zip ${testCase.args.join(
-        " "
-      )}`, () => {
+  // these tests have known good snapshots
+  // so, it's run once for bestzip against the snapshot
+  // and, if bestzip used
+  test.each(testCases)(
+    "correct structure with relative paths: %j",
+    async testCase => {
+      child_process.execSync(`node ${cli} ${zipfile} ${testCase.args}`, {
+        cwd: path.join(__dirname, "../", testCase.cwd)
+      });
+
+      await unzip(zipfile, tmpdir);
+      const structure = getStructure(tmpdir);
+
+      expect(structure).toMatchSnapshot();
+
+      if (hasNativeZip) {
+        await cleanup();
+
+        // on systems *with* a native zip, this validates that both methods output the same thing (mac, linux)
+
+        // note: this was initially two tests, but we want to match them against the same snapshot -
+        // but jest includes the test name in the snapshot name, so it has to go into a single test
         child_process.execSync(
-          `node ${command} ${zipfile} ${testCase.args.join(" ")}`,
-          { cwd: testCase.cwd }
+          `node ${cli} --force=node ${zipfile} ${testCase.args}`,
+          { cwd: path.join(__dirname, "../", testCase.cwd) }
         );
 
-        unzip(zipfile);
-        const structure = getStructure(tmpdir);
+        await unzip(zipfile, tmpdir);
+        const forcedNodestructure = getStructure(tmpdir);
 
-        expect(structure).toMatchSnapshot({}, JSON.stringify(testCase));
-      });
-    });
-  });
+        expect(forcedNodestructure).toMatchSnapshot();
+      }
+    }
+  );
 
-  // on systems without native zip (windows), this is just a repeat of the above set.
-  // but, on systems *with* a native zip, this validates that both methods output the same thing (mac, linux)
-  describe("forced nodezip with relative paths", () => {
-    testCases.forEach(testCase => {
-      it(`${
-        testCase.cwd
-      }> bestzip --force=node [tmp]/test.zip ${testCase.args.join(
-        " "
-      )}`, () => {
-        child_process.execSync(
-          `node ${command} --force=node ${zipfile} ${testCase.args.join(" ")}`,
-          { cwd: testCase.cwd }
-        );
-
-        unzip(zipfile);
-        const structure = getStructure(tmpdir);
-
-        expect(structure).toMatchSnapshot({}, JSON.stringify(testCase));
-      });
-    });
-  });
+  const testIfHasNativeZip = hasNativeZip ? test : test.skip;
 
   // we can't use snapshots here, because the absolute paths will change from one system to another
   // but, when native zip is available, we want to compare it to node zip to ensure that the outputs match
-  describe("same output between native and node zip with absolute file paths", () => {
-    beforeAll(function(done) {
-      const zipProcess = child_process.exec("zip -?");
-      zipProcess.on("error", () => {
-        // assume there isn't any native zip command
-        this.skip();
-        done();
-      });
-      zipProcess.on("close", exitCode => {
-        if (exitCode === 0) {
-          done();
-        } else {
-          // ditto
-          this.skip();
-          done();
-        }
-      });
-    });
+  const absolutePathTestCases = testCases.map(testCase =>
+    testCase.args
+      .split(" ")
+      .map(arg => path.join(__dirname, "../", testCase.cwd, arg))
+      .join(" ")
+  );
 
-    testCases
-      .map(testCase => ({
-        args: testCase.args.map(arg =>
-          path.join(__dirname, "../", testCase.cwd, arg)
-        )
-      }))
-      .forEach(testCase =>
-        it(testCase.args.join(" "), async () => {
-          child_process.execSync(
-            `node ${command} --force=node ${zipfile} ${testCase.args.join(
-              " "
-            )}`,
-            { cwd: testCase.cwd }
-          );
+  testIfHasNativeZip.each(absolutePathTestCases)(
+    "same output between native and node zip with absolute file paths: %s",
+    async args => {
+      child_process.execSync(`node ${cli} --force=node ${zipfile} ${args}`);
 
-          unzip(zipfile);
-          const nodeStructure = getStructure(tmpdir);
+      await unzip(zipfile, tmpdir);
+      const nodeStructure = getStructure(tmpdir);
 
-          await cleanup();
+      await cleanup();
 
-          child_process.execSync(
-            `node ${command} --force=native ${zipfile} ${testCase.args.join(
-              " "
-            )}`,
-            { cwd: testCase.cwd, stdio: "inherit" }
-          );
+      child_process.execSync(`node ${cli} --force=native ${zipfile} ${args}`);
 
-          unzip(zipfile);
-          const nativeStructure = getStructure(tmpdir);
+      await unzip(zipfile, tmpdir);
+      const nativeStructure = getStructure(tmpdir);
 
-          expect(nodeStructure).toEqual(nativeStructure);
-        })
-      );
-  });
+      expect(nodeStructure).toEqual(nativeStructure);
+    }
+  );
 });

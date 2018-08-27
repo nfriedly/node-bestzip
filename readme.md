@@ -50,6 +50,11 @@ zip('./destination.zip', ['source/', 'other_soure_file.js'], function(err) {
 });
 ```
 
+## Breaking changes for v2
+
+* `bestzip output.zip foo/bar/file.txt` now includes the foo/bar/ folders, previously it would place file.txt at the top-level
+  * This was done to more closely align with the native zip command
+
 ## Todo
 
 * Automated deployment
