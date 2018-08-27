@@ -1,6 +1,5 @@
 "use strict";
 
-const assert = require('assert');
 var chai = require("chai");
 var expect = chai.expect;
 var path = require("path");
@@ -83,7 +82,6 @@ describe("bestzip", function() {
       });
 
       it("should contain valid data after unarchive", function(done) {
-
         validArchiveFilePath = path.join(__dirname, "validArchive.zip");
         validArchiveExtractFolder = path.join(__dirname, "validArchiveExtract");
         validArchiveExtractedFile1Path = path.join(
@@ -104,7 +102,7 @@ describe("bestzip", function() {
           fs.createReadStream(validArchiveFilePath).pipe(unzipExtractor);
         });
 
-        console.log(file1Path)
+        console.log(file1Path);
         fs.readFile(validArchiveExtractedFile1Path, function(readError, data) {
           if (readError) {
             return done(readError);

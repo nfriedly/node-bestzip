@@ -10,12 +10,13 @@ const tmpdir = path.join(__dirname, "tmp");
 const zipfile = path.join(tmpdir, "test.zip");
 const command = path.join(__dirname, "../bin/cli.js");
 
-const cleanup = () => new Promise((resolve, reject) => {
+const cleanup = () =>
+  new Promise((resolve, reject) => {
     rimraf(tmpdir, err => {
       if (err) {
         return reject(err);
       }
-      fs.mkdir(tmpdir, (err) => {
+      fs.mkdir(tmpdir, err => {
         if (err) {
           return reject(err);
         }
@@ -25,10 +26,10 @@ const cleanup = () => new Promise((resolve, reject) => {
   });
 
 // todo: make a fallback for windows systems
-const unzip = zipfile => child_process.execSync(`unzip ${zipfile}`, { cwd: tmpdir });
+const unzip = zipfile =>
+  child_process.execSync(`unzip ${zipfile}`, { cwd: tmpdir });
 
-
-const getStructure = (tmpdir) => {
+const getStructure = tmpdir => {
   return klaw(tmpdir).map(({ path }) => path.replace(tmpdir, ""));
 };
 
@@ -89,7 +90,7 @@ describe("file structure", () => {
 
   // we can't use snapshots here, because the absolute paths will change from one system to another
   // but, when native zip is available, we want to compare it to node zip to ensure that the outputs match
-  describe("same output between native and node zip with absolute file paths", () =>{
+  describe("same output between native and node zip with absolute file paths", () => {
     beforeAll(function(done) {
       const zipProcess = child_process.exec("zip -?");
       zipProcess.on("error", () => {
@@ -97,7 +98,7 @@ describe("file structure", () => {
         this.skip();
         done();
       });
-      zipProcess.on("close", (exitCode) => {
+      zipProcess.on("close", exitCode => {
         if (exitCode === 0) {
           done();
         } else {
@@ -108,32 +109,38 @@ describe("file structure", () => {
       });
     });
 
-    testCases.map(testCase => ({
-      args: testCase.args.map(arg => path.join(__dirname, '../', testCase.cwd, arg))
-    })).forEach(testCase => it(testCase.args.join(
-      " "
-    ), async () => {
+    testCases
+      .map(testCase => ({
+        args: testCase.args.map(arg =>
+          path.join(__dirname, "../", testCase.cwd, arg)
+        )
+      }))
+      .forEach(testCase =>
+        it(testCase.args.join(" "), async () => {
+          child_process.execSync(
+            `node ${command} --force=node ${zipfile} ${testCase.args.join(
+              " "
+            )}`,
+            { cwd: testCase.cwd }
+          );
 
-      child_process.execSync(
-        `node ${command} --force=node ${zipfile} ${testCase.args.join(" ")}`,
-        { cwd: testCase.cwd }
+          unzip(zipfile);
+          const nodeStructure = getStructure(tmpdir);
+
+          await cleanup();
+
+          child_process.execSync(
+            `node ${command} --force=native ${zipfile} ${testCase.args.join(
+              " "
+            )}`,
+            { cwd: testCase.cwd, stdio: "inherit" }
+          );
+
+          unzip(zipfile);
+          const nativeStructure = getStructure(tmpdir);
+
+          expect(nodeStructure).toEqual(nativeStructure);
+        })
       );
-
-      unzip(zipfile);
-      const nodeStructure = getStructure(tmpdir);
-
-      await cleanup();
-
-      child_process.execSync(
-        `node ${command} --force=native ${zipfile} ${testCase.args.join(" ")}`,
-        { cwd: testCase.cwd, stdio: 'inherit' }
-      );
-
-      unzip(zipfile);
-      const nativeStructure = getStructure(tmpdir);
-
-      expect(nodeStructure).toEqual(nativeStructure);
-
-    }));
   });
 });

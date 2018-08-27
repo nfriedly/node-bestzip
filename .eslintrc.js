@@ -8,6 +8,7 @@ module.exports = {
         "strict": [
             "error",
             "global"
-        ]
+        ],
+        "prefer-const": "error"
     }
 };
