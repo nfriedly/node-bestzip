@@ -28,7 +28,8 @@ const testCases = [
   { destination, cwd: "test/", source: "fixtures/subdir/subfile.txt" },
   { destination, cwd: "test/", source: "fixtures/*/*.txt" },
   { destination, cwd: "test/fixtures/subdir", source: "../file.txt" }
-].map(t => ({ ...t, cwd: path.join(__dirname, "../", t.cwd) })); // absolut-ize the cwd
+];
+testCases.forEach(t => (t.cwd = path.join(__dirname, "../", t.cwd))); // absolut-ize the cwd
 
 const cleanup = () =>
   new Promise((resolve, reject) => {
