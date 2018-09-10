@@ -27,7 +27,7 @@ const testCases = [
   { destination, cwd: "test/", source: "fixtures/subdir/subfile.txt" },
   { destination, cwd: "test/", source: "fixtures/*/*.txt" },
   { destination, cwd: "test/fixtures/subdir", source: "../file.txt" }
-].map(t => ({...t, cwd: path.join(__dirname, "../", t.cwd)})); // absolut-ize the cwd
+].map(t => ({ ...t, cwd: path.join(__dirname, "../", t.cwd) })); // absolut-ize the cwd
 
 const cleanup = () =>
   new Promise((resolve, reject) => {
@@ -60,29 +60,25 @@ describe("file structure", () => {
   // these tests have known good snapshots
   // so, it's run once for bestzip against the snapshot
   // and, if bestzip used
-  test.each(testCases)(
-    "cli: %j",
-    async testCase => {
-      const sourceArgs =
-        typeof testCase.source === "string"
-          ? testCase.source
-          : testCase.source.join(" ");
+  test.each(testCases)("cli: %j", async testCase => {
+    const sourceArgs =
+      typeof testCase.source === "string"
+        ? testCase.source
+        : testCase.source.join(" ");
 
-      child_process.execSync(`node ${cli} ${destination} ${sourceArgs}`, {
-        cwd: testCase.cwd
-      });
+    child_process.execSync(`node ${cli} ${destination} ${sourceArgs}`, {
+      cwd: testCase.cwd
+    });
 
-      await unzip(destination, tmpdir);
-      const structure = getStructure(tmpdir);
+    await unzip(destination, tmpdir);
+    const structure = getStructure(tmpdir);
 
-      expect(structure).toMatchSnapshot();
+    expect(structure).toMatchSnapshot();
 
-      // because multiple tests aren't allowed to match the same snapshot,
-      // but we do want to ensure that they all create the same output
-      testCase.structure = structure;
-    }
-  );
-
+    // because multiple tests aren't allowed to match the same snapshot,
+    // but we do want to ensure that they all create the same output
+    testCase.structure = structure;
+  });
 
   testIfHasNativeZip.each(testCases)(
     "cli with --force=node: %j",
@@ -107,33 +103,29 @@ describe("file structure", () => {
         expect(structure).toEqual(testCase.structure);
       } else {
         // the structure is defined in the first test run, so it may not be defined when running subsets of tests
-        console.log('skipping structure match');
+        console.log("skipping structure match");
       }
     }
   );
 
-  test.each(testCases)(
-    "programmatic: %j",
-    async testCase => {
-      await bestzip(testCase);
-      await unzip(destination, tmpdir);
-      const structure = getStructure(tmpdir);
+  test.each(testCases)("programmatic: %j", async testCase => {
+    await bestzip(testCase);
+    await unzip(destination, tmpdir);
+    const structure = getStructure(tmpdir);
 
-      //expect(structure).toMatchSnapshot();
+    //expect(structure).toMatchSnapshot();
 
-      if (testCase.structure) {
-        expect(structure).toEqual(testCase.structure);
-      } else {
-        // the structure is defined in the first test run, so it may not be defined when running subsets of tests
-        console.log('skipping structure match');
-      }
+    if (testCase.structure) {
+      expect(structure).toEqual(testCase.structure);
+    } else {
+      // the structure is defined in the first test run, so it may not be defined when running subsets of tests
+      console.log("skipping structure match");
     }
-  );
+  });
 
   testIfHasNativeZip.each(testCases)(
     "programmatic with nodeZip: %j",
     async testCase => {
-
       await bestzip.nodeZip(testCase);
       await unzip(destination, tmpdir);
       const structure = getStructure(tmpdir);
@@ -145,11 +137,10 @@ describe("file structure", () => {
         expect(structure).toEqual(testCase.structure);
       } else {
         // the structure is defined in the first test run, so it may not be defined when running subsets of tests
-        console.log('skipping structure match');
+        console.log("skipping structure match");
       }
     }
   );
-
 
   // we can't use snapshots here, because the absolute paths will change from one system to another
   // but, when native zip is available, we want to compare it to node zip to ensure that the outputs match
