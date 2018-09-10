@@ -101,6 +101,18 @@ Array [
 ]
 `;
 
+exports[`file structure cli: {"destination":"/Users/nathan.friedly/projects/node-bestzip/test/tmp/test.zip","cwd":"/Users/nathan.friedly/projects/node-bestzip/test/fixtures/","source":"./"} 1`] = `
+Array [
+  "/.dotfile",
+  "/file.txt",
+  "/multiline.txt",
+  "/obama.jpg",
+  "/subdir",
+  "/subdir/subfile.txt",
+  "/test.zip",
+]
+`;
+
 exports[`file structure cli: {"destination":"/Users/nathan.friedly/projects/node-bestzip/test/tmp/test.zip","cwd":"/Users/nathan.friedly/projects/node-bestzip/test/fixtures/subdir","source":"../file.txt"} 1`] = `
 Array [
   "/file.txt",

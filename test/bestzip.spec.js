@@ -15,7 +15,8 @@ const tmpdir = path.join(__dirname, "tmp");
 const destination = path.join(tmpdir, "test.zip");
 
 const testCases = [
-  { destination, cwd: "test/fixtures/", source: "*" },
+  { destination, cwd: "test/fixtures/", source: "*" }, // no .dotfiles
+  { destination, cwd: "test/fixtures/", source: "./" }, // include .dotfiles
   { destination, cwd: "test/", source: "fixtures/*" },
   { destination, cwd: "test/", source: "fixtures/" },
   { destination, cwd: "test/fixtures", source: "file.txt" },
