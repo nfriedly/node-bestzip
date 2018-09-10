@@ -35,7 +35,7 @@
     "eslint-config-prettier": "^3.0.1",
     "eslint-plugin-prettier": "^2.6.2",
     "fs": "0.0.1-security",
-    "klaw-sync": "^4.0.0",
+    "klaw-sync": "^5.0.0",
     "prettier": "^1.14.2",
     "regenerator-runtime": "^0.12.1",
     "rimraf": "^2.6.2",
