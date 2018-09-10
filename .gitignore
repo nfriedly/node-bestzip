@@ -3,3 +3,4 @@ node_modules/
 tmp/
 test/validArchive.zip
 test/validARchiveExtract
+.DS_Store

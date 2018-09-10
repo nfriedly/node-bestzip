@@ -12,10 +12,10 @@ var argv = require("yargs")
   })
   .demand(2).argv;
 
-var dest = argv._.shift();
-var sources = argv._;
+var destination = argv._.shift();
+var source = argv._;
 
-console.log("Writing %s to %s...", sources.join(", "), dest);
+console.log("Writing %s to %s...", source.join(", "), destination);
 
 if (argv.force === "node") {
   zip = zip.nodeZip;
@@ -23,10 +23,15 @@ if (argv.force === "node") {
   zip = zip.nativeZip;
 }
 
-zip(dest, sources, function(err) {
-  if (err) {
+zip({
+  source: source,
+  destination: destination,
+  verbose: argv.verbose
+})
+  .then(function() {
+    console.log("zipped!");
+  })
+  .catch(function(err) {
     console.error(err);
-    return process.exit(1);
-  }
-  console.log("zipped!");
-});
+    process.exit(1);
+  });

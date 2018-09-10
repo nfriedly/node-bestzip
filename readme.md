@@ -18,7 +18,7 @@ The `--recurse-directories` (`-r`) option is automatically enabled.
 
 ## Command line usage within `package.json` scripts
 
-    npm install --save bestzip
+    npm install --save-dev bestzip
 
 package.json:
 
@@ -27,7 +27,7 @@ package.json:
     //...
     "scripts": {
         "build" "...",
-        "zip": "bestzip bundle.zip source/*",
+        "zip": "bestzip bundle.zip build/*",
         "upload": "....",
         "deploy": "npm run build && npm run zip && npm run upload"
     }
@@ -39,21 +39,28 @@ package.json:
 ```javascript
 var zip = require('bestzip');
 
-var files = [];
-
-zip('./destination.zip', ['source/', 'other_soure_file.js'], function(err) {
-    if  (err) {
-        console.error(err.stack);
-        process.exit(1);
-    } else {
-        console.log('all done!');
-    }
+zip({
+  source: 'build/*',
+  destination: './destination.zip'
+}).then(function() {
+  console.log('all done!');
+}).catch(function(err) {
+  console.error(err.stack);
+  process.exit(1);
 });
+
+# v1.x API - zip(destination, sources, callback) - also works for backwards compatibility, but does not support the cwd option and may be removed in the next major release.
 ```
+
+### Options
+
+* `source`: Path or paths to files and folders to include in the zip file. String or Array of Strings.
+* `destination`: Path to generated .zip file.
+* `cwd`: Set the Current Working Directory that source and destination paths are relative to. Defaults to `process.cwd()`
 
 ## How to control the directory structure
 
-The directory structure in the .zip is going to match your input files. To have greater or fewer levels of directories, change your starting directory.
+The directory structure in the .zip is going to match your input files. To have greater or fewer levels of directories.
 
 For example:
 
@@ -66,6 +73,8 @@ Alternatively:
 `cd build/ && bestzip ../build.zip *`
 
 This will not include the build/ folder, it's contents will be top-level.
+
+When using the programmatic API, the same effect may be achieved by passing in the `cwd` option.
 
 ## Breaking changes for v2
 
