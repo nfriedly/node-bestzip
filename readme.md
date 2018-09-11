@@ -49,7 +49,7 @@ zip({
   process.exit(1);
 });
 
-# v1.x API - zip(destination, sources, callback) - also works for backwards compatibility, but does not support the cwd option and may be removed in the next major release.
+// v1.x API also works for backwards compatibility: zip(destination, sources, callback)
 ```
 
 ### Options
