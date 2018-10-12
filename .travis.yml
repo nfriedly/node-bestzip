@@ -3,14 +3,31 @@ node_js:
 - 6
 - 8
 - stable
+
 os:
 - linux
 - osx
-deploy:
-  provider: npm
-  email: nathan@nfriedly.com
-  api_key:
-    secure: "PqdjuvDkum+7h4Aq1hZFe8N2+ed4PGKEe3FgyZ4D7GnOBWi+oMYd2z111okvqOtPkPSsC8NE/J5h2vaPC/XWlUJVlP+r2bbD5lUdhFUw7+3gyAyuWIC+TQWoZNTgJWpNThvysTnVIpw7UwfP66FkcmpU+KyClpNnpGrhBD+8WFI="
-  on:
-    tags: true
-    repo: nfriedly/node-bestzip
+- windows
+
+# wait until after all node.js versions pass before deploying
+# https://docs.travis-ci.com/user/build-stages/deploy-npm/
+
+stages:
+  - test
+  - name: deploy
+    if: tag IS present AND repo = 'nfriedly/node-bestzip'
+
+jobs:
+  include:
+    - stage: deploy
+      node_js: stable
+      os: linux
+      script: skip
+      deploy:
+        provider: npm
+        email: nathan@nfriedly.com
+        api_key:
+          secure: "PqdjuvDkum+7h4Aq1hZFe8N2+ed4PGKEe3FgyZ4D7GnOBWi+oMYd2z111okvqOtPkPSsC8NE/J5h2vaPC/XWlUJVlP+r2bbD5lUdhFUw7+3gyAyuWIC+TQWoZNTgJWpNThvysTnVIpw7UwfP66FkcmpU+KyClpNnpGrhBD+8WFI="
+        on:
+          tags: true
+          repo: nfriedly/node-bestzip
