@@ -14,7 +14,7 @@ The `--recurse-directories` (`-r`) option is automatically enabled.
 ## Global command line usage
 
     npm install -g bestzip
-    bestzip destination.zip source/ [other sources...]
+    bestzip destination.zip source/ [other sources...] [--dependencies package.json]
 
 ## Command line usage within `package.json` scripts
 
@@ -75,6 +75,21 @@ Alternatively:
 This will not include the build/ folder, it's contents will be top-level.
 
 When using the programmatic API, the same effect may be achieved by passing in the `cwd` option.
+
+## Include dependencies
+
+When you need to include your `package.json` dependencies from `node_modules`, you can use the `--dependencies` option to specify the location of your `package.json` file:
+
+`bestzip build.zip build/* --dependencies`
+
+will include all the modules listed inside "dependencies" in your `./package.json` file.
+
+Alternatively you can specify the relative path:
+
+`cd build/ && bestzip ../build.zip * -d ../package.json`
+
+
+
 
 ## .dotfiles
 
