@@ -1,7 +1,6 @@
 # bestzip
 
-[![Linux and MacOS build status](https://travis-ci.org/nfriedly/node-bestzip.svg?branch=master)](https://travis-ci.org/nfriedly/node-bestzip)
-[![Windows build status](https://ci.appveyor.com/api/projects/status/6gk3igwk2l85djnn?svg=true)](https://ci.appveyor.com/project/nfriedly/node-bestzip)
+[![Build status](https://travis-ci.org/nfriedly/node-bestzip.svg?branch=master)](https://travis-ci.org/nfriedly/node-bestzip)
 
 This module provides a `bestzip` command that calls the native `zip` command if available and otherwise falls back to a
 Node.js implementation.
