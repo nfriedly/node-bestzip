@@ -17,7 +17,7 @@
   "repository": "git@github.com:nfriedly/node-bestzip.git",
   "homepage": "https://github.com/nfriedly/node-bestzip",
   "files": [
-    "bin/",
+    "bin/cli.js",
     "lib/"
   ],
   "dependencies": {
