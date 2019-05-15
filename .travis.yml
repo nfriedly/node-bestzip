@@ -1,8 +1,10 @@
 language: node_js
 node_js:
-- 6
 - 8
 - 10
+- 12
+- node
+- lts/*
 
 os:
 - linux
@@ -20,7 +22,7 @@ stages:
 jobs:
   include:
     - stage: deploy
-      node_js: stable
+      node_js: node
       os: linux
       script: skip
       deploy:
