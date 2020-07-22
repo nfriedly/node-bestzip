@@ -19,7 +19,6 @@ const testCases = [
   { cwd: "test/fixtures/", source: "./" }, // include .dotfiles
   { cwd: "test/", source: "fixtures/*" },
   { cwd: "test/", source: "fixtures/" },
-  { cwd: "test/fixtures", source: "file.txt" },
   { cwd: "test/fixtures", source: "obama.jpg" },
   { cwd: "test/fixtures", source: ["file.txt", "obama.jpg"] },
   { cwd: "test/fixtures", source: ["file.txt", ".dotfile"] },
@@ -27,7 +26,9 @@ const testCases = [
   { cwd: "test/fixtures", source: "subdir/subfile.txt" },
   { cwd: "test/", source: "fixtures/subdir/subfile.txt" },
   { cwd: "test/", source: "fixtures/*/*.txt" },
-  { cwd: "test/fixtures/subdir", source: "../file.txt" }
+  { cwd: "test/fixtures/subdir", source: "../file.txt" },
+  { cwd: "test/fixtures/", source: "file-symlink.txt" },
+  { cwd: "test/fixtures", source: "file.txt" }
 ];
 
 const cleanup = () =>
@@ -52,10 +53,28 @@ const getStructure = tmpdir => {
   );
 };
 
+const createSymlink = () => {
+  if (!fs.existsSync(path.resolve("test/fixtures/subdir-symlink"))) {
+    fs.symlinkSync(
+      path.resolve("test/fixtures/subdir/"),
+      path.resolve("test/fixtures/subdir-symlink"),
+      "dir"
+    );
+  }
+  if (!fs.existsSync(path.resolve("test/fixtures/file-symlink.txt"))) {
+    fs.symlinkSync(
+      path.resolve("test/fixtures/file.txt"),
+      path.resolve("test/fixtures/file-symlink.txt"),
+      "file"
+    );
+  }
+};
+
 describe("file structure", () => {
   const hasNativeZip = bestzip.hasNativeZip();
   const testIfHasNativeZip = hasNativeZip ? test : test.skip;
 
+  beforeAll(createSymlink);
   beforeEach(cleanup);
 
   // these tests have known good snapshots

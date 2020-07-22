@@ -1,6 +1,8 @@
 node_modules/
 .idea
 tmp/
+test/fixtures/subdir-symlink
+test/fixtures/file-symlink.txt
 test/validArchive.zip
 test/validARchiveExtract
 .DS_Store
