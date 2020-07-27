@@ -4,11 +4,14 @@ exports[`file structure cli with --force=node: {"cwd":"test/","source":"fixtures
 Array [
   "/fixtures",
   "/fixtures/.dotfile",
+  "/fixtures/file-symlink.txt",
   "/fixtures/file.txt",
   "/fixtures/multiline.txt",
   "/fixtures/obama.jpg",
   "/fixtures/subdir",
   "/fixtures/subdir/subfile.txt",
+  "/fixtures/subdir-symlink",
+  "/fixtures/subdir-symlink/subfile.txt",
   "/test.zip",
 ]
 `;
@@ -16,11 +19,14 @@ Array [
 exports[`file structure cli with --force=node: {"cwd":"test/","source":"fixtures/*"} 1`] = `
 Array [
   "/fixtures",
+  "/fixtures/file-symlink.txt",
   "/fixtures/file.txt",
   "/fixtures/multiline.txt",
   "/fixtures/obama.jpg",
   "/fixtures/subdir",
   "/fixtures/subdir/subfile.txt",
+  "/fixtures/subdir-symlink",
+  "/fixtures/subdir-symlink/subfile.txt",
   "/test.zip",
 ]
 `;
@@ -30,6 +36,8 @@ Array [
   "/fixtures",
   "/fixtures/subdir",
   "/fixtures/subdir/subfile.txt",
+  "/fixtures/subdir-symlink",
+  "/fixtures/subdir-symlink/subfile.txt",
   "/test.zip",
 ]
 `;
@@ -92,11 +100,14 @@ Array [
 
 exports[`file structure cli with --force=node: {"cwd":"test/fixtures/","source":"*"} 1`] = `
 Array [
+  "/file-symlink.txt",
   "/file.txt",
   "/multiline.txt",
   "/obama.jpg",
   "/subdir",
   "/subdir/subfile.txt",
+  "/subdir-symlink",
+  "/subdir-symlink/subfile.txt",
   "/test.zip",
 ]
 `;
@@ -104,11 +115,21 @@ Array [
 exports[`file structure cli with --force=node: {"cwd":"test/fixtures/","source":"./"} 1`] = `
 Array [
   "/.dotfile",
+  "/file-symlink.txt",
   "/file.txt",
   "/multiline.txt",
   "/obama.jpg",
   "/subdir",
   "/subdir/subfile.txt",
+  "/subdir-symlink",
+  "/subdir-symlink/subfile.txt",
+  "/test.zip",
+]
+`;
+
+exports[`file structure cli with --force=node: {"cwd":"test/fixtures/","source":"file-symlink.txt"} 1`] = `
+Array [
+  "/file-symlink.txt",
   "/test.zip",
 ]
 `;
@@ -124,11 +145,14 @@ exports[`file structure cli: {"cwd":"test/","source":"fixtures/"} 1`] = `
 Array [
   "/fixtures",
   "/fixtures/.dotfile",
+  "/fixtures/file-symlink.txt",
   "/fixtures/file.txt",
   "/fixtures/multiline.txt",
   "/fixtures/obama.jpg",
   "/fixtures/subdir",
   "/fixtures/subdir/subfile.txt",
+  "/fixtures/subdir-symlink",
+  "/fixtures/subdir-symlink/subfile.txt",
   "/test.zip",
 ]
 `;
@@ -136,11 +160,14 @@ Array [
 exports[`file structure cli: {"cwd":"test/","source":"fixtures/*"} 1`] = `
 Array [
   "/fixtures",
+  "/fixtures/file-symlink.txt",
   "/fixtures/file.txt",
   "/fixtures/multiline.txt",
   "/fixtures/obama.jpg",
   "/fixtures/subdir",
   "/fixtures/subdir/subfile.txt",
+  "/fixtures/subdir-symlink",
+  "/fixtures/subdir-symlink/subfile.txt",
   "/test.zip",
 ]
 `;
@@ -150,6 +177,8 @@ Array [
   "/fixtures",
   "/fixtures/subdir",
   "/fixtures/subdir/subfile.txt",
+  "/fixtures/subdir-symlink",
+  "/fixtures/subdir-symlink/subfile.txt",
   "/test.zip",
 ]
 `;
@@ -212,11 +241,14 @@ Array [
 
 exports[`file structure cli: {"cwd":"test/fixtures/","source":"*"} 1`] = `
 Array [
+  "/file-symlink.txt",
   "/file.txt",
   "/multiline.txt",
   "/obama.jpg",
   "/subdir",
   "/subdir/subfile.txt",
+  "/subdir-symlink",
+  "/subdir-symlink/subfile.txt",
   "/test.zip",
 ]
 `;
@@ -224,11 +256,21 @@ Array [
 exports[`file structure cli: {"cwd":"test/fixtures/","source":"./"} 1`] = `
 Array [
   "/.dotfile",
+  "/file-symlink.txt",
   "/file.txt",
   "/multiline.txt",
   "/obama.jpg",
   "/subdir",
   "/subdir/subfile.txt",
+  "/subdir-symlink",
+  "/subdir-symlink/subfile.txt",
+  "/test.zip",
+]
+`;
+
+exports[`file structure cli: {"cwd":"test/fixtures/","source":"file-symlink.txt"} 1`] = `
+Array [
+  "/file-symlink.txt",
   "/test.zip",
 ]
 `;
@@ -244,11 +286,14 @@ exports[`file structure programmatic with nodeZip: {"cwd":"test/","source":"fixt
 Array [
   "/fixtures",
   "/fixtures/.dotfile",
+  "/fixtures/file-symlink.txt",
   "/fixtures/file.txt",
   "/fixtures/multiline.txt",
   "/fixtures/obama.jpg",
   "/fixtures/subdir",
   "/fixtures/subdir/subfile.txt",
+  "/fixtures/subdir-symlink",
+  "/fixtures/subdir-symlink/subfile.txt",
   "/test.zip",
 ]
 `;
@@ -256,11 +301,14 @@ Array [
 exports[`file structure programmatic with nodeZip: {"cwd":"test/","source":"fixtures/*"} 1`] = `
 Array [
   "/fixtures",
+  "/fixtures/file-symlink.txt",
   "/fixtures/file.txt",
   "/fixtures/multiline.txt",
   "/fixtures/obama.jpg",
   "/fixtures/subdir",
   "/fixtures/subdir/subfile.txt",
+  "/fixtures/subdir-symlink",
+  "/fixtures/subdir-symlink/subfile.txt",
   "/test.zip",
 ]
 `;
@@ -270,6 +318,8 @@ Array [
   "/fixtures",
   "/fixtures/subdir",
   "/fixtures/subdir/subfile.txt",
+  "/fixtures/subdir-symlink",
+  "/fixtures/subdir-symlink/subfile.txt",
   "/test.zip",
 ]
 `;
@@ -332,11 +382,14 @@ Array [
 
 exports[`file structure programmatic with nodeZip: {"cwd":"test/fixtures/","source":"*"} 1`] = `
 Array [
+  "/file-symlink.txt",
   "/file.txt",
   "/multiline.txt",
   "/obama.jpg",
   "/subdir",
   "/subdir/subfile.txt",
+  "/subdir-symlink",
+  "/subdir-symlink/subfile.txt",
   "/test.zip",
 ]
 `;
@@ -344,11 +397,21 @@ Array [
 exports[`file structure programmatic with nodeZip: {"cwd":"test/fixtures/","source":"./"} 1`] = `
 Array [
   "/.dotfile",
+  "/file-symlink.txt",
   "/file.txt",
   "/multiline.txt",
   "/obama.jpg",
   "/subdir",
   "/subdir/subfile.txt",
+  "/subdir-symlink",
+  "/subdir-symlink/subfile.txt",
+  "/test.zip",
+]
+`;
+
+exports[`file structure programmatic with nodeZip: {"cwd":"test/fixtures/","source":"file-symlink.txt"} 1`] = `
+Array [
+  "/file-symlink.txt",
   "/test.zip",
 ]
 `;
@@ -364,11 +427,14 @@ exports[`file structure programmatic: {"cwd":"test/","source":"fixtures/"} 1`] =
 Array [
   "/fixtures",
   "/fixtures/.dotfile",
+  "/fixtures/file-symlink.txt",
   "/fixtures/file.txt",
   "/fixtures/multiline.txt",
   "/fixtures/obama.jpg",
   "/fixtures/subdir",
   "/fixtures/subdir/subfile.txt",
+  "/fixtures/subdir-symlink",
+  "/fixtures/subdir-symlink/subfile.txt",
   "/test.zip",
 ]
 `;
@@ -376,11 +442,14 @@ Array [
 exports[`file structure programmatic: {"cwd":"test/","source":"fixtures/*"} 1`] = `
 Array [
   "/fixtures",
+  "/fixtures/file-symlink.txt",
   "/fixtures/file.txt",
   "/fixtures/multiline.txt",
   "/fixtures/obama.jpg",
   "/fixtures/subdir",
   "/fixtures/subdir/subfile.txt",
+  "/fixtures/subdir-symlink",
+  "/fixtures/subdir-symlink/subfile.txt",
   "/test.zip",
 ]
 `;
@@ -390,6 +459,8 @@ Array [
   "/fixtures",
   "/fixtures/subdir",
   "/fixtures/subdir/subfile.txt",
+  "/fixtures/subdir-symlink",
+  "/fixtures/subdir-symlink/subfile.txt",
   "/test.zip",
 ]
 `;
@@ -452,11 +523,14 @@ Array [
 
 exports[`file structure programmatic: {"cwd":"test/fixtures/","source":"*"} 1`] = `
 Array [
+  "/file-symlink.txt",
   "/file.txt",
   "/multiline.txt",
   "/obama.jpg",
   "/subdir",
   "/subdir/subfile.txt",
+  "/subdir-symlink",
+  "/subdir-symlink/subfile.txt",
   "/test.zip",
 ]
 `;
@@ -464,11 +538,21 @@ Array [
 exports[`file structure programmatic: {"cwd":"test/fixtures/","source":"./"} 1`] = `
 Array [
   "/.dotfile",
+  "/file-symlink.txt",
   "/file.txt",
   "/multiline.txt",
   "/obama.jpg",
   "/subdir",
   "/subdir/subfile.txt",
+  "/subdir-symlink",
+  "/subdir-symlink/subfile.txt",
+  "/test.zip",
+]
+`;
+
+exports[`file structure programmatic: {"cwd":"test/fixtures/","source":"file-symlink.txt"} 1`] = `
+Array [
+  "/file-symlink.txt",
   "/test.zip",
 ]
 `;
