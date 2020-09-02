@@ -1,8 +1,10 @@
 "use strict";
 const child_process = require("child_process");
+const promisify = require("util").promisify;
 const fs = require("fs");
+const mkdir = promisify(fs.mkdir);
 const path = require("path");
-const rimraf = require("rimraf");
+const rimraf = promisify(require("rimraf"));
 const klaw = require("klaw-sync");
 
 var unzip = require("./unzip");
@@ -31,25 +33,11 @@ const testCases = [
   { cwd: "test/fixtures", source: "file.txt" }
 ];
 
-const cleanup = () =>
-  new Promise((resolve, reject) => {
-    rimraf(tmpdir, err => {
-      if (err) {
-        return reject(err);
-      }
-      fs.mkdir(tmpdir, err => {
-        if (err) {
-          return reject(err);
-        }
-        rimraf("test/fixtures/injection", err => {
-          if (err) {
-            return reject(err);
-          }
-          resolve();
-        });
-      });
-    });
-  });
+const cleanup = async () => {
+  await rimraf(tmpdir);
+  await mkdir(tmpdir);
+  await rimraf("test/fixtures/injection");
+};
 
 const getStructure = tmpdir => {
   // strip the tmp dir and convert to unix-style file paths on windows
