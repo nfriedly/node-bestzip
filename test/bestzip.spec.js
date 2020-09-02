@@ -41,7 +41,12 @@ const cleanup = () =>
         if (err) {
           return reject(err);
         }
-        resolve();
+        rimraf("test/fixtures/injection", err => {
+          if (err) {
+            return reject(err);
+          }
+          resolve();
+        });
       });
     });
   });
@@ -76,6 +81,7 @@ describe("file structure", () => {
 
   beforeAll(createSymlink);
   beforeEach(cleanup);
+  afterAll(cleanup);
 
   // these tests have known good snapshots
   // so, it's run once for bestzip against the snapshot
@@ -198,6 +204,75 @@ describe("file structure", () => {
       const nativeStructure = getStructure(tmpdir);
 
       expect(nodeStructure).toEqual(nativeStructure);
+    }
+  );
+});
+
+describe("command injection", () => {
+  const hasNativeZip = bestzip.hasNativeZip();
+  const testIfHasNativeZip = hasNativeZip ? test : test.skip;
+
+  beforeEach(cleanup);
+  afterAll(cleanup);
+
+  // https://www.npmjs.com/advisories/1554
+  const testCases = [
+    {
+      cwd: "test/fixtures",
+      source: "file.txt",
+      destination: destination + "; mkdir -p injection"
+    },
+    {
+      cwd: "test/fixtures",
+      source: "file.txt; mkdir -p injection",
+      destination: destination
+    },
+    {
+      cwd: "test/fixtures",
+      source: ["file.txt;", " mkdir -p injection"],
+      destination: destination
+    },
+    {
+      cwd: "test/fixtures",
+      source: ["file.txt", "; mkdir -p injection"],
+      destination: destination
+    },
+    {
+      cwd: "test/fixtures",
+      source: ["file.txt;", ";mkdir -p injection"],
+      destination: destination
+    },
+    {
+      cwd: "test/fixtures",
+      source: ["file.txt", "mkdir -p injection"],
+      destination: destination
+    },
+    {
+      cwd: "test/fixtures",
+      source: ["file.txt; mkdir -p injection"],
+      destination: destination
+    },
+    {
+      cwd: "test/fixtures",
+      source: ["file.txt", "obama.jpg; mkdir -p injection"],
+      destination: destination
+    }
+  ];
+  testIfHasNativeZip.each(testCases)(
+    "should NOT execute commands from the list of sources: %s",
+    async testCase => {
+      try {
+        await bestzip(testCase);
+      } catch (ex) {
+        // Exceptions are allowed, that is invalid input.
+        // The important part is that it doesn't execute it.
+        // Some test cases will log "zip error: Nothing to do!" or similar - that is to be expected
+      }
+      if (fs.existsSync("test/fixtures/injection")) {
+        throw new Error(
+          "Bestzip appears to be vulnerable to command injection"
+        );
+      }
     }
   );
 });
