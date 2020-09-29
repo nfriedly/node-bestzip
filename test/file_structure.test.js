@@ -1,20 +1,17 @@
 "use strict";
 const child_process = require("child_process");
-const promisify = require("util").promisify;
 const fs = require("fs");
-const mkdir = promisify(fs.mkdir);
 const path = require("path");
-const rimraf = promisify(require("rimraf"));
 const klaw = require("klaw-sync");
+const { init } = require("./helpers");
+
+const { tmpdir, destination, cleanup } = init("file_structure");
 
 var unzip = require("./unzip");
 
 const bestzip = require("../lib/bestzip");
 
 const cli = path.join(__dirname, "../bin/cli.js");
-
-const tmpdir = path.join(__dirname, "tmp");
-const destination = path.join(tmpdir, "test.zip");
 
 const testCases = [
   { cwd: "test/fixtures/", source: "*" }, // no .dotfiles
@@ -32,12 +29,6 @@ const testCases = [
   { cwd: "test/fixtures/", source: "file-symlink.txt" },
   { cwd: "test/fixtures", source: "file.txt" }
 ];
-
-const cleanup = async () => {
-  await rimraf(tmpdir);
-  await mkdir(tmpdir);
-  await rimraf("test/fixtures/injection");
-};
 
 const getStructure = tmpdir => {
   // strip the tmp dir and convert to unix-style file paths on windows
@@ -192,75 +183,6 @@ describe("file structure", () => {
       const nativeStructure = getStructure(tmpdir);
 
       expect(nodeStructure).toEqual(nativeStructure);
-    }
-  );
-});
-
-describe("command injection", () => {
-  const hasNativeZip = bestzip.hasNativeZip();
-  const testIfHasNativeZip = hasNativeZip ? test : test.skip;
-
-  beforeEach(cleanup);
-  afterAll(cleanup);
-
-  // https://www.npmjs.com/advisories/1554
-  const testCases = [
-    {
-      cwd: "test/fixtures",
-      source: "file.txt",
-      destination: destination + "; mkdir -p injection"
-    },
-    {
-      cwd: "test/fixtures",
-      source: "file.txt; mkdir -p injection",
-      destination: destination
-    },
-    {
-      cwd: "test/fixtures",
-      source: ["file.txt;", " mkdir -p injection"],
-      destination: destination
-    },
-    {
-      cwd: "test/fixtures",
-      source: ["file.txt", "; mkdir -p injection"],
-      destination: destination
-    },
-    {
-      cwd: "test/fixtures",
-      source: ["file.txt;", ";mkdir -p injection"],
-      destination: destination
-    },
-    {
-      cwd: "test/fixtures",
-      source: ["file.txt", "mkdir -p injection"],
-      destination: destination
-    },
-    {
-      cwd: "test/fixtures",
-      source: ["file.txt; mkdir -p injection"],
-      destination: destination
-    },
-    {
-      cwd: "test/fixtures",
-      source: ["file.txt", "obama.jpg; mkdir -p injection"],
-      destination: destination
-    }
-  ];
-  testIfHasNativeZip.each(testCases)(
-    "should NOT execute commands from the list of sources: %s",
-    async testCase => {
-      try {
-        await bestzip(testCase);
-      } catch (ex) {
-        // Exceptions are allowed, that is invalid input.
-        // The important part is that it doesn't execute it.
-        // Some test cases will log "zip error: Nothing to do!" or similar - that is to be expected
-      }
-      if (fs.existsSync("test/fixtures/injection")) {
-        throw new Error(
-          "Bestzip appears to be vulnerable to command injection"
-        );
-      }
     }
   );
 });
