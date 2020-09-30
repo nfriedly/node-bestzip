@@ -1,6 +1,8 @@
 # bestzip
 
 [![Build status](https://travis-ci.org/nfriedly/node-bestzip.svg?branch=master)](https://travis-ci.org/nfriedly/node-bestzip)
+[![npm version](https://badge.fury.io/js/bestzip.svg)](https://www.npmjs.com/package/bestzip)
+[![npm downloads](https://img.shields.io/npm/dm/bestzip)](https://www.npmjs.com/package/bestzip)
 
 This module provides a `bestzip` command that calls the native `zip` command if available and otherwise falls back to a
 Node.js implementation.
