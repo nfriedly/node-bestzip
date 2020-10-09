@@ -74,6 +74,8 @@ Alternatively:
 
 This will not include the build/ folder, it's contents will be top-level.
 
+*Note: some tools, including the Archive Utility built into macOS, will automatically create a top-level folder to group everything together when extracting a .zip archive that contains multiple top-level files.*
+
 When using the programmatic API, the same effect may be achieved by passing in the `cwd` option.
 
 ## .dotfiles
