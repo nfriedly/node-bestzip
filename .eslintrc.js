@@ -9,5 +9,11 @@ module.exports = {
   rules: {
     strict: ["error", "global"],
     "prefer-const": "error",
+    "prettier/prettier": [
+      "error",
+      {
+        endOfLine: "auto",
+      },
+    ],
   },
 };
