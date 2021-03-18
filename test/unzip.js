@@ -5,7 +5,7 @@ var unzip = require("unzip-stream");
 module.exports = (zipFile, outputFolder) =>
   new Promise((resolve, reject) => {
     var unzipExtractor = unzip.Extract({
-      path: outputFolder
+      path: outputFolder,
     });
 
     unzipExtractor.on("error", reject).on("close", resolve);

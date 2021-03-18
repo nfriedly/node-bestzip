@@ -8,7 +8,7 @@ const mkdir = promisify(fs.mkdir);
 const stat = promisify(fs.stat);
 const rimraf = promisify(require("rimraf"));
 
-const init = name => {
+const init = (name) => {
   const tmpdir = path.join(os.tmpdir(), "bestzip", name); // path.join(__dirname, "tmp");
   fs.mkdirSync(tmpdir, { recursive: true });
   const destination = path.join(tmpdir, "test.zip");
@@ -22,5 +22,5 @@ const init = name => {
 
 module.exports = {
   init,
-  stat
+  stat,
 };

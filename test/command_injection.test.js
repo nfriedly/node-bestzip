@@ -18,47 +18,47 @@ describe("command injection", () => {
     {
       cwd: "test/fixtures",
       source: "file.txt",
-      destination: destination + "; mkdir -p injection"
+      destination: destination + "; mkdir -p injection",
     },
     {
       cwd: "test/fixtures",
       source: "file.txt; mkdir -p injection",
-      destination: destination
+      destination: destination,
     },
     {
       cwd: "test/fixtures",
       source: ["file.txt;", " mkdir -p injection"],
-      destination: destination
+      destination: destination,
     },
     {
       cwd: "test/fixtures",
       source: ["file.txt", "; mkdir -p injection"],
-      destination: destination
+      destination: destination,
     },
     {
       cwd: "test/fixtures",
       source: ["file.txt;", ";mkdir -p injection"],
-      destination: destination
+      destination: destination,
     },
     {
       cwd: "test/fixtures",
       source: ["file.txt", "mkdir -p injection"],
-      destination: destination
+      destination: destination,
     },
     {
       cwd: "test/fixtures",
       source: ["file.txt; mkdir -p injection"],
-      destination: destination
+      destination: destination,
     },
     {
       cwd: "test/fixtures",
       source: ["file.txt", "obama.jpg; mkdir -p injection"],
-      destination: destination
-    }
+      destination: destination,
+    },
   ];
   testIfHasNativeZip.each(testCases)(
     "should NOT execute commands from the list of sources: %s",
-    async testCase => {
+    async (testCase) => {
       try {
         await bestzip(testCase);
       } catch (ex) {

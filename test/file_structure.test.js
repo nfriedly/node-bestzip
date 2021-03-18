@@ -27,10 +27,10 @@ const testCases = [
   { cwd: "test/", source: "fixtures/*/*.txt" },
   { cwd: "test/fixtures/subdir", source: "../file.txt" },
   { cwd: "test/fixtures/", source: "file-symlink.txt" },
-  { cwd: "test/fixtures", source: "file.txt" }
+  { cwd: "test/fixtures", source: "file.txt" },
 ];
 
-const getStructure = tmpdir => {
+const getStructure = (tmpdir) => {
   // strip the tmp dir and convert to unix-style file paths on windows
   return klaw(tmpdir).map(({ path }) =>
     path.replace(tmpdir, "").replace(/\\/g, "/")
@@ -65,14 +65,14 @@ describe("file structure", () => {
   // these tests have known good snapshots
   // so, it's run once for bestzip against the snapshot
   // and, if bestzip used
-  test.each(testCases)("cli: %j", async testCase => {
+  test.each(testCases)("cli: %j", async (testCase) => {
     const sourceArgs =
       typeof testCase.source === "string"
         ? testCase.source
         : testCase.source.join(" ");
 
     child_process.execSync(`node ${cli} ${destination} ${sourceArgs}`, {
-      cwd: path.join(__dirname, "../", testCase.cwd)
+      cwd: path.join(__dirname, "../", testCase.cwd),
     });
 
     await unzip(destination, tmpdir);
@@ -87,7 +87,7 @@ describe("file structure", () => {
 
   testIfHasNativeZip.each(testCases)(
     "cli with --force=node: %j",
-    async testCase => {
+    async (testCase) => {
       const sourceArgs =
         typeof testCase.source === "string"
           ? testCase.source
@@ -113,7 +113,7 @@ describe("file structure", () => {
     }
   );
 
-  test.each(testCases)("programmatic: %j", async testCase => {
+  test.each(testCases)("programmatic: %j", async (testCase) => {
     await bestzip(
       Object.assign(
         { destination, cwd: path.join(__dirname, "../", testCase.cwd) },
@@ -135,7 +135,7 @@ describe("file structure", () => {
 
   testIfHasNativeZip.each(testCases)(
     "programmatic with nodeZip: %j",
-    async testCase => {
+    async (testCase) => {
       await bestzip.nodeZip(
         Object.assign(
           { destination, cwd: path.join(__dirname, "../", testCase.cwd) },
@@ -159,15 +159,15 @@ describe("file structure", () => {
 
   // we can't use snapshots here, because the absolute paths will change from one system to another
   // but, when native zip is available, we want to compare it to node zip to ensure that the outputs match
-  const absolutePathTestCases = testCases.map(testCase =>
+  const absolutePathTestCases = testCases.map((testCase) =>
     (Array.isArray(testCase.source) ? testCase.source : [testCase.source])
-      .map(arg => path.join(testCase.cwd, arg))
+      .map((arg) => path.join(testCase.cwd, arg))
       .join(" ")
   );
 
   testIfHasNativeZip.each(absolutePathTestCases)(
     "same output between native and node zip with absolute file paths: %s",
-    async args => {
+    async (args) => {
       child_process.execSync(`node ${cli} --force=node ${destination} ${args}`);
 
       await unzip(destination, tmpdir);

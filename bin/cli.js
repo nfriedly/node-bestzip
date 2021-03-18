@@ -8,7 +8,7 @@ var argv = require("yargs")
   .usage("\nUsage: bestzip destination.zip sources/")
   .option("force", {
     describe: "Force use of node.js or native zip methods",
-    choices: ["node", "native"]
+    choices: ["node", "native"],
   })
   .demand(2).argv;
 
@@ -26,12 +26,12 @@ if (argv.force === "node") {
 zip({
   source: source,
   destination: destination,
-  verbose: argv.verbose
+  verbose: argv.verbose,
 })
-  .then(function() {
+  .then(function () {
     console.log("zipped!");
   })
-  .catch(function(err) {
+  .catch(function (err) {
     console.error(err);
     process.exit(1);
   });
