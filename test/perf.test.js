@@ -28,9 +28,7 @@ describe("Performance", () => {
       const hasNativeZip = bestzip.hasNativeZip();
       const nodeStats = await getPerf(bestzip.nodeZip);
       console.log(
-        `nodeZip took ${nodeStats.duration}ms to generate a file of ${
-          nodeStats.size
-        } bytes`
+        `nodeZip took ${nodeStats.duration}ms to generate a file of ${nodeStats.size} bytes`
       );
 
       let nativeStats = null;
@@ -41,11 +39,7 @@ describe("Performance", () => {
         const sizeDif = nativeStats.size - nodeStats.size;
         const sizePctDif = Math.round((sizeDif / nodeStats.size) * 100);
         console.log(
-          `nativeZip took ${
-            nativeStats.duration
-          }ms (${durPctDif}%) to generate a file of ${
-            nativeStats.size
-          } bytes (${sizePctDif}%)`
+          `nativeZip took ${nativeStats.duration}ms (${durPctDif}%) to generate a file of ${nativeStats.size} bytes (${sizePctDif}%)`
         );
       }
     },
