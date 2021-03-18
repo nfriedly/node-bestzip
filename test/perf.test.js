@@ -10,7 +10,7 @@ describe("Performance", () => {
   beforeEach(cleanup);
   afterAll(cleanup);
 
-  const getPerf = async zipFn => {
+  const getPerf = async (zipFn) => {
     const start = Date.now();
     await zipFn(
       // this will zip the entire project, node_modules and all
