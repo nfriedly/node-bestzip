@@ -20,7 +20,7 @@ var argv = require("yargs")
 var destination = argv._.shift();
 var source = argv._;
 
-if (argv.level && (argv.level < 0 || argv.level > 9)) {
+if (argv.level < -1 || argv.level > 9) {
   console.error("Invalid compression level, must be >= 0 and <= 9");
   process.exit(1);
 }
