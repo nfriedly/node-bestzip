@@ -1,6 +1,6 @@
 {
   "name": "bestzip",
-  "version": "2.2.0",
+  "version": "2.2.1",
   "description": "Uses OS zip command if avaliable (for better performance and speed) or node.js version if there is no system command avaliable. Can be called via node or command line.",
   "main": "lib/bestzip.js",
   "bin": {
