@@ -59,6 +59,7 @@ zip({
 * `source`: Path or paths to files and folders to include in the zip file. String or Array of Strings.
 * `destination`: Path to generated .zip file.
 * `cwd`: Set the Current Working Directory that source and destination paths are relative to. Defaults to `process.cwd()`
+* `level`: Set the level of compression. (Number 0-9, with 0 being no compression and 9 being the most compressed.)
 
 ## How to control the directory structure
 
