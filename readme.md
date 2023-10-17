@@ -1,6 +1,6 @@
 # bestzip
 
-[![Build status](https://travis-ci.org/nfriedly/node-bestzip.svg?branch=master)](https://travis-ci.org/nfriedly/node-bestzip)
+[![tests](https://github.com/nfriedly/node-bestzip/actions/workflows/ci.yml/badge.svg)](https://github.com/nfriedly/node-bestzip/actions/workflows/ci.yml)
 [![npm version](https://badge.fury.io/js/bestzip.svg)](https://www.npmjs.com/package/bestzip)
 [![npm downloads](https://img.shields.io/npm/dm/bestzip)](https://www.npmjs.com/package/bestzip)
 
