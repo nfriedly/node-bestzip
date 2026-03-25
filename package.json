@@ -1,7 +1,7 @@
 {
   "name": "bestzip",
   "version": "2.2.2",
-  "description": "Uses OS zip command if avaliable (for better performance and speed) or node.js version if there is no system command avaliable. Can be called via node or command line.",
+  "description": "Uses OS zip command if available (for better performance and speed) or node.js version if there is no system command available. Can be called via node or command line.",
   "main": "lib/bestzip.js",
   "bin": {
     "bestzip": "bin/cli.js"
@@ -27,7 +27,7 @@
     "lib/"
   ],
   "dependencies": {
-    "archiver": "^5.3.0",
+    "archiver": "^7.0.1",
     "glob": "^13.0.6",
     "which": "^2.0.2",
     "yargs": "^16.2.0"
