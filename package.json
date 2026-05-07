@@ -7,7 +7,7 @@
     "bestzip": "bin/cli.js"
   },
   "engines": {
-    "node": ">=10"
+    "node": ">=22"
   },
   "scripts": {
     "lint": "eslint .",
