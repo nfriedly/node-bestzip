@@ -83,7 +83,7 @@ When using the programmatic API, the same effect may be achieved by passing in t
 
 Wildcards (`*`) ignore dotfiles.
 
-* To include a dotfile, either include the directory it's in (`folder/`) or include it by name (`folder/.dotfile)`
+* To include a dotfile, either include the directory it's in (`folder/`) or include it by name (`folder/.dotfile`)
 * To omit dotfiles, either use a wildcard (`folder/*`) or explicitly list the desired files (`folder/file1.txt folder/file2.txt`)
 
 ## Breaking changes for v2
