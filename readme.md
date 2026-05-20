@@ -39,7 +39,7 @@ package.json:
 ## Programmatic usage from within Node.js
 
 ```javascript
-var zip = require('bestzip');
+import zip from 'bestzip';
 
 zip({
   source: 'build/*',

@@ -1,15 +1,17 @@
-"use strict";
-const child_process = require("child_process");
-const fs = require("fs");
-const path = require("path");
-const klaw = require("klaw-sync");
-const { init } = require("./helpers");
+import child_process from "node:child_process";
+import fs from "node:fs";
+import path from "node:path";
+import assert from "node:assert";
+import { describe, test, before, beforeEach, after } from "node:test";
+import klaw from "klaw-sync";
+import { init } from "./helpers.js";
 
 const { tmpdir, destination, cleanup } = init("file_structure");
+const __dirname = import.meta.dirname;
 
-var unzip = require("./unzip");
+import unzip from "./unzip.js";
 
-const bestzip = require("../lib/bestzip");
+import * as bestzip from "../lib/bestzip.js";
 
 const cli = path.join(__dirname, "../bin/cli.js");
 
@@ -56,38 +58,38 @@ const createSymlink = () => {
 
 describe("file structure", () => {
   const hasNativeZip = bestzip.hasNativeZip();
-  const testIfHasNativeZip = hasNativeZip ? test : test.skip;
 
-  beforeAll(createSymlink);
+  before(createSymlink);
   beforeEach(cleanup);
-  afterAll(cleanup);
+  after(cleanup);
 
   // these tests have known good snapshots
   // so, it's run once for bestzip against the snapshot
   // and, if bestzip used
-  test.each(testCases)("cli: %j", async (testCase) => {
-    const sourceArgs =
-      typeof testCase.source === "string"
-        ? testCase.source
-        : testCase.source.join(" ");
+  for (const testCase of testCases) {
+    test(`cli: ${JSON.stringify(testCase)}`, async (t) => {
+      const sourceArgs =
+        typeof testCase.source === "string"
+          ? testCase.source
+          : testCase.source.join(" ");
 
-    child_process.execSync(`node ${cli} ${destination} ${sourceArgs}`, {
-      cwd: path.join(__dirname, "../", testCase.cwd),
+      child_process.execSync(`node ${cli} ${destination} ${sourceArgs}`, {
+        cwd: path.join(__dirname, "../", testCase.cwd),
+      });
+
+      await unzip(destination, tmpdir);
+      const structure = getStructure(tmpdir);
+
+      t.assert.snapshot(structure);
+
+      // because multiple tests aren't allowed to match the same snapshot,
+      // but we do want to ensure that they all create the same output
+      testCase.structure = structure;
     });
+  }
 
-    await unzip(destination, tmpdir);
-    const structure = getStructure(tmpdir);
-
-    expect(structure).toMatchSnapshot();
-
-    // because multiple tests aren't allowed to match the same snapshot,
-    // but we do want to ensure that they all create the same output
-    testCase.structure = structure;
-  });
-
-  testIfHasNativeZip.each(testCases)(
-    "cli with --force=node: %j",
-    async (testCase) => {
+  for (const testCase of testCases) {
+    test(`cli with --force=node: ${JSON.stringify(testCase)}`, async (t) => {
       const sourceArgs =
         typeof testCase.source === "string"
           ? testCase.source
@@ -101,41 +103,44 @@ describe("file structure", () => {
       await unzip(destination, tmpdir);
       const structure = getStructure(tmpdir);
 
-      expect(structure).toMatchSnapshot();
+      t.assert.snapshot(structure);
 
       // on systems *with* a native zip, this validates that both methods output the same thing (mac, linux)
       if (testCase.structure) {
-        expect(structure).toEqual(testCase.structure);
+        assert.deepEqual(structure, testCase.structure);
       } else {
         // the structure is defined in the first test run, so it may not be defined when running subsets of tests
         console.log("skipping structure match");
       }
-    }
-  );
+    });
+  }
 
-  test.each(testCases)("programmatic: %j", async (testCase) => {
-    await bestzip(
-      Object.assign(
-        { destination, cwd: path.join(__dirname, "../", testCase.cwd) },
-        testCase
-      )
-    );
-    await unzip(destination, tmpdir);
-    const structure = getStructure(tmpdir);
+  for (const testCase of testCases) {
+    test(`programmatic: ${JSON.stringify(testCase)}`, async (t) => {
+      await bestzip.zip(
+        Object.assign(
+          { destination, cwd: path.join(__dirname, "../", testCase.cwd) },
+          testCase
+        )
+      );
+      await unzip(destination, tmpdir);
+      const structure = getStructure(tmpdir);
 
-    expect(structure).toMatchSnapshot();
+      t.assert.snapshot(structure);
 
-    if (testCase.structure) {
-      expect(structure).toEqual(testCase.structure);
-    } else {
-      // the structure is defined in the first test run, so it may not be defined when running subsets of tests
-      console.log("skipping structure match");
-    }
-  });
+      if (testCase.structure) {
+        assert.deepEqual(structure, testCase.structure);
+      } else {
+        // the structure is defined in the first test run, so it may not be defined when running subsets of tests
+        console.log("skipping structure match");
+      }
+    });
+  }
 
-  testIfHasNativeZip.each(testCases)(
-    "programmatic with nodeZip: %j",
-    async (testCase) => {
+  for (const testCase of testCases) {
+    test(`programmatic with nodeZip: ${JSON.stringify(
+      testCase
+    )}`, async (t) => {
       await bestzip.nodeZip(
         Object.assign(
           { destination, cwd: path.join(__dirname, "../", testCase.cwd) },
@@ -145,17 +150,17 @@ describe("file structure", () => {
       await unzip(destination, tmpdir);
       const structure = getStructure(tmpdir);
 
-      expect(structure).toMatchSnapshot();
+      t.assert.snapshot(structure);
 
       // on systems *with* a native zip, this validates that both methods output the same thing (mac, linux)
       if (testCase.structure) {
-        expect(structure).toEqual(testCase.structure);
+        assert.deepEqual(structure, testCase.structure);
       } else {
         // the structure is defined in the first test run, so it may not be defined when running subsets of tests
         console.log("skipping structure match");
       }
-    }
-  );
+    });
+  }
 
   // we can't use snapshots here, because the absolute paths will change from one system to another
   // but, when native zip is available, we want to compare it to node zip to ensure that the outputs match
@@ -165,24 +170,29 @@ describe("file structure", () => {
       .join(" ")
   );
 
-  testIfHasNativeZip.each(absolutePathTestCases)(
-    "same output between native and node zip with absolute file paths: %s",
-    async (args) => {
-      child_process.execSync(`node ${cli} --force=node ${destination} ${args}`);
+  for (const args of absolutePathTestCases) {
+    test(
+      `same output between native and node zip with absolute file paths: ${args}`,
+      { skip: !hasNativeZip },
+      async () => {
+        child_process.execSync(
+          `node ${cli} --force=node ${destination} ${args}`
+        );
 
-      await unzip(destination, tmpdir);
-      const nodeStructure = getStructure(tmpdir);
+        await unzip(destination, tmpdir);
+        const nodeStructure = getStructure(tmpdir);
 
-      await cleanup();
+        await cleanup();
 
-      child_process.execSync(
-        `node ${cli} --force=native ${destination} ${args}`
-      );
+        child_process.execSync(
+          `node ${cli} --force=native ${destination} ${args}`
+        );
 
-      await unzip(destination, tmpdir);
-      const nativeStructure = getStructure(tmpdir);
+        await unzip(destination, tmpdir);
+        const nativeStructure = getStructure(tmpdir);
 
-      expect(nodeStructure).toEqual(nativeStructure);
-    }
-  );
+        assert.deepEqual(nodeStructure, nativeStructure);
+      }
+    );
+  }
 });

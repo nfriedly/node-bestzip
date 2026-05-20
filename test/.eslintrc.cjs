@@ -1,11 +1,9 @@
 "use strict";
 
 module.exports = {
-  env: {
-    jest: true,
-  },
   parserOptions: {
-    ecmaVersion: 2018,
+    ecmaVersion: 2024,
+    sourceType: "module",
   },
   rules: {
     "prefer-const": "error",

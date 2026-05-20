@@ -1,10 +1,11 @@
 #!/usr/bin/env node
 
-"use strict";
+import * as bestzip from "../lib/bestzip.js";
 
-var zip = require("../lib/bestzip.js");
+import yargs from "yargs";
+import { hideBin } from "yargs/helpers";
 
-var argv = require("yargs")
+const argv = yargs(hideBin(process.argv))
   .usage("\nUsage: bestzip destination.zip sources/")
   .option("force", {
     describe: "Force use of node.js or native zip methods",
@@ -17,8 +18,8 @@ var argv = require("yargs")
   })
   .demand(2).argv;
 
-var destination = argv._.shift();
-var source = argv._;
+const destination = argv._.shift();
+const source = argv._;
 
 if (argv.level < -1 || argv.level > 9) {
   console.error("Invalid compression level, must be >= 0 and <= 9");
@@ -27,15 +28,19 @@ if (argv.level < -1 || argv.level > 9) {
 
 console.log("Writing %s to %s...", source.join(", "), destination);
 
+let zip;
+
 if (argv.force === "node") {
-  zip = zip.nodeZip;
+  zip = bestzip.nodeZip;
 } else if (argv.force === "native") {
-  zip = zip.nativeZip;
+  zip = bestzip.nativeZip;
+} else {
+  zip = bestzip.zip;
 }
 
 zip({
-  source: source,
-  destination: destination,
+  source,
+  destination,
   verbose: !!argv.verbose,
   level: argv.level,
 })

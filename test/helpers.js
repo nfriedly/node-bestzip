@@ -1,26 +1,18 @@
-"use strict";
-
-const path = require("path");
-const fs = require("fs");
-const os = require("os");
-const promisify = require("util").promisify;
-const mkdir = promisify(fs.mkdir);
-const stat = promisify(fs.stat);
-const rimraf = promisify(require("rimraf"));
+import path from "node:path";
+import fs from "node:fs";
+import fsp from "node:fs/promises";
+import os from "node:os";
 
 const init = (name) => {
   const tmpdir = path.join(os.tmpdir(), "bestzip", name); // path.join(__dirname, "tmp");
   fs.mkdirSync(tmpdir, { recursive: true });
   const destination = path.join(tmpdir, "test.zip");
   const cleanup = async () => {
-    await rimraf(tmpdir);
-    await mkdir(tmpdir, { recursive: true });
-    await rimraf("test/fixtures/injection");
+    await fsp.rm(tmpdir, { recursive: true, force: true });
+    await fsp.mkdir(tmpdir, { recursive: true });
+    await fsp.rm("test/fixtures/injection", { recursive: true, force: true });
   };
   return { tmpdir, destination, cleanup };
 };
 
-module.exports = {
-  init,
-  stat,
-};
+export { init };

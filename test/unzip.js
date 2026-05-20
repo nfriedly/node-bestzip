@@ -1,8 +1,7 @@
-"use strict";
-var fs = require("fs");
-var unzip = require("unzip-stream");
+import fs from "node:fs";
+import unzip from "unzip-stream";
 
-module.exports = (zipFile, outputFolder) =>
+export default (zipFile, outputFolder) =>
   new Promise((resolve, reject) => {
     var unzipExtractor = unzip.Extract({
       path: outputFolder,
