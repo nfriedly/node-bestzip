@@ -40,18 +40,23 @@ package.json:
 
 ```javascript
 import zip from 'bestzip';
+// use version 2.x for require()
 
-zip({
+// zip a single source
+await zip({
   source: 'build/*',
   destination: './destination.zip'
-}).then(function() {
-  console.log('all done!');
-}).catch(function(err) {
-  console.error(err.stack);
-  process.exit(1);
-});
+})
 
-// v1.x API also works for backwards compatibility: zip(destination, sources, callback)
+// zip multiple sources, starting in a different CWD (current working directory)
+await zip({
+  source: ['img1.jpg', 'img2.jpg', 'imgn.jpg'],
+  destination: '../images.zip',
+  cwd: './images/' // optional, defaults to process.cwd()
+})
+
+// Promises also work: zip({source, destination}).then(...).catch(...)
+// Callbacks also work: zip(destination, sources, callback)
 ```
 
 ### Options
@@ -59,7 +64,6 @@ zip({
 * `source`: Path or paths to files and folders to include in the zip file. String or Array of Strings.
 * `destination`: Path to generated .zip file.
 * `cwd`: Set the Current Working Directory that source and destination paths are relative to. Defaults to `process.cwd()`
-* `level`: Set the level of compression. (Number 0-9, with 0 being no compression and 9 being the most compressed.)
 
 ## How to control the directory structure
 
@@ -90,3 +94,7 @@ Wildcards (`*`) ignore dotfiles.
 
 * `bestzip output.zip foo/bar/file.txt` now includes the foo/bar/ folders, previously it would place file.txt at the top-level
   * This was done to more closely align with the native zip command
+
+## Breaking changes for v3
+
+* Switched from CJS to ESM
