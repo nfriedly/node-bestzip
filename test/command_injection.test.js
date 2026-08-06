@@ -53,6 +53,12 @@ describe("command injection", () => {
       source: ["file.txt", "obama.jpg; mkdir -p injection"],
       destination: destination,
     },
+    {
+      cwd: "test/fixtures",
+      // -T validates the created .zip, and -TT provides the command for zip to use when unzipping for validation
+      source: ["file.txt", "-T", "-TT", "mkdir -p injection"],
+      destination: destination,
+    },
   ];
 
   for (const testCase of testCases) {
