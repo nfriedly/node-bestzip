@@ -55,7 +55,13 @@ describe("command injection", () => {
     },
     {
       cwd: "test/fixtures",
-      // -T validates the created .zip, and -TT provides the command for zip to use when unzipping for validation
+      // --test validates the created .zip, and --unzip-command provides the command for zip to execute when unzipping for validation
+      source: ["file.txt", "--test", "--unzip-command", "mkdir -p injection"],
+      destination: destination,
+    },
+    {
+      cwd: "test/fixtures",
+      // -T and -TT are aliases for --test and --unzip-command
       source: ["file.txt", "-T", "-TT", "mkdir -p injection"],
       destination: destination,
     },
