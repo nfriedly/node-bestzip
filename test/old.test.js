@@ -7,6 +7,8 @@ import CliTest from "command-line-test";
 import zip from "../lib/bestzip.js";
 import unzip from "./unzip.js";
 
+import os from "node:os";
+
 const __dirname = import.meta.dirname;
 
 describe("bestzip", function () {
@@ -31,9 +33,9 @@ describe("bestzip", function () {
       extractFolder = "extract";
       fixturesFolder = "fixtures";
 
-      destinationFilePath = path.join(__dirname, destinationFile);
+      destinationFilePath = path.join(os.tmpdir(), destinationFile);
       file1Path = path.join(__dirname, fixturesFolder, file1File);
-      extractFolderPath = path.join(__dirname, extractFolder);
+      extractFolderPath = path.join(os.tmpdir(), extractFolder);
 
       await fs.mkdir(extractFolderPath, { recursive: true });
     });
@@ -126,9 +128,9 @@ describe("bestzip", function () {
       extractFolder = "extract";
       fixturesFolder = "fixtures";
 
-      destinationFilePath = path.join(__dirname, destinationFile);
+      destinationFilePath = path.join(os.tmpdir(), destinationFile);
       file1Path = path.join(__dirname, fixturesFolder);
-      extractFolderPath = path.join(__dirname, extractFolder);
+      extractFolderPath = path.join(os.tmpdir(), extractFolder);
 
       await fs.mkdir(extractFolderPath, { recursive: true });
     });
