@@ -30,6 +30,7 @@ const testCases = [
   { cwd: "test/fixtures/subdir", source: "../file.txt" },
   { cwd: "test/fixtures/", source: "file-symlink.txt" },
   { cwd: "test/fixtures", source: "file.txt" },
+  { cwd: "test/fixtures", source: "emptydir/" },
 ];
 
 const getStructure = (tmpdir) => {
@@ -39,7 +40,9 @@ const getStructure = (tmpdir) => {
   );
 };
 
-const createSymlink = () => {
+const createEmptyDir = () => {
+  fs.mkdirSync(path.resolve("test/fixtures/emptydir"), { recursive: true });
+
   if (!fs.existsSync(path.resolve("test/fixtures/subdir-symlink"))) {
     fs.symlinkSync(
       path.resolve("test/fixtures/subdir/"),
@@ -59,7 +62,7 @@ const createSymlink = () => {
 describe("file structure", () => {
   const hasNativeZip = bestzip.hasNativeZip();
 
-  before(createSymlink);
+  before(createEmptyDir);
   beforeEach(cleanup);
   after(cleanup);
 
