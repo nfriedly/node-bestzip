@@ -65,6 +65,18 @@ describe("command injection", () => {
       source: ["file.txt", "-T", "-TT", "mkdir -p injection"],
       destination: destination,
     },
+    {
+      cwd: "test/fixtures",
+      // if destination is interpreted as a flag that takes an argument, it will eat the -- that prevents sources from being interpreted as arguments
+      source: [
+        "fakedest.zip",
+        "file.txt",
+        "--test",
+        "--unzip-command",
+        "mkdir -p injection",
+      ],
+      destination: "-n",
+    },
   ];
 
   for (const testCase of testCases) {
