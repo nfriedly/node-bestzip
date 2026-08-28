@@ -1,73 +1,42 @@
 import { describe, test, beforeEach, after } from "node:test";
 import fs from "node:fs";
+import path from "node:path";
 import * as bestzip from "../lib/bestzip.js";
 import { init } from "./helpers.js";
-
-const { destination, cleanup } = init("command_injection");
 
 describe("command injection", () => {
   const hasNativeZip = bestzip.hasNativeZip();
 
-  beforeEach(cleanup);
+  const { destination, fixturesDir: cwd, reset, cleanup } = init(
+    "command_injection",
+    true // copy the fixtures to the tempdir; fixturesDir will point to the copy
+  );
+
+  beforeEach(reset);
   after(cleanup);
 
-  // https://www.npmjs.com/advisories/1554
   const testCases = [
+    // note: cwd and destination will get included automatically unless overridden in the test case
     {
-      cwd: "test/fixtures",
       source: "file.txt",
       destination: destination + "; mkdir -p injection",
     },
+    { source: "file.txt; mkdir -p injection" },
+    { source: ["file.txt;", " mkdir -p injection"] },
+    { source: ["file.txt", "; mkdir -p injection"] },
+    { source: ["file.txt;", ";mkdir -p injection"] },
+    { source: ["file.txt", "mkdir -p injection"] },
+    { source: ["file.txt; mkdir -p injection"] },
+    { source: ["file.txt", "obama.jpg; mkdir -p injection"] },
     {
-      cwd: "test/fixtures",
-      source: "file.txt; mkdir -p injection",
-      destination: destination,
-    },
-    {
-      cwd: "test/fixtures",
-      source: ["file.txt;", " mkdir -p injection"],
-      destination: destination,
-    },
-    {
-      cwd: "test/fixtures",
-      source: ["file.txt", "; mkdir -p injection"],
-      destination: destination,
-    },
-    {
-      cwd: "test/fixtures",
-      source: ["file.txt;", ";mkdir -p injection"],
-      destination: destination,
-    },
-    {
-      cwd: "test/fixtures",
-      source: ["file.txt", "mkdir -p injection"],
-      destination: destination,
-    },
-    {
-      cwd: "test/fixtures",
-      source: ["file.txt; mkdir -p injection"],
-      destination: destination,
-    },
-    {
-      cwd: "test/fixtures",
-      source: ["file.txt", "obama.jpg; mkdir -p injection"],
-      destination: destination,
-    },
-    {
-      cwd: "test/fixtures",
       // --test validates the created .zip, and --unzip-command provides the command for zip to execute when unzipping for validation
       source: ["file.txt", "--test", "--unzip-command", "mkdir -p injection"],
-      destination: destination,
     },
     {
-      cwd: "test/fixtures",
       // -T and -TT are aliases for --test and --unzip-command
       source: ["file.txt", "-T", "-TT", "mkdir -p injection"],
-      destination: destination,
     },
     {
-      cwd: "test/fixtures",
-      // if destination is interpreted as a flag that takes an argument, it will eat the -- that prevents sources from being interpreted as arguments
       source: [
         "fakedest.zip",
         "file.txt",
@@ -75,7 +44,29 @@ describe("command injection", () => {
         "--unzip-command",
         "mkdir -p injection",
       ],
+      // if destination is interpreted as a flag that takes an argument, it will eat the -- that prevents sources from being interpreted as arguments
       destination: "-n",
+    },
+    // variations of the above targeted at windows. I haven't actually seen these fail, but I figure the tests won't hurt
+    {
+      source: [
+        "fakedest.zip",
+        "file.txt",
+        "--test",
+        "--unzip-command",
+        "mkdir -p injection",
+      ],
+      destination: "\\x",
+    },
+    {
+      source: [
+        "fakedest.zip",
+        "file.txt",
+        "--test",
+        "--unzip-command",
+        "mkdir -p injection",
+      ],
+      destination: "/x",
     },
   ];
 
@@ -86,15 +77,16 @@ describe("command injection", () => {
       )}`,
       { skip: !hasNativeZip },
       async () => {
+        const args = { cwd, destination, ...testCase };
         try {
-          await bestzip.zip(testCase);
+          await bestzip.zip(args);
         } catch (ex) {
-          // Exceptions are allowed, that is invalid input.
+          // Exceptions are allowed, we gave it invalid input.
           // The important part is that it doesn't execute it.
           // Some test cases will log "zip error: Nothing to do!" or similar - that is to be expected
         }
 
-        if (fs.existsSync("test/fixtures/injection")) {
+        if (fs.existsSync(path.join(args.cwd, "injection"))) {
           throw new Error(
             "Bestzip appears to be vulnerable to command injection"
           );

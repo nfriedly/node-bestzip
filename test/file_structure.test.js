@@ -6,7 +6,7 @@ import { describe, test, before, beforeEach, after } from "node:test";
 import klaw from "klaw-sync";
 import { init } from "./helpers.js";
 
-const { tmpdir, destination, cleanup } = init("file_structure");
+const { tmpdir, destination, reset, cleanup } = init("file_structure");
 const __dirname = import.meta.dirname;
 
 import unzip from "./unzip.js";
@@ -60,7 +60,7 @@ describe("file structure", () => {
   const hasNativeZip = bestzip.hasNativeZip();
 
   before(createSymlink);
-  beforeEach(cleanup);
+  beforeEach(reset);
   after(cleanup);
 
   // these tests have known good snapshots
@@ -182,7 +182,7 @@ describe("file structure", () => {
         await unzip(destination, tmpdir);
         const nodeStructure = getStructure(tmpdir);
 
-        await cleanup();
+        await reset();
 
         child_process.execSync(
           `node ${cli} --force=native ${destination} ${args}`

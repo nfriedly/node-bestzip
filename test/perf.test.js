@@ -4,10 +4,10 @@ import { describe, test, beforeEach, after } from "node:test";
 import { init } from "./helpers.js";
 import * as bestzip from "../lib/bestzip.js";
 
-const { destination, cleanup } = init("perf");
+const { destination, reset, cleanup } = init("perf");
 
 describe("Performance", () => {
-  beforeEach(cleanup);
+  beforeEach(reset);
   after(cleanup);
 
   const getPerf = async (zipFn) => {
