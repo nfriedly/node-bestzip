@@ -28,6 +28,6 @@ jobs:
         with:
           node-version: lts/*
           registry-url: https://registry.npmjs.org/
-      - run: npm publish --provenance
+      - run: npm publish --provenance --tag v2-backports
         env:
           NODE_AUTH_TOKEN: ${{secrets.npm_token}}
