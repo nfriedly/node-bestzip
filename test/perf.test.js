@@ -12,10 +12,13 @@ describe("Performance", () => {
 
   const getPerf = async (zipFn) => {
     const start = Date.now();
+    // followSymLinks: true so the function is compatible with both native and
+    // node implementations regardless of the platform's symlink support.
     await zipFn({
       cwd: path.join(import.meta.dirname, "../"),
       source: "*",
       destination,
+      followSymLinks: true,
     });
     const duration = Date.now() - start;
 
