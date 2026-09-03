@@ -16,6 +16,11 @@ const argv = yargs(hideBin(process.argv))
     type: "number",
     default: -1,
   })
+  .option("follow-sym-links", {
+    describe:
+      "Follow symbolic links and include their target contents in the archive",
+    type: "boolean",
+  })
   .demand(2).argv;
 
 const destination = argv._.shift();
@@ -43,6 +48,7 @@ zip({
   destination,
   verbose: !!argv.verbose,
   level: argv.level,
+  followSymLinks: argv.followSymLinks,
 })
   .then(function () {
     console.log("zipped!");
