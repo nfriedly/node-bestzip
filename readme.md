@@ -36,6 +36,12 @@ package.json:
 }
 ```
 
+## Command line options
+
+* `--level N` / `-N`: Level of compression, as with the native `zip` command. `N` must be an integer from 0 (store, no compression) to 9 (maximum compression). Defaults to each implementation's own default when unset.
+* `--force node|native`: Force the Node.js implementation or the native `zip` command instead of letting bestzip pick automatically.
+* `--follow-sym-links`: Follow symbolic links and include their target contents in the archive (the default). Pass the flag to keep this default; there is no CLI opt-out.
+
 ## Programmatic usage from within Node.js
 
 ```javascript
