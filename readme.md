@@ -28,7 +28,7 @@ package.json:
 {
     //...
     "scripts": {
-        "build" "...",
+        "build": "...",
         "zip": "bestzip --no-follow-sym-links bundle.zip build/*",
         "upload": "....",
         "deploy": "npm run build && npm run zip && npm run upload"
