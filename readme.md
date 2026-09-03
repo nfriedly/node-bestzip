@@ -36,6 +36,12 @@ package.json:
 }
 ```
 
+## Command line options
+
+* `--level N` / `-N`: Level of compression, as with the native `zip` command. `N` must be an integer from 0 (store, no compression) to 9 (maximum compression). Defaults to each implementation's own default when unset.
+* `--force node|native`: Force the Node.js implementation or the native `zip` command instead of letting bestzip pick automatically.
+* `--follow-sym-links` / `--no-follow-sym-links`: Follow symbolic links and include their target contents in the archive (the default). Use `--no-follow-sym-links` to disable this and store symlinks as links instead.
+
 ## Programmatic usage from within Node.js
 
 ```javascript
@@ -59,11 +65,12 @@ await zip({
 // Callbacks also work: zip(destination, sources, callback)
 ```
 
-### Options
+### API Options
 
 * `source`: Path or paths to files and folders to include in the zip file. String or Array of Strings.
 * `destination`: Path to generated .zip file.
 * `cwd`: Set the Current Working Directory that source and destination paths are relative to. Defaults to `process.cwd()`
+* `level`: Level of compression, as with the native `zip` command. An integer from 0 (store, no compression) to 9 (maximum compression). Defaults to each implementation's own default when unset.
 
 ## How to control the directory structure
 
