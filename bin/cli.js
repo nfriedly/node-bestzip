@@ -14,7 +14,6 @@ const argv = yargs(hideBin(process.argv))
   .option("level", {
     describe: "Level of compression",
     type: "number",
-    default: -1,
   })
   .option("follow-sym-links", {
     describe:
@@ -25,11 +24,6 @@ const argv = yargs(hideBin(process.argv))
 
 const destination = argv._.shift();
 const source = argv._;
-
-if (argv.level < -1 || argv.level > 9) {
-  console.error("Invalid compression level, must be >= 0 and <= 9");
-  process.exit(1);
-}
 
 console.log("Writing %s to %s...", source.join(", "), destination);
 
