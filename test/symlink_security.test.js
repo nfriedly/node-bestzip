@@ -45,9 +45,15 @@ const setup = () => {
 describe("symlink security", { skip: !canCreateSymlinks() }, () => {
   const hasNativeZip = bestzip.hasNativeZip();
 
+  // The native zip on Windows (Info-ZIP) can't store symlinks as links and
+  // doesn't write POSIX file type attributes, so its output can't express the
+  // follow-vs-link distinction these tests assert. Skip the nativeZip variant
+  // there; the nodeZip variant still covers the behavior.
+  const nativeUsable = hasNativeZip && bestzip.nativeZipSupportsSymlinks();
+
   const runOnBothZips = (title, body) => {
     test(`${title} (nodeZip)`, async (t) => body(bestzip.nodeZip, t));
-    test(`${title} (nativeZip)`, { skip: !hasNativeZip }, async (t) =>
+    test(`${title} (nativeZip)`, { skip: !nativeUsable }, async (t) =>
       body(bestzip.nativeZip, t)
     );
   };
@@ -153,6 +159,18 @@ describe("symlink security", { skip: !canCreateSymlinks() }, () => {
     }
   );
 
+  // The CLI routes to the native zip when it's available. On platforms where
+  // the native zip can't store symlinks (Windows Info-ZIP), the followed entry
+  // has no POSIX type bits, so only the content assertion is meaningful there.
+  const assertFollowedLeak = (entries) => {
+    if (bestzip.nativeZipSupportsSymlinks()) {
+      assert.equal(entries["archive-me/leak.txt"].type, S_IFREG);
+    }
+    assert.ok(
+      entries["archive-me/leak.txt"].data.toString().includes(SECRET_CONTENTS)
+    );
+  };
+
   test("cli warns and follows symlinks by default", () => {
     const result = spawnSync(
       process.execPath,
@@ -162,11 +180,7 @@ describe("symlink security", { skip: !canCreateSymlinks() }, () => {
     assert.ok(result.stderr.includes("Symbolic links are followed by default"));
     assert.ok(result.stderr.includes("pass --follow-sym-links"));
     assert.ok(result.stderr.includes("pass --no-follow-sym-links"));
-    const entries = readZipEntries(destination);
-    assert.equal(entries["archive-me/leak.txt"].type, S_IFREG);
-    assert.ok(
-      entries["archive-me/leak.txt"].data.toString().includes(SECRET_CONTENTS)
-    );
+    assertFollowedLeak(readZipEntries(destination));
   });
 
   test("cli --follow-sym-links follows symlinks without warning", () => {
@@ -178,11 +192,7 @@ describe("symlink security", { skip: !canCreateSymlinks() }, () => {
     assert.ok(
       !result.stderr.includes("Symbolic links are followed by default")
     );
-    const entries = readZipEntries(destination);
-    assert.equal(entries["archive-me/leak.txt"].type, S_IFREG);
-    assert.ok(
-      entries["archive-me/leak.txt"].data.toString().includes(SECRET_CONTENTS)
-    );
+    assertFollowedLeak(readZipEntries(destination));
   });
 
   test("cli --no-follow-sym-links stores symlinks as links without warning", () => {

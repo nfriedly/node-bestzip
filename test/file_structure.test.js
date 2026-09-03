@@ -223,7 +223,7 @@ describe("file structure", () => {
     symlink: isSymlinkDependent(testCase.source, testCase.cwd),
   }));
 
-// The native-vs-node comparison only works when the native zip can actually
+  // The native-vs-node comparison only works when the native zip can actually
   // participate — it must support --symlinks (or followSymLinks must be set).
   // On platforms like Windows where Info-ZIP lacks --symlinks, nativeZip will
   // throw, so skip every case.

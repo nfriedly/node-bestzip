@@ -87,10 +87,13 @@ describe("bestzip", function () {
       });
 
       it("should contain valid data after unarchive", async function () {
-        validArchiveFilePath = path.join(__dirname, "validArchive.zip");
-        validArchiveExtractFolder = path.join(__dirname, "validArchiveExtract");
+        validArchiveFilePath = path.join(os.tmpdir(), "validArchive.zip");
+        validArchiveExtractFolder = path.join(
+          os.tmpdir(),
+          "validArchiveExtract"
+        );
         validArchiveExtractedFile1Path = path.join(
-          __dirname,
+          os.tmpdir(),
           "validArchiveExtract",
           __dirname.replace(/^[A-Z]:/, ""),
           fixturesFolder,
@@ -174,10 +177,13 @@ describe("bestzip", function () {
         validArchiveExtractedFile1Path;
 
       beforeEach(async function () {
-        validArchiveFilePath = path.join(__dirname, "validArchive.zip");
-        validArchiveExtractFolder = path.join(__dirname, "validArchiveExtract");
+        validArchiveFilePath = path.join(os.tmpdir(), "validArchive.zip");
+        validArchiveExtractFolder = path.join(
+          os.tmpdir(),
+          "validArchiveExtract"
+        );
         validArchiveExtractedFile1Path = path.join(
-          __dirname,
+          os.tmpdir(),
           "validArchiveExtract",
           __dirname.replace(/^[A-Z]:/, ""),
           fixturesFolder,
