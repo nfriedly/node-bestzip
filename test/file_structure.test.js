@@ -4,7 +4,7 @@ import path from "node:path";
 import assert from "node:assert";
 import { describe, test, before, beforeEach, after } from "node:test";
 import klaw from "klaw-sync";
-import { init, canCreateSymlinks } from "./helpers.js";
+import { canCreateSymlinks, init } from "./helpers.js";
 
 const { tmpdir, destination, reset, cleanup } = init("file_structure");
 const __dirname = import.meta.dirname;
