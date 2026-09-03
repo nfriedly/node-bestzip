@@ -43,9 +43,13 @@ const setup = () => {
 };
 
 describe("symlink security", { skip: !canCreateSymlinks() }, () => {
+  const hasNativeZip = bestzip.hasNativeZip();
+
   const runOnBothZips = (title, body) => {
     test(`${title} (nodeZip)`, async (t) => body(bestzip.nodeZip, t));
-    test(`${title} (nativeZip)`, async (t) => body(bestzip.nativeZip, t));
+    test(`${title} (nativeZip)`, { skip: !hasNativeZip }, async (t) =>
+      body(bestzip.nativeZip, t)
+    );
   };
 
   beforeEach(() => {
