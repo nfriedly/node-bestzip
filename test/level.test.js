@@ -78,6 +78,36 @@ describe("compression level", () => {
     );
   });
 
+  test("cli -N shorthand is equivalent to --level N", () => {
+    const withLevel = (level) => {
+      const result = spawnSync(
+        process.execPath,
+        [cli, "--level", String(level), destination, "big.txt"],
+        { cwd, encoding: "utf8" }
+      );
+      assert.equal(result.status, 0, result.stderr);
+      return size();
+    };
+    const withShorthand = (n) => {
+      const result = spawnSync(
+        process.execPath,
+        [cli, `-${n}`, destination, "big.txt"],
+        { cwd, encoding: "utf8" }
+      );
+      assert.equal(result.status, 0, result.stderr);
+      return size();
+    };
+    for (const n of [0, 1, 5, 9]) {
+      const sizeLong = withLevel(n);
+      const sizeShort = withShorthand(n);
+      assert.equal(
+        sizeShort,
+        sizeLong,
+        `-N shorthand: -${n} (${sizeShort} bytes) should equal --level ${n} (${sizeLong} bytes)`
+      );
+    }
+  });
+
   describe("invalid level", () => {
     const invalidLevels = [-1, 10, 1.5, -5, "5", NaN];
 
