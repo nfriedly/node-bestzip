@@ -65,11 +65,12 @@ await zip({
 // Callbacks also work: zip(destination, sources, callback)
 ```
 
-### Options
+### API Options
 
 * `source`: Path or paths to files and folders to include in the zip file. String or Array of Strings.
 * `destination`: Path to generated .zip file.
 * `cwd`: Set the Current Working Directory that source and destination paths are relative to. Defaults to `process.cwd()`
+* `level`: Level of compression, as with the native `zip` command. An integer from 0 (store, no compression) to 9 (maximum compression). Defaults to each implementation's own default when unset.
 
 ## How to control the directory structure
 
