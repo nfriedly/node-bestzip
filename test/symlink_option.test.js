@@ -11,11 +11,6 @@ import { canCreateSymlinks, init, readZipEntries } from "./helpers.js";
 const S_IFREG = 0o100000;
 const S_IFLNK = 0o120000;
 
-// readlink() and archiver return symlink targets with platform-specific
-// separators (Windows may use "/" even though the filesystem uses "\"), so
-// normalize when comparing raw target paths.
-const normalizeSlashes = (p) => p.replaceAll("\\", "/");
-
 const { tmpdir } = init("symlink_option");
 const cwd = path.join(tmpdir, "cwd");
 const targetFile = path.join(cwd, "target.txt");
@@ -96,8 +91,8 @@ describe("symlink option", { skip: !canCreateSymlinks() }, () => {
     assert.equal(entries["archive-me/vendor"].type, S_IFLNK);
     // link data is the raw target path, not the file contents
     assert.equal(
-      normalizeSlashes(entries["archive-me/link.txt"].data.toString()),
-      normalizeSlashes(targetFile)
+      path.normalize(entries["archive-me/link.txt"].data.toString()),
+      path.normalize(targetFile)
     );
     assert.equal(entries["archive-me/target.txt"], undefined);
 
@@ -117,8 +112,8 @@ describe("symlink option", { skip: !canCreateSymlinks() }, () => {
     const entries = readZipEntries(destination);
     assert.equal(entries["top-link.txt"].type, S_IFLNK);
     assert.equal(
-      normalizeSlashes(entries["top-link.txt"].data.toString()),
-      normalizeSlashes(targetFile)
+      path.normalize(entries["top-link.txt"].data.toString()),
+      path.normalize(targetFile)
     );
   });
 
