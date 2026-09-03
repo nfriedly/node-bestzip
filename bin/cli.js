@@ -49,6 +49,7 @@ zip({
   verbose: !!argv.verbose,
   level: argv.level,
   followSymLinks: argv.followSymLinks,
+  viaCli: true,
 })
   .then(function () {
     console.log("zipped!");

@@ -63,7 +63,8 @@ describe(
     });
     after(() => fs.rmSync(tmpdir, { recursive: true, force: true }));
 
-    test("follows a file symlink inside a walked directory", async () => {
+    test("follows a file symlink inside a walked directory", async (t) => {
+      const warn = t.mock.method(console, "warn", () => {});
       await bestzip.nodeZip({ cwd, source: "archive-me/", destination });
       const entries = readZipEntries(destination);
       assert.equal(entries["archive-me/link.txt"].type, S_IFREG);
@@ -72,16 +73,26 @@ describe(
         TARGET_CONTENTS
       );
       assert.ok(entries["archive-me/vendor/vendored.txt"]);
+      assert.ok(warn.mock.calls.length > 0);
+      assert.ok(
+        warn.mock.calls
+          .map((c) => c.arguments.join(" "))
+          .join(" ")
+          .includes("Symbolic links are followed by default")
+      );
     });
 
-    test("follows a top-level symlink source", async () => {
+    test("follows a top-level symlink source", async (t) => {
+      const warn = t.mock.method(console, "warn", () => {});
       await bestzip.nodeZip({ cwd, source: "top-link.txt", destination });
       const entries = readZipEntries(destination);
       assert.equal(entries["top-link.txt"].type, S_IFREG);
       assert.equal(entries["top-link.txt"].data.toString(), TARGET_CONTENTS);
+      assert.ok(warn.mock.calls.length > 0);
     });
 
-    test("recurses into a top-level symlinked directory", async () => {
+    test("recurses into a top-level symlinked directory", async (t) => {
+      const warn = t.mock.method(console, "warn", () => {});
       await bestzip.nodeZip({ cwd, source: "vendor-link", destination });
       const entries = readZipEntries(destination);
       assert.equal(entries["vendor-link/vendored.txt"].type, S_IFREG);
@@ -89,6 +100,7 @@ describe(
         entries["vendor-link/vendored.txt"].data.toString(),
         "from vendor dir"
       );
+      assert.ok(warn.mock.calls.length > 0);
     });
   }
 );

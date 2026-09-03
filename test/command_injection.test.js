@@ -6,6 +6,12 @@ import { init } from "./helpers.js";
 
 describe("command injection", () => {
   const hasNativeZip = bestzip.hasNativeZip();
+  // These destination-as-flag vectors only make sense against the native zip
+  // command. When the platform's native zip can't store symlinks, bestzip.zip()
+  // routes to nodeZip, which doesn't use "--" but instead may try to open the
+  // destination path asynchronously (e.g. C:\x) and fail outside the test's
+  // try/catch, breaking the suite.
+  const nativeUsable = hasNativeZip && bestzip.nativeZipSupportsSymlinks();
 
   const { destination, fixturesDir: cwd, reset, cleanup } = init(
     "command_injection",
@@ -57,6 +63,7 @@ describe("command injection", () => {
         "mkdir -p injection",
       ],
       destination: "\\x",
+      flagVector: true,
     },
     {
       source: [
@@ -67,6 +74,7 @@ describe("command injection", () => {
         "mkdir -p injection",
       ],
       destination: "/x",
+      flagVector: true,
     },
   ];
 
@@ -75,7 +83,7 @@ describe("command injection", () => {
       `should NOT execute commands from the list of sources: ${JSON.stringify(
         testCase
       )}`,
-      { skip: !hasNativeZip },
+      { skip: !hasNativeZip || (testCase.flagVector && !nativeUsable) },
       async () => {
         const args = { cwd, destination, ...testCase };
         try {
