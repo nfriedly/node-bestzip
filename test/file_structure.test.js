@@ -4,7 +4,7 @@ import path from "node:path";
 import assert from "node:assert";
 import { describe, test, before, beforeEach, after } from "node:test";
 import klaw from "klaw-sync";
-import { init, canCreateSymlinks } from "./helpers.js";
+import { canCreateSymlinks, init } from "./helpers.js";
 
 const { tmpdir, destination, reset, cleanup } = init("file_structure");
 const __dirname = import.meta.dirname;
@@ -223,7 +223,7 @@ describe("file structure", () => {
     symlink: isSymlinkDependent(testCase.source, testCase.cwd),
   }));
 
-  // The native-vs-node comparison only works when the native zip can actually
+// The native-vs-node comparison only works when the native zip can actually
   // participate — it must support --symlinks (or followSymLinks must be set).
   // On platforms like Windows where Info-ZIP lacks --symlinks, nativeZip will
   // throw, so skip every case.
