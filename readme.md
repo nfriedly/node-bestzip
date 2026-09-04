@@ -16,7 +16,7 @@ The native `zip` command on GNU/Linux and macOS is significantly faster and crea
 ## Global command line usage
 
     npm install -g bestzip
-    bestzip destination.zip source/ [other sources...]
+    bestzip --no-follow-sym-links destination.zip source/ [other sources...]
 
 ## Command line usage within `package.json` scripts
 
@@ -38,15 +38,16 @@ package.json:
 
 ## Command line options
 
+* `--follow-sym-links` / `--no-follow-sym-links`: Follow symbolic links and include their target contents in the archive (the default) or don't follow and instead include the link itself. Setting one flag or the other is recommended because the default will change in the next major version (v4.0.0). If symlinks are encountered when the flag is not set, a warning will be logged.
 * `--level N` / `-N`: Level of compression, as with the native `zip` command. `N` must be an integer from 0 (store, no compression) to 9 (maximum compression). Defaults to each implementation's own default when unset.
 * `--force node|native`: Force the Node.js implementation or the native `zip` command instead of letting bestzip pick automatically.
-* `--follow-sym-links` / `--no-follow-sym-links`: Follow symbolic links and include their target contents in the archive (the default). Use `--no-follow-sym-links` to disable this and store symlinks as links instead.
+
 
 ## Programmatic usage from within Node.js
 
 ```javascript
-import zip from 'bestzip';
-// use version 2.x for require()
+import { zip } from 'bestzip';
+// const { zip } = require('bestzip'); // for CJS (requires node.js v22 or newer
 
 // zip a single source
 await zip({
