@@ -111,11 +111,3 @@ Wildcards (`*`) ignore dotfiles.
 * To include a dotfile, either include the directory it's in (`folder/`) or include it by name (`folder/.dotfile`)
 * To omit dotfiles, either use a wildcard (`folder/*`) or explicitly list the desired files (`folder/file1.txt folder/file2.txt`)
 
-## Breaking changes for v2
-
-* `bestzip output.zip foo/bar/file.txt` now includes the foo/bar/ folders, previously it would place file.txt at the top-level
-  * This was done to more closely align with the native zip command
-
-## Breaking changes for v3
-
-* Switched from CJS to ESM
