@@ -15,12 +15,16 @@ The native `zip` command on GNU/Linux and macOS is significantly faster and crea
 
 ## Global command line usage
 
-    npm install -g bestzip
-    bestzip --no-follow-sym-links destination.zip source/ [other sources...]
+```bash
+npm install -g bestzip
+bestzip --no-follow-sym-links destination.zip source/ [other sources...]
+```
 
 ## Command line usage within `package.json` scripts
 
-    npm install --save-dev bestzip
+```bash
+npm install --save-dev bestzip
+```
 
 package.json:
 
@@ -46,18 +50,18 @@ package.json:
 ## Programmatic usage from within Node.js
 
 ```javascript
-import { zip } from 'bestzip';
-// const { zip } = require('bestzip'); // for CJS (requires node.js v22 or newer
+import { bestZip } from 'bestzip';
+// const { bestZip } = require('bestzip'); // for CJS (requires node.js v22 or newer
 
 // zip a single source
-await zip({
+await bestZip({
   source: 'build/*',
   destination: './destination.zip',
   followSymLinks: false,
 })
 
 // zip multiple sources, starting in a different CWD (current working directory)
-await zip({
+await bestZip({
   source: ['img1.jpg', 'img2.jpg', 'imgn.jpg'],
   destination: '../images.zip',
   cwd: './images/', // optional, defaults to process.cwd()
@@ -75,16 +79,6 @@ await zip({
 * `cwd`: Set the Current Working Directory that source and destination paths are relative to. Defaults to `process.cwd()`
 * `level`: Level of compression, as with the native `zip` command. An integer from 0 (store, no compression) to 9 (maximum compression). Defaults to each implementation's own default when unset.
 * `followSymLinks`: Follow symbolic links and include the contents of their targets in the zip file. When set to `true` or `false` the preference is honored and no warning is printed. When left unset, symbolic links are **not** followed and a warning is printed whenever symlinks are detected (see [Symbolic links](#symbolic-links)).
-
-## Symbolic links
-
-By default, bestzip does **not** follow symbolic links. Symlinks are stored in the archive as link entries rather than as the contents of their targets. This prevents an archive from accidentally (or maliciously) capturing files from anywhere else on the filesystem that only happen to be reachable through a symlink inside the directory being archived.
-
-When symlinks are present and the `followSymLinks` option has not been set explicitly, bestzip prints a warning to stderr listing the symlinked paths and how to opt in to following them.
-
-To follow symlinks, set `followSymLinks: true` (programmatic API) or pass `--follow-sym-links` on the command line. To keep the link entries (the default behavior) while suppressing the warning, set `followSymLinks: false` or pass `--no-follow-sym-links` on the command line.
-
-When archiving symlinks without following them, bestzip uses the native `zip` command when available. Some native `zip` builds (notably the Windows build of Info-ZIP) cannot store symlinks as link entries at all, so bestzip falls back to its built-in Node.js implementation in that case to preserve the secure default. Note that calling `bestzip.nativeZip` directly with `followSymLinks` unset/false on such a platform throws an error; use the `bestzip()` entry point, which routes to the Node.js implementation automatically. Use `bestzip.nativeZipSupportsSymlinks()` to check whether the available native `zip` can store symlinks as links; it returns `true`/`false` and caches its result after the first call. `bestzip.hasNativeZip()` checks whether a native `zip` is installed at all.
 
 ## How to control the directory structure
 
@@ -111,3 +105,13 @@ Wildcards (`*`) ignore dotfiles.
 * To include a dotfile, either include the directory it's in (`folder/`) or include it by name (`folder/.dotfile`)
 * To omit dotfiles, either use a wildcard (`folder/*`) or explicitly list the desired files (`folder/file1.txt folder/file2.txt`)
 
+## Symbolic links
+
+Starting in v4, bestzip does **not** follow symbolic links by default. Symlinks are stored in the archive as link entries rather than as the contents of their targets. This prevents an archive from accidentally (or maliciously) capturing files from anywhere else on the filesystem that only happen to be reachable through a symlink inside the directory being archived.
+
+When symlinks are present and the `followSymLinks` option has not been set explicitly, bestzip prints a warning to stderr listing the symlinked paths and how to opt in to following them.
+
+To follow symlinks, set `followSymLinks: true` (programmatic API) or pass `--follow-sym-links` on the command line. To keep the link entries (the default behavior) while suppressing the warning, set `followSymLinks: false` or pass `--no-follow-sym-links` on the command line.
+
+When archiving symlinks without following them, bestzip uses the native `zip` command when available. Some native `zip` builds (notably the Windows build of Info-ZIP) cannot store symlinks as link entries at all, so bestzip falls back to its built-in Node.js implementation in that case. 
+Note that calling `nativeZip()` directly with `followSymLinks` unset/false on such a platform throws an error; use the `bestZip()` entry point, which routes to the Node.js implementation automatically. Use `nativeZipSupportsSymlinks()` to check whether the available native `zip` can store symlinks as links; it returns `true`/`false` and caches its result after the first call. `bestzip.hasNativeZip()` checks whether a native `zip` is installed at all.

@@ -17,6 +17,10 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 - Default behavior of symlinks changed from including the target to including the link. Set `--follow-sym-links` or `followSymLinks: true` to restore previous behavior.
 
+### Added
+
+- New `bestZip()` export aliases existing `zip()` export
+
 
 ## [3.1.0](https://github.com/nfriedly/node-bestzip/releases/tag/v3.1.0) - 2026-09-06
 
