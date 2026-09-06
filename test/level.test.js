@@ -24,9 +24,21 @@ const kb = (bytes) => `${(bytes / 1024).toFixed(1)} kB`;
 // Zip the same compressible file at level 0 and level 9 and assert the
 // resulting archives differ by a large margin, i.e. the level was honored.
 async function assertLevelHonored(impl, label) {
-  await impl({ cwd, source: "big.txt", destination, level: 0 });
+  await impl({
+    cwd,
+    source: "big.txt",
+    destination,
+    level: 0,
+    followSymLinks: true,
+  });
   const size0 = size();
-  await impl({ cwd, source: "big.txt", destination, level: 9 });
+  await impl({
+    cwd,
+    source: "big.txt",
+    destination,
+    level: 9,
+    followSymLinks: true,
+  });
   const size9 = size();
   assert.ok(
     size0 > size9 * 5,
