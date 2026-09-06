@@ -94,7 +94,27 @@ const symlinkOpts = (testCase) =>
     ? { skip: true }
     : undefined;
 
-describe("file structure", () => {
+const symlinkStyles = [
+  {
+    name: "default follow symlinks",
+    cli,
+    testCases
+  },
+  {
+    name: "no follow symlinks",
+    cli: `${cli} --no-follow-sym-links`,
+    testCases: testCases.map((testCase) => ({ ...testCase, followSymLinks: false }),)
+  },
+  {
+    name: "follow symlinks",
+    cli: `${cli} --follow-sym-links`,
+    testCases: testCases.map((testCase) => ({ ...testCase, followSymLinks: true }),)
+  },
+]
+
+for (const { name, cli, testCases } of symlinkStyles) {
+
+describe("file structure - " + name, () => {
   const hasNativeZip = bestzip.hasNativeZip();
 
   before(createSymlink);
@@ -258,3 +278,5 @@ describe("file structure", () => {
     );
   }
 });
+
+}

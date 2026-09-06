@@ -1,4 +1,4 @@
-exports[`file structure > cli with --force=node: {\"cwd\":\"test/\",\"source\":\"fixtures/*/*.txt\"} 1`] = `
+exports[`file structure - default follow symlinks > cli with --force=node: {\"cwd\":\"test/\",\"source\":\"fixtures/*/*.txt\"} 1`] = `
 [
   "/fixtures",
   "/fixtures/subdir",
@@ -9,7 +9,7 @@ exports[`file structure > cli with --force=node: {\"cwd\":\"test/\",\"source\":\
 ]
 `;
 
-exports[`file structure > cli with --force=node: {\"cwd\":\"test/\",\"source\":\"fixtures/*\"} 1`] = `
+exports[`file structure - default follow symlinks > cli with --force=node: {\"cwd\":\"test/\",\"source\":\"fixtures/*\"} 1`] = `
 [
   "/fixtures",
   "/fixtures/file-symlink.txt",
@@ -23,7 +23,7 @@ exports[`file structure > cli with --force=node: {\"cwd\":\"test/\",\"source\":\
 ]
 `;
 
-exports[`file structure > cli with --force=node: {\"cwd\":\"test/\",\"source\":\"fixtures/\"} 1`] = `
+exports[`file structure - default follow symlinks > cli with --force=node: {\"cwd\":\"test/\",\"source\":\"fixtures/\"} 1`] = `
 [
   "/fixtures",
   "/fixtures/.dotfile",
@@ -38,7 +38,7 @@ exports[`file structure > cli with --force=node: {\"cwd\":\"test/\",\"source\":\
 ]
 `;
 
-exports[`file structure > cli with --force=node: {\"cwd\":\"test/\",\"source\":\"fixtures/subdir/subfile.txt\"} 1`] = `
+exports[`file structure - default follow symlinks > cli with --force=node: {\"cwd\":\"test/\",\"source\":\"fixtures/subdir/subfile.txt\"} 1`] = `
 [
   "/fixtures",
   "/fixtures/subdir",
@@ -47,7 +47,7 @@ exports[`file structure > cli with --force=node: {\"cwd\":\"test/\",\"source\":\
 ]
 `;
 
-exports[`file structure > cli with --force=node: {\"cwd\":\"test/fixtures/\",\"source\":\"*\"} 1`] = `
+exports[`file structure - default follow symlinks > cli with --force=node: {\"cwd\":\"test/fixtures/\",\"source\":\"*\"} 1`] = `
 [
   "/file-symlink.txt",
   "/file.txt",
@@ -60,7 +60,7 @@ exports[`file structure > cli with --force=node: {\"cwd\":\"test/fixtures/\",\"s
 ]
 `;
 
-exports[`file structure > cli with --force=node: {\"cwd\":\"test/fixtures/\",\"source\":\"./\"} 1`] = `
+exports[`file structure - default follow symlinks > cli with --force=node: {\"cwd\":\"test/fixtures/\",\"source\":\"./\"} 1`] = `
 [
   "/.dotfile",
   "/file-symlink.txt",
@@ -74,21 +74,21 @@ exports[`file structure > cli with --force=node: {\"cwd\":\"test/fixtures/\",\"s
 ]
 `;
 
-exports[`file structure > cli with --force=node: {\"cwd\":\"test/fixtures/\",\"source\":\"file-symlink.txt\"} 1`] = `
+exports[`file structure - default follow symlinks > cli with --force=node: {\"cwd\":\"test/fixtures/\",\"source\":\"file-symlink.txt\"} 1`] = `
 [
   "/file-symlink.txt",
   "/test.zip"
 ]
 `;
 
-exports[`file structure > cli with --force=node: {\"cwd\":\"test/fixtures/subdir\",\"source\":\"../file.txt\"} 1`] = `
+exports[`file structure - default follow symlinks > cli with --force=node: {\"cwd\":\"test/fixtures/subdir\",\"source\":\"../file.txt\"} 1`] = `
 [
   "/file.txt",
   "/test.zip"
 ]
 `;
 
-exports[`file structure > cli with --force=node: {\"cwd\":\"test/fixtures\",\"source\":[\"file.txt\",\".dotfile\"]} 1`] = `
+exports[`file structure - default follow symlinks > cli with --force=node: {\"cwd\":\"test/fixtures\",\"source\":[\"file.txt\",\".dotfile\"]} 1`] = `
 [
   "/.dotfile",
   "/file.txt",
@@ -96,7 +96,7 @@ exports[`file structure > cli with --force=node: {\"cwd\":\"test/fixtures\",\"so
 ]
 `;
 
-exports[`file structure > cli with --force=node: {\"cwd\":\"test/fixtures\",\"source\":[\"file.txt\",\"obama.jpg\"]} 1`] = `
+exports[`file structure - default follow symlinks > cli with --force=node: {\"cwd\":\"test/fixtures\",\"source\":[\"file.txt\",\"obama.jpg\"]} 1`] = `
 [
   "/file.txt",
   "/obama.jpg",
@@ -104,7 +104,7 @@ exports[`file structure > cli with --force=node: {\"cwd\":\"test/fixtures\",\"so
 ]
 `;
 
-exports[`file structure > cli with --force=node: {\"cwd\":\"test/fixtures\",\"source\":[\"file.txt\",\"subdir\"]} 1`] = `
+exports[`file structure - default follow symlinks > cli with --force=node: {\"cwd\":\"test/fixtures\",\"source\":[\"file.txt\",\"subdir\"]} 1`] = `
 [
   "/file.txt",
   "/subdir",
@@ -113,21 +113,21 @@ exports[`file structure > cli with --force=node: {\"cwd\":\"test/fixtures\",\"so
 ]
 `;
 
-exports[`file structure > cli with --force=node: {\"cwd\":\"test/fixtures\",\"source\":\"file.txt\"} 1`] = `
+exports[`file structure - default follow symlinks > cli with --force=node: {\"cwd\":\"test/fixtures\",\"source\":\"file.txt\"} 1`] = `
 [
   "/file.txt",
   "/test.zip"
 ]
 `;
 
-exports[`file structure > cli with --force=node: {\"cwd\":\"test/fixtures\",\"source\":\"obama.jpg\"} 1`] = `
+exports[`file structure - default follow symlinks > cli with --force=node: {\"cwd\":\"test/fixtures\",\"source\":\"obama.jpg\"} 1`] = `
 [
   "/obama.jpg",
   "/test.zip"
 ]
 `;
 
-exports[`file structure > cli with --force=node: {\"cwd\":\"test/fixtures\",\"source\":\"subdir/subfile.txt\"} 1`] = `
+exports[`file structure - default follow symlinks > cli with --force=node: {\"cwd\":\"test/fixtures\",\"source\":\"subdir/subfile.txt\"} 1`] = `
 [
   "/subdir",
   "/subdir/subfile.txt",
@@ -135,7 +135,7 @@ exports[`file structure > cli with --force=node: {\"cwd\":\"test/fixtures\",\"so
 ]
 `;
 
-exports[`file structure > cli: {\"cwd\":\"test/\",\"source\":\"fixtures/*/*.txt\"} 1`] = `
+exports[`file structure - default follow symlinks > cli: {\"cwd\":\"test/\",\"source\":\"fixtures/*/*.txt\"} 1`] = `
 [
   "/fixtures",
   "/fixtures/subdir",
@@ -146,7 +146,7 @@ exports[`file structure > cli: {\"cwd\":\"test/\",\"source\":\"fixtures/*/*.txt\
 ]
 `;
 
-exports[`file structure > cli: {\"cwd\":\"test/\",\"source\":\"fixtures/*\"} 1`] = `
+exports[`file structure - default follow symlinks > cli: {\"cwd\":\"test/\",\"source\":\"fixtures/*\"} 1`] = `
 [
   "/fixtures",
   "/fixtures/file-symlink.txt",
@@ -160,7 +160,7 @@ exports[`file structure > cli: {\"cwd\":\"test/\",\"source\":\"fixtures/*\"} 1`]
 ]
 `;
 
-exports[`file structure > cli: {\"cwd\":\"test/\",\"source\":\"fixtures/\"} 1`] = `
+exports[`file structure - default follow symlinks > cli: {\"cwd\":\"test/\",\"source\":\"fixtures/\"} 1`] = `
 [
   "/fixtures",
   "/fixtures/.dotfile",
@@ -175,7 +175,7 @@ exports[`file structure > cli: {\"cwd\":\"test/\",\"source\":\"fixtures/\"} 1`] 
 ]
 `;
 
-exports[`file structure > cli: {\"cwd\":\"test/\",\"source\":\"fixtures/subdir/subfile.txt\"} 1`] = `
+exports[`file structure - default follow symlinks > cli: {\"cwd\":\"test/\",\"source\":\"fixtures/subdir/subfile.txt\"} 1`] = `
 [
   "/fixtures",
   "/fixtures/subdir",
@@ -184,7 +184,7 @@ exports[`file structure > cli: {\"cwd\":\"test/\",\"source\":\"fixtures/subdir/s
 ]
 `;
 
-exports[`file structure > cli: {\"cwd\":\"test/fixtures/\",\"source\":\"*\"} 1`] = `
+exports[`file structure - default follow symlinks > cli: {\"cwd\":\"test/fixtures/\",\"source\":\"*\"} 1`] = `
 [
   "/file-symlink.txt",
   "/file.txt",
@@ -197,7 +197,7 @@ exports[`file structure > cli: {\"cwd\":\"test/fixtures/\",\"source\":\"*\"} 1`]
 ]
 `;
 
-exports[`file structure > cli: {\"cwd\":\"test/fixtures/\",\"source\":\"./\"} 1`] = `
+exports[`file structure - default follow symlinks > cli: {\"cwd\":\"test/fixtures/\",\"source\":\"./\"} 1`] = `
 [
   "/.dotfile",
   "/file-symlink.txt",
@@ -211,21 +211,21 @@ exports[`file structure > cli: {\"cwd\":\"test/fixtures/\",\"source\":\"./\"} 1`
 ]
 `;
 
-exports[`file structure > cli: {\"cwd\":\"test/fixtures/\",\"source\":\"file-symlink.txt\"} 1`] = `
+exports[`file structure - default follow symlinks > cli: {\"cwd\":\"test/fixtures/\",\"source\":\"file-symlink.txt\"} 1`] = `
 [
   "/file-symlink.txt",
   "/test.zip"
 ]
 `;
 
-exports[`file structure > cli: {\"cwd\":\"test/fixtures/subdir\",\"source\":\"../file.txt\"} 1`] = `
+exports[`file structure - default follow symlinks > cli: {\"cwd\":\"test/fixtures/subdir\",\"source\":\"../file.txt\"} 1`] = `
 [
   "/file.txt",
   "/test.zip"
 ]
 `;
 
-exports[`file structure > cli: {\"cwd\":\"test/fixtures\",\"source\":[\"file.txt\",\".dotfile\"]} 1`] = `
+exports[`file structure - default follow symlinks > cli: {\"cwd\":\"test/fixtures\",\"source\":[\"file.txt\",\".dotfile\"]} 1`] = `
 [
   "/.dotfile",
   "/file.txt",
@@ -233,7 +233,7 @@ exports[`file structure > cli: {\"cwd\":\"test/fixtures\",\"source\":[\"file.txt
 ]
 `;
 
-exports[`file structure > cli: {\"cwd\":\"test/fixtures\",\"source\":[\"file.txt\",\"obama.jpg\"]} 1`] = `
+exports[`file structure - default follow symlinks > cli: {\"cwd\":\"test/fixtures\",\"source\":[\"file.txt\",\"obama.jpg\"]} 1`] = `
 [
   "/file.txt",
   "/obama.jpg",
@@ -241,7 +241,7 @@ exports[`file structure > cli: {\"cwd\":\"test/fixtures\",\"source\":[\"file.txt
 ]
 `;
 
-exports[`file structure > cli: {\"cwd\":\"test/fixtures\",\"source\":[\"file.txt\",\"subdir\"]} 1`] = `
+exports[`file structure - default follow symlinks > cli: {\"cwd\":\"test/fixtures\",\"source\":[\"file.txt\",\"subdir\"]} 1`] = `
 [
   "/file.txt",
   "/subdir",
@@ -250,21 +250,21 @@ exports[`file structure > cli: {\"cwd\":\"test/fixtures\",\"source\":[\"file.txt
 ]
 `;
 
-exports[`file structure > cli: {\"cwd\":\"test/fixtures\",\"source\":\"file.txt\"} 1`] = `
+exports[`file structure - default follow symlinks > cli: {\"cwd\":\"test/fixtures\",\"source\":\"file.txt\"} 1`] = `
 [
   "/file.txt",
   "/test.zip"
 ]
 `;
 
-exports[`file structure > cli: {\"cwd\":\"test/fixtures\",\"source\":\"obama.jpg\"} 1`] = `
+exports[`file structure - default follow symlinks > cli: {\"cwd\":\"test/fixtures\",\"source\":\"obama.jpg\"} 1`] = `
 [
   "/obama.jpg",
   "/test.zip"
 ]
 `;
 
-exports[`file structure > cli: {\"cwd\":\"test/fixtures\",\"source\":\"subdir/subfile.txt\"} 1`] = `
+exports[`file structure - default follow symlinks > cli: {\"cwd\":\"test/fixtures\",\"source\":\"subdir/subfile.txt\"} 1`] = `
 [
   "/subdir",
   "/subdir/subfile.txt",
@@ -272,7 +272,7 @@ exports[`file structure > cli: {\"cwd\":\"test/fixtures\",\"source\":\"subdir/su
 ]
 `;
 
-exports[`file structure > programmatic with nodeZip: {\"cwd\":\"test/\",\"source\":\"fixtures/*/*.txt\"} 1`] = `
+exports[`file structure - default follow symlinks > programmatic with nodeZip: {\"cwd\":\"test/\",\"source\":\"fixtures/*/*.txt\"} 1`] = `
 [
   "/fixtures",
   "/fixtures/subdir",
@@ -283,7 +283,7 @@ exports[`file structure > programmatic with nodeZip: {\"cwd\":\"test/\",\"source
 ]
 `;
 
-exports[`file structure > programmatic with nodeZip: {\"cwd\":\"test/\",\"source\":\"fixtures/*\"} 1`] = `
+exports[`file structure - default follow symlinks > programmatic with nodeZip: {\"cwd\":\"test/\",\"source\":\"fixtures/*\"} 1`] = `
 [
   "/fixtures",
   "/fixtures/file-symlink.txt",
@@ -297,7 +297,7 @@ exports[`file structure > programmatic with nodeZip: {\"cwd\":\"test/\",\"source
 ]
 `;
 
-exports[`file structure > programmatic with nodeZip: {\"cwd\":\"test/\",\"source\":\"fixtures/\"} 1`] = `
+exports[`file structure - default follow symlinks > programmatic with nodeZip: {\"cwd\":\"test/\",\"source\":\"fixtures/\"} 1`] = `
 [
   "/fixtures",
   "/fixtures/.dotfile",
@@ -312,7 +312,7 @@ exports[`file structure > programmatic with nodeZip: {\"cwd\":\"test/\",\"source
 ]
 `;
 
-exports[`file structure > programmatic with nodeZip: {\"cwd\":\"test/\",\"source\":\"fixtures/subdir/subfile.txt\"} 1`] = `
+exports[`file structure - default follow symlinks > programmatic with nodeZip: {\"cwd\":\"test/\",\"source\":\"fixtures/subdir/subfile.txt\"} 1`] = `
 [
   "/fixtures",
   "/fixtures/subdir",
@@ -321,7 +321,7 @@ exports[`file structure > programmatic with nodeZip: {\"cwd\":\"test/\",\"source
 ]
 `;
 
-exports[`file structure > programmatic with nodeZip: {\"cwd\":\"test/fixtures/\",\"source\":\"*\"} 1`] = `
+exports[`file structure - default follow symlinks > programmatic with nodeZip: {\"cwd\":\"test/fixtures/\",\"source\":\"*\"} 1`] = `
 [
   "/file-symlink.txt",
   "/file.txt",
@@ -334,7 +334,7 @@ exports[`file structure > programmatic with nodeZip: {\"cwd\":\"test/fixtures/\"
 ]
 `;
 
-exports[`file structure > programmatic with nodeZip: {\"cwd\":\"test/fixtures/\",\"source\":\"./\"} 1`] = `
+exports[`file structure - default follow symlinks > programmatic with nodeZip: {\"cwd\":\"test/fixtures/\",\"source\":\"./\"} 1`] = `
 [
   "/.dotfile",
   "/file-symlink.txt",
@@ -348,21 +348,21 @@ exports[`file structure > programmatic with nodeZip: {\"cwd\":\"test/fixtures/\"
 ]
 `;
 
-exports[`file structure > programmatic with nodeZip: {\"cwd\":\"test/fixtures/\",\"source\":\"file-symlink.txt\"} 1`] = `
+exports[`file structure - default follow symlinks > programmatic with nodeZip: {\"cwd\":\"test/fixtures/\",\"source\":\"file-symlink.txt\"} 1`] = `
 [
   "/file-symlink.txt",
   "/test.zip"
 ]
 `;
 
-exports[`file structure > programmatic with nodeZip: {\"cwd\":\"test/fixtures/subdir\",\"source\":\"../file.txt\"} 1`] = `
+exports[`file structure - default follow symlinks > programmatic with nodeZip: {\"cwd\":\"test/fixtures/subdir\",\"source\":\"../file.txt\"} 1`] = `
 [
   "/file.txt",
   "/test.zip"
 ]
 `;
 
-exports[`file structure > programmatic with nodeZip: {\"cwd\":\"test/fixtures\",\"source\":[\"file.txt\",\".dotfile\"]} 1`] = `
+exports[`file structure - default follow symlinks > programmatic with nodeZip: {\"cwd\":\"test/fixtures\",\"source\":[\"file.txt\",\".dotfile\"]} 1`] = `
 [
   "/.dotfile",
   "/file.txt",
@@ -370,7 +370,7 @@ exports[`file structure > programmatic with nodeZip: {\"cwd\":\"test/fixtures\",
 ]
 `;
 
-exports[`file structure > programmatic with nodeZip: {\"cwd\":\"test/fixtures\",\"source\":[\"file.txt\",\"obama.jpg\"]} 1`] = `
+exports[`file structure - default follow symlinks > programmatic with nodeZip: {\"cwd\":\"test/fixtures\",\"source\":[\"file.txt\",\"obama.jpg\"]} 1`] = `
 [
   "/file.txt",
   "/obama.jpg",
@@ -378,7 +378,7 @@ exports[`file structure > programmatic with nodeZip: {\"cwd\":\"test/fixtures\",
 ]
 `;
 
-exports[`file structure > programmatic with nodeZip: {\"cwd\":\"test/fixtures\",\"source\":[\"file.txt\",\"subdir\"]} 1`] = `
+exports[`file structure - default follow symlinks > programmatic with nodeZip: {\"cwd\":\"test/fixtures\",\"source\":[\"file.txt\",\"subdir\"]} 1`] = `
 [
   "/file.txt",
   "/subdir",
@@ -387,21 +387,21 @@ exports[`file structure > programmatic with nodeZip: {\"cwd\":\"test/fixtures\",
 ]
 `;
 
-exports[`file structure > programmatic with nodeZip: {\"cwd\":\"test/fixtures\",\"source\":\"file.txt\"} 1`] = `
+exports[`file structure - default follow symlinks > programmatic with nodeZip: {\"cwd\":\"test/fixtures\",\"source\":\"file.txt\"} 1`] = `
 [
   "/file.txt",
   "/test.zip"
 ]
 `;
 
-exports[`file structure > programmatic with nodeZip: {\"cwd\":\"test/fixtures\",\"source\":\"obama.jpg\"} 1`] = `
+exports[`file structure - default follow symlinks > programmatic with nodeZip: {\"cwd\":\"test/fixtures\",\"source\":\"obama.jpg\"} 1`] = `
 [
   "/obama.jpg",
   "/test.zip"
 ]
 `;
 
-exports[`file structure > programmatic with nodeZip: {\"cwd\":\"test/fixtures\",\"source\":\"subdir/subfile.txt\"} 1`] = `
+exports[`file structure - default follow symlinks > programmatic with nodeZip: {\"cwd\":\"test/fixtures\",\"source\":\"subdir/subfile.txt\"} 1`] = `
 [
   "/subdir",
   "/subdir/subfile.txt",
@@ -409,7 +409,7 @@ exports[`file structure > programmatic with nodeZip: {\"cwd\":\"test/fixtures\",
 ]
 `;
 
-exports[`file structure > programmatic: {\"cwd\":\"test/\",\"source\":\"fixtures/*/*.txt\"} 1`] = `
+exports[`file structure - default follow symlinks > programmatic: {\"cwd\":\"test/\",\"source\":\"fixtures/*/*.txt\"} 1`] = `
 [
   "/fixtures",
   "/fixtures/subdir",
@@ -420,7 +420,7 @@ exports[`file structure > programmatic: {\"cwd\":\"test/\",\"source\":\"fixtures
 ]
 `;
 
-exports[`file structure > programmatic: {\"cwd\":\"test/\",\"source\":\"fixtures/*\"} 1`] = `
+exports[`file structure - default follow symlinks > programmatic: {\"cwd\":\"test/\",\"source\":\"fixtures/*\"} 1`] = `
 [
   "/fixtures",
   "/fixtures/file-symlink.txt",
@@ -434,7 +434,7 @@ exports[`file structure > programmatic: {\"cwd\":\"test/\",\"source\":\"fixtures
 ]
 `;
 
-exports[`file structure > programmatic: {\"cwd\":\"test/\",\"source\":\"fixtures/\"} 1`] = `
+exports[`file structure - default follow symlinks > programmatic: {\"cwd\":\"test/\",\"source\":\"fixtures/\"} 1`] = `
 [
   "/fixtures",
   "/fixtures/.dotfile",
@@ -449,7 +449,7 @@ exports[`file structure > programmatic: {\"cwd\":\"test/\",\"source\":\"fixtures
 ]
 `;
 
-exports[`file structure > programmatic: {\"cwd\":\"test/\",\"source\":\"fixtures/subdir/subfile.txt\"} 1`] = `
+exports[`file structure - default follow symlinks > programmatic: {\"cwd\":\"test/\",\"source\":\"fixtures/subdir/subfile.txt\"} 1`] = `
 [
   "/fixtures",
   "/fixtures/subdir",
@@ -458,7 +458,7 @@ exports[`file structure > programmatic: {\"cwd\":\"test/\",\"source\":\"fixtures
 ]
 `;
 
-exports[`file structure > programmatic: {\"cwd\":\"test/fixtures/\",\"source\":\"*\"} 1`] = `
+exports[`file structure - default follow symlinks > programmatic: {\"cwd\":\"test/fixtures/\",\"source\":\"*\"} 1`] = `
 [
   "/file-symlink.txt",
   "/file.txt",
@@ -471,7 +471,7 @@ exports[`file structure > programmatic: {\"cwd\":\"test/fixtures/\",\"source\":\
 ]
 `;
 
-exports[`file structure > programmatic: {\"cwd\":\"test/fixtures/\",\"source\":\"./\"} 1`] = `
+exports[`file structure - default follow symlinks > programmatic: {\"cwd\":\"test/fixtures/\",\"source\":\"./\"} 1`] = `
 [
   "/.dotfile",
   "/file-symlink.txt",
@@ -485,21 +485,21 @@ exports[`file structure > programmatic: {\"cwd\":\"test/fixtures/\",\"source\":\
 ]
 `;
 
-exports[`file structure > programmatic: {\"cwd\":\"test/fixtures/\",\"source\":\"file-symlink.txt\"} 1`] = `
+exports[`file structure - default follow symlinks > programmatic: {\"cwd\":\"test/fixtures/\",\"source\":\"file-symlink.txt\"} 1`] = `
 [
   "/file-symlink.txt",
   "/test.zip"
 ]
 `;
 
-exports[`file structure > programmatic: {\"cwd\":\"test/fixtures/subdir\",\"source\":\"../file.txt\"} 1`] = `
+exports[`file structure - default follow symlinks > programmatic: {\"cwd\":\"test/fixtures/subdir\",\"source\":\"../file.txt\"} 1`] = `
 [
   "/file.txt",
   "/test.zip"
 ]
 `;
 
-exports[`file structure > programmatic: {\"cwd\":\"test/fixtures\",\"source\":[\"file.txt\",\".dotfile\"]} 1`] = `
+exports[`file structure - default follow symlinks > programmatic: {\"cwd\":\"test/fixtures\",\"source\":[\"file.txt\",\".dotfile\"]} 1`] = `
 [
   "/.dotfile",
   "/file.txt",
@@ -507,7 +507,7 @@ exports[`file structure > programmatic: {\"cwd\":\"test/fixtures\",\"source\":[\
 ]
 `;
 
-exports[`file structure > programmatic: {\"cwd\":\"test/fixtures\",\"source\":[\"file.txt\",\"obama.jpg\"]} 1`] = `
+exports[`file structure - default follow symlinks > programmatic: {\"cwd\":\"test/fixtures\",\"source\":[\"file.txt\",\"obama.jpg\"]} 1`] = `
 [
   "/file.txt",
   "/obama.jpg",
@@ -515,7 +515,7 @@ exports[`file structure > programmatic: {\"cwd\":\"test/fixtures\",\"source\":[\
 ]
 `;
 
-exports[`file structure > programmatic: {\"cwd\":\"test/fixtures\",\"source\":[\"file.txt\",\"subdir\"]} 1`] = `
+exports[`file structure - default follow symlinks > programmatic: {\"cwd\":\"test/fixtures\",\"source\":[\"file.txt\",\"subdir\"]} 1`] = `
 [
   "/file.txt",
   "/subdir",
@@ -524,21 +524,1133 @@ exports[`file structure > programmatic: {\"cwd\":\"test/fixtures\",\"source\":[\
 ]
 `;
 
-exports[`file structure > programmatic: {\"cwd\":\"test/fixtures\",\"source\":\"file.txt\"} 1`] = `
+exports[`file structure - default follow symlinks > programmatic: {\"cwd\":\"test/fixtures\",\"source\":\"file.txt\"} 1`] = `
 [
   "/file.txt",
   "/test.zip"
 ]
 `;
 
-exports[`file structure > programmatic: {\"cwd\":\"test/fixtures\",\"source\":\"obama.jpg\"} 1`] = `
+exports[`file structure - default follow symlinks > programmatic: {\"cwd\":\"test/fixtures\",\"source\":\"obama.jpg\"} 1`] = `
 [
   "/obama.jpg",
   "/test.zip"
 ]
 `;
 
-exports[`file structure > programmatic: {\"cwd\":\"test/fixtures\",\"source\":\"subdir/subfile.txt\"} 1`] = `
+exports[`file structure - default follow symlinks > programmatic: {\"cwd\":\"test/fixtures\",\"source\":\"subdir/subfile.txt\"} 1`] = `
+[
+  "/subdir",
+  "/subdir/subfile.txt",
+  "/test.zip"
+]
+`;
+
+exports[`file structure - follow symlinks > cli with --force=node: {\"cwd\":\"test/\",\"source\":\"fixtures/*/*.txt\",\"followSymLinks\":true} 1`] = `
+[
+  "/fixtures",
+  "/fixtures/subdir",
+  "/fixtures/subdir/subfile.txt",
+  "/fixtures/subdir-symlink",
+  "/fixtures/subdir-symlink/subfile.txt",
+  "/test.zip"
+]
+`;
+
+exports[`file structure - follow symlinks > cli with --force=node: {\"cwd\":\"test/\",\"source\":\"fixtures/*\",\"followSymLinks\":true} 1`] = `
+[
+  "/fixtures",
+  "/fixtures/file-symlink.txt",
+  "/fixtures/file.txt",
+  "/fixtures/multiline.txt",
+  "/fixtures/obama.jpg",
+  "/fixtures/subdir",
+  "/fixtures/subdir/subfile.txt",
+  "/fixtures/subdir-symlink",
+  "/fixtures/subdir-symlink/subfile.txt",
+  "/test.zip"
+]
+`;
+
+exports[`file structure - follow symlinks > cli with --force=node: {\"cwd\":\"test/\",\"source\":\"fixtures/\",\"followSymLinks\":true} 1`] = `
+[
+  "/fixtures",
+  "/fixtures/.dotfile",
+  "/fixtures/file-symlink.txt",
+  "/fixtures/file.txt",
+  "/fixtures/multiline.txt",
+  "/fixtures/obama.jpg",
+  "/fixtures/subdir",
+  "/fixtures/subdir/subfile.txt",
+  "/fixtures/subdir-symlink",
+  "/fixtures/subdir-symlink/subfile.txt",
+  "/test.zip"
+]
+`;
+
+exports[`file structure - follow symlinks > cli with --force=node: {\"cwd\":\"test/\",\"source\":\"fixtures/subdir/subfile.txt\",\"followSymLinks\":true} 1`] = `
+[
+  "/fixtures",
+  "/fixtures/subdir",
+  "/fixtures/subdir/subfile.txt",
+  "/test.zip"
+]
+`;
+
+exports[`file structure - follow symlinks > cli with --force=node: {\"cwd\":\"test/fixtures/\",\"source\":\"*\",\"followSymLinks\":true} 1`] = `
+[
+  "/file-symlink.txt",
+  "/file.txt",
+  "/multiline.txt",
+  "/obama.jpg",
+  "/subdir",
+  "/subdir/subfile.txt",
+  "/subdir-symlink",
+  "/subdir-symlink/subfile.txt",
+  "/test.zip"
+]
+`;
+
+exports[`file structure - follow symlinks > cli with --force=node: {\"cwd\":\"test/fixtures/\",\"source\":\"./\",\"followSymLinks\":true} 1`] = `
+[
+  "/.dotfile",
+  "/file-symlink.txt",
+  "/file.txt",
+  "/multiline.txt",
+  "/obama.jpg",
+  "/subdir",
+  "/subdir/subfile.txt",
+  "/subdir-symlink",
+  "/subdir-symlink/subfile.txt",
+  "/test.zip"
+]
+`;
+
+exports[`file structure - follow symlinks > cli with --force=node: {\"cwd\":\"test/fixtures/\",\"source\":\"file-symlink.txt\",\"followSymLinks\":true} 1`] = `
+[
+  "/file-symlink.txt",
+  "/test.zip"
+]
+`;
+
+exports[`file structure - follow symlinks > cli with --force=node: {\"cwd\":\"test/fixtures/subdir\",\"source\":\"../file.txt\",\"followSymLinks\":true} 1`] = `
+[
+  "/file.txt",
+  "/test.zip"
+]
+`;
+
+exports[`file structure - follow symlinks > cli with --force=node: {\"cwd\":\"test/fixtures\",\"source\":[\"file.txt\",\".dotfile\"],\"followSymLinks\":true} 1`] = `
+[
+  "/.dotfile",
+  "/file.txt",
+  "/test.zip"
+]
+`;
+
+exports[`file structure - follow symlinks > cli with --force=node: {\"cwd\":\"test/fixtures\",\"source\":[\"file.txt\",\"obama.jpg\"],\"followSymLinks\":true} 1`] = `
+[
+  "/file.txt",
+  "/obama.jpg",
+  "/test.zip"
+]
+`;
+
+exports[`file structure - follow symlinks > cli with --force=node: {\"cwd\":\"test/fixtures\",\"source\":[\"file.txt\",\"subdir\"],\"followSymLinks\":true} 1`] = `
+[
+  "/file.txt",
+  "/subdir",
+  "/subdir/subfile.txt",
+  "/test.zip"
+]
+`;
+
+exports[`file structure - follow symlinks > cli with --force=node: {\"cwd\":\"test/fixtures\",\"source\":\"file.txt\",\"followSymLinks\":true} 1`] = `
+[
+  "/file.txt",
+  "/test.zip"
+]
+`;
+
+exports[`file structure - follow symlinks > cli with --force=node: {\"cwd\":\"test/fixtures\",\"source\":\"obama.jpg\",\"followSymLinks\":true} 1`] = `
+[
+  "/obama.jpg",
+  "/test.zip"
+]
+`;
+
+exports[`file structure - follow symlinks > cli with --force=node: {\"cwd\":\"test/fixtures\",\"source\":\"subdir/subfile.txt\",\"followSymLinks\":true} 1`] = `
+[
+  "/subdir",
+  "/subdir/subfile.txt",
+  "/test.zip"
+]
+`;
+
+exports[`file structure - follow symlinks > cli: {\"cwd\":\"test/\",\"source\":\"fixtures/*/*.txt\",\"followSymLinks\":true} 1`] = `
+[
+  "/fixtures",
+  "/fixtures/subdir",
+  "/fixtures/subdir/subfile.txt",
+  "/fixtures/subdir-symlink",
+  "/fixtures/subdir-symlink/subfile.txt",
+  "/test.zip"
+]
+`;
+
+exports[`file structure - follow symlinks > cli: {\"cwd\":\"test/\",\"source\":\"fixtures/*\",\"followSymLinks\":true} 1`] = `
+[
+  "/fixtures",
+  "/fixtures/file-symlink.txt",
+  "/fixtures/file.txt",
+  "/fixtures/multiline.txt",
+  "/fixtures/obama.jpg",
+  "/fixtures/subdir",
+  "/fixtures/subdir/subfile.txt",
+  "/fixtures/subdir-symlink",
+  "/fixtures/subdir-symlink/subfile.txt",
+  "/test.zip"
+]
+`;
+
+exports[`file structure - follow symlinks > cli: {\"cwd\":\"test/\",\"source\":\"fixtures/\",\"followSymLinks\":true} 1`] = `
+[
+  "/fixtures",
+  "/fixtures/.dotfile",
+  "/fixtures/file-symlink.txt",
+  "/fixtures/file.txt",
+  "/fixtures/multiline.txt",
+  "/fixtures/obama.jpg",
+  "/fixtures/subdir",
+  "/fixtures/subdir/subfile.txt",
+  "/fixtures/subdir-symlink",
+  "/fixtures/subdir-symlink/subfile.txt",
+  "/test.zip"
+]
+`;
+
+exports[`file structure - follow symlinks > cli: {\"cwd\":\"test/\",\"source\":\"fixtures/subdir/subfile.txt\",\"followSymLinks\":true} 1`] = `
+[
+  "/fixtures",
+  "/fixtures/subdir",
+  "/fixtures/subdir/subfile.txt",
+  "/test.zip"
+]
+`;
+
+exports[`file structure - follow symlinks > cli: {\"cwd\":\"test/fixtures/\",\"source\":\"*\",\"followSymLinks\":true} 1`] = `
+[
+  "/file-symlink.txt",
+  "/file.txt",
+  "/multiline.txt",
+  "/obama.jpg",
+  "/subdir",
+  "/subdir/subfile.txt",
+  "/subdir-symlink",
+  "/subdir-symlink/subfile.txt",
+  "/test.zip"
+]
+`;
+
+exports[`file structure - follow symlinks > cli: {\"cwd\":\"test/fixtures/\",\"source\":\"./\",\"followSymLinks\":true} 1`] = `
+[
+  "/.dotfile",
+  "/file-symlink.txt",
+  "/file.txt",
+  "/multiline.txt",
+  "/obama.jpg",
+  "/subdir",
+  "/subdir/subfile.txt",
+  "/subdir-symlink",
+  "/subdir-symlink/subfile.txt",
+  "/test.zip"
+]
+`;
+
+exports[`file structure - follow symlinks > cli: {\"cwd\":\"test/fixtures/\",\"source\":\"file-symlink.txt\",\"followSymLinks\":true} 1`] = `
+[
+  "/file-symlink.txt",
+  "/test.zip"
+]
+`;
+
+exports[`file structure - follow symlinks > cli: {\"cwd\":\"test/fixtures/subdir\",\"source\":\"../file.txt\",\"followSymLinks\":true} 1`] = `
+[
+  "/file.txt",
+  "/test.zip"
+]
+`;
+
+exports[`file structure - follow symlinks > cli: {\"cwd\":\"test/fixtures\",\"source\":[\"file.txt\",\".dotfile\"],\"followSymLinks\":true} 1`] = `
+[
+  "/.dotfile",
+  "/file.txt",
+  "/test.zip"
+]
+`;
+
+exports[`file structure - follow symlinks > cli: {\"cwd\":\"test/fixtures\",\"source\":[\"file.txt\",\"obama.jpg\"],\"followSymLinks\":true} 1`] = `
+[
+  "/file.txt",
+  "/obama.jpg",
+  "/test.zip"
+]
+`;
+
+exports[`file structure - follow symlinks > cli: {\"cwd\":\"test/fixtures\",\"source\":[\"file.txt\",\"subdir\"],\"followSymLinks\":true} 1`] = `
+[
+  "/file.txt",
+  "/subdir",
+  "/subdir/subfile.txt",
+  "/test.zip"
+]
+`;
+
+exports[`file structure - follow symlinks > cli: {\"cwd\":\"test/fixtures\",\"source\":\"file.txt\",\"followSymLinks\":true} 1`] = `
+[
+  "/file.txt",
+  "/test.zip"
+]
+`;
+
+exports[`file structure - follow symlinks > cli: {\"cwd\":\"test/fixtures\",\"source\":\"obama.jpg\",\"followSymLinks\":true} 1`] = `
+[
+  "/obama.jpg",
+  "/test.zip"
+]
+`;
+
+exports[`file structure - follow symlinks > cli: {\"cwd\":\"test/fixtures\",\"source\":\"subdir/subfile.txt\",\"followSymLinks\":true} 1`] = `
+[
+  "/subdir",
+  "/subdir/subfile.txt",
+  "/test.zip"
+]
+`;
+
+exports[`file structure - follow symlinks > programmatic with nodeZip: {\"cwd\":\"test/\",\"source\":\"fixtures/*/*.txt\",\"followSymLinks\":true} 1`] = `
+[
+  "/fixtures",
+  "/fixtures/subdir",
+  "/fixtures/subdir/subfile.txt",
+  "/fixtures/subdir-symlink",
+  "/fixtures/subdir-symlink/subfile.txt",
+  "/test.zip"
+]
+`;
+
+exports[`file structure - follow symlinks > programmatic with nodeZip: {\"cwd\":\"test/\",\"source\":\"fixtures/*\",\"followSymLinks\":true} 1`] = `
+[
+  "/fixtures",
+  "/fixtures/file-symlink.txt",
+  "/fixtures/file.txt",
+  "/fixtures/multiline.txt",
+  "/fixtures/obama.jpg",
+  "/fixtures/subdir",
+  "/fixtures/subdir/subfile.txt",
+  "/fixtures/subdir-symlink",
+  "/fixtures/subdir-symlink/subfile.txt",
+  "/test.zip"
+]
+`;
+
+exports[`file structure - follow symlinks > programmatic with nodeZip: {\"cwd\":\"test/\",\"source\":\"fixtures/\",\"followSymLinks\":true} 1`] = `
+[
+  "/fixtures",
+  "/fixtures/.dotfile",
+  "/fixtures/file-symlink.txt",
+  "/fixtures/file.txt",
+  "/fixtures/multiline.txt",
+  "/fixtures/obama.jpg",
+  "/fixtures/subdir",
+  "/fixtures/subdir/subfile.txt",
+  "/fixtures/subdir-symlink",
+  "/fixtures/subdir-symlink/subfile.txt",
+  "/test.zip"
+]
+`;
+
+exports[`file structure - follow symlinks > programmatic with nodeZip: {\"cwd\":\"test/\",\"source\":\"fixtures/subdir/subfile.txt\",\"followSymLinks\":true} 1`] = `
+[
+  "/fixtures",
+  "/fixtures/subdir",
+  "/fixtures/subdir/subfile.txt",
+  "/test.zip"
+]
+`;
+
+exports[`file structure - follow symlinks > programmatic with nodeZip: {\"cwd\":\"test/fixtures/\",\"source\":\"*\",\"followSymLinks\":true} 1`] = `
+[
+  "/file-symlink.txt",
+  "/file.txt",
+  "/multiline.txt",
+  "/obama.jpg",
+  "/subdir",
+  "/subdir/subfile.txt",
+  "/subdir-symlink",
+  "/subdir-symlink/subfile.txt",
+  "/test.zip"
+]
+`;
+
+exports[`file structure - follow symlinks > programmatic with nodeZip: {\"cwd\":\"test/fixtures/\",\"source\":\"./\",\"followSymLinks\":true} 1`] = `
+[
+  "/.dotfile",
+  "/file-symlink.txt",
+  "/file.txt",
+  "/multiline.txt",
+  "/obama.jpg",
+  "/subdir",
+  "/subdir/subfile.txt",
+  "/subdir-symlink",
+  "/subdir-symlink/subfile.txt",
+  "/test.zip"
+]
+`;
+
+exports[`file structure - follow symlinks > programmatic with nodeZip: {\"cwd\":\"test/fixtures/\",\"source\":\"file-symlink.txt\",\"followSymLinks\":true} 1`] = `
+[
+  "/file-symlink.txt",
+  "/test.zip"
+]
+`;
+
+exports[`file structure - follow symlinks > programmatic with nodeZip: {\"cwd\":\"test/fixtures/subdir\",\"source\":\"../file.txt\",\"followSymLinks\":true} 1`] = `
+[
+  "/file.txt",
+  "/test.zip"
+]
+`;
+
+exports[`file structure - follow symlinks > programmatic with nodeZip: {\"cwd\":\"test/fixtures\",\"source\":[\"file.txt\",\".dotfile\"],\"followSymLinks\":true} 1`] = `
+[
+  "/.dotfile",
+  "/file.txt",
+  "/test.zip"
+]
+`;
+
+exports[`file structure - follow symlinks > programmatic with nodeZip: {\"cwd\":\"test/fixtures\",\"source\":[\"file.txt\",\"obama.jpg\"],\"followSymLinks\":true} 1`] = `
+[
+  "/file.txt",
+  "/obama.jpg",
+  "/test.zip"
+]
+`;
+
+exports[`file structure - follow symlinks > programmatic with nodeZip: {\"cwd\":\"test/fixtures\",\"source\":[\"file.txt\",\"subdir\"],\"followSymLinks\":true} 1`] = `
+[
+  "/file.txt",
+  "/subdir",
+  "/subdir/subfile.txt",
+  "/test.zip"
+]
+`;
+
+exports[`file structure - follow symlinks > programmatic with nodeZip: {\"cwd\":\"test/fixtures\",\"source\":\"file.txt\",\"followSymLinks\":true} 1`] = `
+[
+  "/file.txt",
+  "/test.zip"
+]
+`;
+
+exports[`file structure - follow symlinks > programmatic with nodeZip: {\"cwd\":\"test/fixtures\",\"source\":\"obama.jpg\",\"followSymLinks\":true} 1`] = `
+[
+  "/obama.jpg",
+  "/test.zip"
+]
+`;
+
+exports[`file structure - follow symlinks > programmatic with nodeZip: {\"cwd\":\"test/fixtures\",\"source\":\"subdir/subfile.txt\",\"followSymLinks\":true} 1`] = `
+[
+  "/subdir",
+  "/subdir/subfile.txt",
+  "/test.zip"
+]
+`;
+
+exports[`file structure - follow symlinks > programmatic: {\"cwd\":\"test/\",\"source\":\"fixtures/*/*.txt\",\"followSymLinks\":true} 1`] = `
+[
+  "/fixtures",
+  "/fixtures/subdir",
+  "/fixtures/subdir/subfile.txt",
+  "/fixtures/subdir-symlink",
+  "/fixtures/subdir-symlink/subfile.txt",
+  "/test.zip"
+]
+`;
+
+exports[`file structure - follow symlinks > programmatic: {\"cwd\":\"test/\",\"source\":\"fixtures/*\",\"followSymLinks\":true} 1`] = `
+[
+  "/fixtures",
+  "/fixtures/file-symlink.txt",
+  "/fixtures/file.txt",
+  "/fixtures/multiline.txt",
+  "/fixtures/obama.jpg",
+  "/fixtures/subdir",
+  "/fixtures/subdir/subfile.txt",
+  "/fixtures/subdir-symlink",
+  "/fixtures/subdir-symlink/subfile.txt",
+  "/test.zip"
+]
+`;
+
+exports[`file structure - follow symlinks > programmatic: {\"cwd\":\"test/\",\"source\":\"fixtures/\",\"followSymLinks\":true} 1`] = `
+[
+  "/fixtures",
+  "/fixtures/.dotfile",
+  "/fixtures/file-symlink.txt",
+  "/fixtures/file.txt",
+  "/fixtures/multiline.txt",
+  "/fixtures/obama.jpg",
+  "/fixtures/subdir",
+  "/fixtures/subdir/subfile.txt",
+  "/fixtures/subdir-symlink",
+  "/fixtures/subdir-symlink/subfile.txt",
+  "/test.zip"
+]
+`;
+
+exports[`file structure - follow symlinks > programmatic: {\"cwd\":\"test/\",\"source\":\"fixtures/subdir/subfile.txt\",\"followSymLinks\":true} 1`] = `
+[
+  "/fixtures",
+  "/fixtures/subdir",
+  "/fixtures/subdir/subfile.txt",
+  "/test.zip"
+]
+`;
+
+exports[`file structure - follow symlinks > programmatic: {\"cwd\":\"test/fixtures/\",\"source\":\"*\",\"followSymLinks\":true} 1`] = `
+[
+  "/file-symlink.txt",
+  "/file.txt",
+  "/multiline.txt",
+  "/obama.jpg",
+  "/subdir",
+  "/subdir/subfile.txt",
+  "/subdir-symlink",
+  "/subdir-symlink/subfile.txt",
+  "/test.zip"
+]
+`;
+
+exports[`file structure - follow symlinks > programmatic: {\"cwd\":\"test/fixtures/\",\"source\":\"./\",\"followSymLinks\":true} 1`] = `
+[
+  "/.dotfile",
+  "/file-symlink.txt",
+  "/file.txt",
+  "/multiline.txt",
+  "/obama.jpg",
+  "/subdir",
+  "/subdir/subfile.txt",
+  "/subdir-symlink",
+  "/subdir-symlink/subfile.txt",
+  "/test.zip"
+]
+`;
+
+exports[`file structure - follow symlinks > programmatic: {\"cwd\":\"test/fixtures/\",\"source\":\"file-symlink.txt\",\"followSymLinks\":true} 1`] = `
+[
+  "/file-symlink.txt",
+  "/test.zip"
+]
+`;
+
+exports[`file structure - follow symlinks > programmatic: {\"cwd\":\"test/fixtures/subdir\",\"source\":\"../file.txt\",\"followSymLinks\":true} 1`] = `
+[
+  "/file.txt",
+  "/test.zip"
+]
+`;
+
+exports[`file structure - follow symlinks > programmatic: {\"cwd\":\"test/fixtures\",\"source\":[\"file.txt\",\".dotfile\"],\"followSymLinks\":true} 1`] = `
+[
+  "/.dotfile",
+  "/file.txt",
+  "/test.zip"
+]
+`;
+
+exports[`file structure - follow symlinks > programmatic: {\"cwd\":\"test/fixtures\",\"source\":[\"file.txt\",\"obama.jpg\"],\"followSymLinks\":true} 1`] = `
+[
+  "/file.txt",
+  "/obama.jpg",
+  "/test.zip"
+]
+`;
+
+exports[`file structure - follow symlinks > programmatic: {\"cwd\":\"test/fixtures\",\"source\":[\"file.txt\",\"subdir\"],\"followSymLinks\":true} 1`] = `
+[
+  "/file.txt",
+  "/subdir",
+  "/subdir/subfile.txt",
+  "/test.zip"
+]
+`;
+
+exports[`file structure - follow symlinks > programmatic: {\"cwd\":\"test/fixtures\",\"source\":\"file.txt\",\"followSymLinks\":true} 1`] = `
+[
+  "/file.txt",
+  "/test.zip"
+]
+`;
+
+exports[`file structure - follow symlinks > programmatic: {\"cwd\":\"test/fixtures\",\"source\":\"obama.jpg\",\"followSymLinks\":true} 1`] = `
+[
+  "/obama.jpg",
+  "/test.zip"
+]
+`;
+
+exports[`file structure - follow symlinks > programmatic: {\"cwd\":\"test/fixtures\",\"source\":\"subdir/subfile.txt\",\"followSymLinks\":true} 1`] = `
+[
+  "/subdir",
+  "/subdir/subfile.txt",
+  "/test.zip"
+]
+`;
+
+exports[`file structure - no follow symlinks > cli with --force=node: {\"cwd\":\"test/\",\"source\":\"fixtures/*/*.txt\",\"followSymLinks\":false} 1`] = `
+[
+  "/fixtures",
+  "/fixtures/subdir",
+  "/fixtures/subdir/subfile.txt",
+  "/fixtures/subdir-symlink",
+  "/fixtures/subdir-symlink/subfile.txt",
+  "/test.zip"
+]
+`;
+
+exports[`file structure - no follow symlinks > cli with --force=node: {\"cwd\":\"test/\",\"source\":\"fixtures/*\",\"followSymLinks\":false} 1`] = `
+[
+  "/fixtures",
+  "/fixtures/file-symlink.txt",
+  "/fixtures/file.txt",
+  "/fixtures/multiline.txt",
+  "/fixtures/obama.jpg",
+  "/fixtures/subdir",
+  "/fixtures/subdir/subfile.txt",
+  "/fixtures/subdir-symlink",
+  "/test.zip"
+]
+`;
+
+exports[`file structure - no follow symlinks > cli with --force=node: {\"cwd\":\"test/\",\"source\":\"fixtures/\",\"followSymLinks\":false} 1`] = `
+[
+  "/fixtures",
+  "/fixtures/.dotfile",
+  "/fixtures/file-symlink.txt",
+  "/fixtures/file.txt",
+  "/fixtures/multiline.txt",
+  "/fixtures/obama.jpg",
+  "/fixtures/subdir",
+  "/fixtures/subdir/subfile.txt",
+  "/fixtures/subdir-symlink",
+  "/test.zip"
+]
+`;
+
+exports[`file structure - no follow symlinks > cli with --force=node: {\"cwd\":\"test/\",\"source\":\"fixtures/subdir/subfile.txt\",\"followSymLinks\":false} 1`] = `
+[
+  "/fixtures",
+  "/fixtures/subdir",
+  "/fixtures/subdir/subfile.txt",
+  "/test.zip"
+]
+`;
+
+exports[`file structure - no follow symlinks > cli with --force=node: {\"cwd\":\"test/fixtures/\",\"source\":\"*\",\"followSymLinks\":false} 1`] = `
+[
+  "/file-symlink.txt",
+  "/file.txt",
+  "/multiline.txt",
+  "/obama.jpg",
+  "/subdir",
+  "/subdir/subfile.txt",
+  "/subdir-symlink",
+  "/test.zip"
+]
+`;
+
+exports[`file structure - no follow symlinks > cli with --force=node: {\"cwd\":\"test/fixtures/\",\"source\":\"./\",\"followSymLinks\":false} 1`] = `
+[
+  "/.dotfile",
+  "/file-symlink.txt",
+  "/file.txt",
+  "/multiline.txt",
+  "/obama.jpg",
+  "/subdir",
+  "/subdir/subfile.txt",
+  "/subdir-symlink",
+  "/test.zip"
+]
+`;
+
+exports[`file structure - no follow symlinks > cli with --force=node: {\"cwd\":\"test/fixtures/\",\"source\":\"file-symlink.txt\",\"followSymLinks\":false} 1`] = `
+[
+  "/file-symlink.txt",
+  "/test.zip"
+]
+`;
+
+exports[`file structure - no follow symlinks > cli with --force=node: {\"cwd\":\"test/fixtures/subdir\",\"source\":\"../file.txt\",\"followSymLinks\":false} 1`] = `
+[
+  "/file.txt",
+  "/test.zip"
+]
+`;
+
+exports[`file structure - no follow symlinks > cli with --force=node: {\"cwd\":\"test/fixtures\",\"source\":[\"file.txt\",\".dotfile\"],\"followSymLinks\":false} 1`] = `
+[
+  "/.dotfile",
+  "/file.txt",
+  "/test.zip"
+]
+`;
+
+exports[`file structure - no follow symlinks > cli with --force=node: {\"cwd\":\"test/fixtures\",\"source\":[\"file.txt\",\"obama.jpg\"],\"followSymLinks\":false} 1`] = `
+[
+  "/file.txt",
+  "/obama.jpg",
+  "/test.zip"
+]
+`;
+
+exports[`file structure - no follow symlinks > cli with --force=node: {\"cwd\":\"test/fixtures\",\"source\":[\"file.txt\",\"subdir\"],\"followSymLinks\":false} 1`] = `
+[
+  "/file.txt",
+  "/subdir",
+  "/subdir/subfile.txt",
+  "/test.zip"
+]
+`;
+
+exports[`file structure - no follow symlinks > cli with --force=node: {\"cwd\":\"test/fixtures\",\"source\":\"file.txt\",\"followSymLinks\":false} 1`] = `
+[
+  "/file.txt",
+  "/test.zip"
+]
+`;
+
+exports[`file structure - no follow symlinks > cli with --force=node: {\"cwd\":\"test/fixtures\",\"source\":\"obama.jpg\",\"followSymLinks\":false} 1`] = `
+[
+  "/obama.jpg",
+  "/test.zip"
+]
+`;
+
+exports[`file structure - no follow symlinks > cli with --force=node: {\"cwd\":\"test/fixtures\",\"source\":\"subdir/subfile.txt\",\"followSymLinks\":false} 1`] = `
+[
+  "/subdir",
+  "/subdir/subfile.txt",
+  "/test.zip"
+]
+`;
+
+exports[`file structure - no follow symlinks > cli: {\"cwd\":\"test/\",\"source\":\"fixtures/*/*.txt\",\"followSymLinks\":false} 1`] = `
+[
+  "/fixtures",
+  "/fixtures/subdir",
+  "/fixtures/subdir/subfile.txt",
+  "/fixtures/subdir-symlink",
+  "/fixtures/subdir-symlink/subfile.txt",
+  "/test.zip"
+]
+`;
+
+exports[`file structure - no follow symlinks > cli: {\"cwd\":\"test/\",\"source\":\"fixtures/*\",\"followSymLinks\":false} 1`] = `
+[
+  "/fixtures",
+  "/fixtures/file-symlink.txt",
+  "/fixtures/file.txt",
+  "/fixtures/multiline.txt",
+  "/fixtures/obama.jpg",
+  "/fixtures/subdir",
+  "/fixtures/subdir/subfile.txt",
+  "/fixtures/subdir-symlink",
+  "/test.zip"
+]
+`;
+
+exports[`file structure - no follow symlinks > cli: {\"cwd\":\"test/\",\"source\":\"fixtures/\",\"followSymLinks\":false} 1`] = `
+[
+  "/fixtures",
+  "/fixtures/.dotfile",
+  "/fixtures/file-symlink.txt",
+  "/fixtures/file.txt",
+  "/fixtures/multiline.txt",
+  "/fixtures/obama.jpg",
+  "/fixtures/subdir",
+  "/fixtures/subdir/subfile.txt",
+  "/fixtures/subdir-symlink",
+  "/test.zip"
+]
+`;
+
+exports[`file structure - no follow symlinks > cli: {\"cwd\":\"test/\",\"source\":\"fixtures/subdir/subfile.txt\",\"followSymLinks\":false} 1`] = `
+[
+  "/fixtures",
+  "/fixtures/subdir",
+  "/fixtures/subdir/subfile.txt",
+  "/test.zip"
+]
+`;
+
+exports[`file structure - no follow symlinks > cli: {\"cwd\":\"test/fixtures/\",\"source\":\"*\",\"followSymLinks\":false} 1`] = `
+[
+  "/file-symlink.txt",
+  "/file.txt",
+  "/multiline.txt",
+  "/obama.jpg",
+  "/subdir",
+  "/subdir/subfile.txt",
+  "/subdir-symlink",
+  "/test.zip"
+]
+`;
+
+exports[`file structure - no follow symlinks > cli: {\"cwd\":\"test/fixtures/\",\"source\":\"./\",\"followSymLinks\":false} 1`] = `
+[
+  "/.dotfile",
+  "/file-symlink.txt",
+  "/file.txt",
+  "/multiline.txt",
+  "/obama.jpg",
+  "/subdir",
+  "/subdir/subfile.txt",
+  "/subdir-symlink",
+  "/test.zip"
+]
+`;
+
+exports[`file structure - no follow symlinks > cli: {\"cwd\":\"test/fixtures/\",\"source\":\"file-symlink.txt\",\"followSymLinks\":false} 1`] = `
+[
+  "/file-symlink.txt",
+  "/test.zip"
+]
+`;
+
+exports[`file structure - no follow symlinks > cli: {\"cwd\":\"test/fixtures/subdir\",\"source\":\"../file.txt\",\"followSymLinks\":false} 1`] = `
+[
+  "/file.txt",
+  "/test.zip"
+]
+`;
+
+exports[`file structure - no follow symlinks > cli: {\"cwd\":\"test/fixtures\",\"source\":[\"file.txt\",\".dotfile\"],\"followSymLinks\":false} 1`] = `
+[
+  "/.dotfile",
+  "/file.txt",
+  "/test.zip"
+]
+`;
+
+exports[`file structure - no follow symlinks > cli: {\"cwd\":\"test/fixtures\",\"source\":[\"file.txt\",\"obama.jpg\"],\"followSymLinks\":false} 1`] = `
+[
+  "/file.txt",
+  "/obama.jpg",
+  "/test.zip"
+]
+`;
+
+exports[`file structure - no follow symlinks > cli: {\"cwd\":\"test/fixtures\",\"source\":[\"file.txt\",\"subdir\"],\"followSymLinks\":false} 1`] = `
+[
+  "/file.txt",
+  "/subdir",
+  "/subdir/subfile.txt",
+  "/test.zip"
+]
+`;
+
+exports[`file structure - no follow symlinks > cli: {\"cwd\":\"test/fixtures\",\"source\":\"file.txt\",\"followSymLinks\":false} 1`] = `
+[
+  "/file.txt",
+  "/test.zip"
+]
+`;
+
+exports[`file structure - no follow symlinks > cli: {\"cwd\":\"test/fixtures\",\"source\":\"obama.jpg\",\"followSymLinks\":false} 1`] = `
+[
+  "/obama.jpg",
+  "/test.zip"
+]
+`;
+
+exports[`file structure - no follow symlinks > cli: {\"cwd\":\"test/fixtures\",\"source\":\"subdir/subfile.txt\",\"followSymLinks\":false} 1`] = `
+[
+  "/subdir",
+  "/subdir/subfile.txt",
+  "/test.zip"
+]
+`;
+
+exports[`file structure - no follow symlinks > programmatic with nodeZip: {\"cwd\":\"test/\",\"source\":\"fixtures/*/*.txt\",\"followSymLinks\":false} 1`] = `
+[
+  "/fixtures",
+  "/fixtures/subdir",
+  "/fixtures/subdir/subfile.txt",
+  "/fixtures/subdir-symlink",
+  "/fixtures/subdir-symlink/subfile.txt",
+  "/test.zip"
+]
+`;
+
+exports[`file structure - no follow symlinks > programmatic with nodeZip: {\"cwd\":\"test/\",\"source\":\"fixtures/*\",\"followSymLinks\":false} 1`] = `
+[
+  "/fixtures",
+  "/fixtures/file-symlink.txt",
+  "/fixtures/file.txt",
+  "/fixtures/multiline.txt",
+  "/fixtures/obama.jpg",
+  "/fixtures/subdir",
+  "/fixtures/subdir/subfile.txt",
+  "/fixtures/subdir-symlink",
+  "/test.zip"
+]
+`;
+
+exports[`file structure - no follow symlinks > programmatic with nodeZip: {\"cwd\":\"test/\",\"source\":\"fixtures/\",\"followSymLinks\":false} 1`] = `
+[
+  "/fixtures",
+  "/fixtures/.dotfile",
+  "/fixtures/file-symlink.txt",
+  "/fixtures/file.txt",
+  "/fixtures/multiline.txt",
+  "/fixtures/obama.jpg",
+  "/fixtures/subdir",
+  "/fixtures/subdir/subfile.txt",
+  "/fixtures/subdir-symlink",
+  "/test.zip"
+]
+`;
+
+exports[`file structure - no follow symlinks > programmatic with nodeZip: {\"cwd\":\"test/\",\"source\":\"fixtures/subdir/subfile.txt\",\"followSymLinks\":false} 1`] = `
+[
+  "/fixtures",
+  "/fixtures/subdir",
+  "/fixtures/subdir/subfile.txt",
+  "/test.zip"
+]
+`;
+
+exports[`file structure - no follow symlinks > programmatic with nodeZip: {\"cwd\":\"test/fixtures/\",\"source\":\"*\",\"followSymLinks\":false} 1`] = `
+[
+  "/file-symlink.txt",
+  "/file.txt",
+  "/multiline.txt",
+  "/obama.jpg",
+  "/subdir",
+  "/subdir/subfile.txt",
+  "/subdir-symlink",
+  "/test.zip"
+]
+`;
+
+exports[`file structure - no follow symlinks > programmatic with nodeZip: {\"cwd\":\"test/fixtures/\",\"source\":\"./\",\"followSymLinks\":false} 1`] = `
+[
+  "/.dotfile",
+  "/file-symlink.txt",
+  "/file.txt",
+  "/multiline.txt",
+  "/obama.jpg",
+  "/subdir",
+  "/subdir/subfile.txt",
+  "/subdir-symlink",
+  "/test.zip"
+]
+`;
+
+exports[`file structure - no follow symlinks > programmatic with nodeZip: {\"cwd\":\"test/fixtures/\",\"source\":\"file-symlink.txt\",\"followSymLinks\":false} 1`] = `
+[
+  "/file-symlink.txt",
+  "/test.zip"
+]
+`;
+
+exports[`file structure - no follow symlinks > programmatic with nodeZip: {\"cwd\":\"test/fixtures/subdir\",\"source\":\"../file.txt\",\"followSymLinks\":false} 1`] = `
+[
+  "/file.txt",
+  "/test.zip"
+]
+`;
+
+exports[`file structure - no follow symlinks > programmatic with nodeZip: {\"cwd\":\"test/fixtures\",\"source\":[\"file.txt\",\".dotfile\"],\"followSymLinks\":false} 1`] = `
+[
+  "/.dotfile",
+  "/file.txt",
+  "/test.zip"
+]
+`;
+
+exports[`file structure - no follow symlinks > programmatic with nodeZip: {\"cwd\":\"test/fixtures\",\"source\":[\"file.txt\",\"obama.jpg\"],\"followSymLinks\":false} 1`] = `
+[
+  "/file.txt",
+  "/obama.jpg",
+  "/test.zip"
+]
+`;
+
+exports[`file structure - no follow symlinks > programmatic with nodeZip: {\"cwd\":\"test/fixtures\",\"source\":[\"file.txt\",\"subdir\"],\"followSymLinks\":false} 1`] = `
+[
+  "/file.txt",
+  "/subdir",
+  "/subdir/subfile.txt",
+  "/test.zip"
+]
+`;
+
+exports[`file structure - no follow symlinks > programmatic with nodeZip: {\"cwd\":\"test/fixtures\",\"source\":\"file.txt\",\"followSymLinks\":false} 1`] = `
+[
+  "/file.txt",
+  "/test.zip"
+]
+`;
+
+exports[`file structure - no follow symlinks > programmatic with nodeZip: {\"cwd\":\"test/fixtures\",\"source\":\"obama.jpg\",\"followSymLinks\":false} 1`] = `
+[
+  "/obama.jpg",
+  "/test.zip"
+]
+`;
+
+exports[`file structure - no follow symlinks > programmatic with nodeZip: {\"cwd\":\"test/fixtures\",\"source\":\"subdir/subfile.txt\",\"followSymLinks\":false} 1`] = `
+[
+  "/subdir",
+  "/subdir/subfile.txt",
+  "/test.zip"
+]
+`;
+
+exports[`file structure - no follow symlinks > programmatic: {\"cwd\":\"test/\",\"source\":\"fixtures/*/*.txt\",\"followSymLinks\":false} 1`] = `
+[
+  "/fixtures",
+  "/fixtures/subdir",
+  "/fixtures/subdir/subfile.txt",
+  "/fixtures/subdir-symlink",
+  "/fixtures/subdir-symlink/subfile.txt",
+  "/test.zip"
+]
+`;
+
+exports[`file structure - no follow symlinks > programmatic: {\"cwd\":\"test/\",\"source\":\"fixtures/*\",\"followSymLinks\":false} 1`] = `
+[
+  "/fixtures",
+  "/fixtures/file-symlink.txt",
+  "/fixtures/file.txt",
+  "/fixtures/multiline.txt",
+  "/fixtures/obama.jpg",
+  "/fixtures/subdir",
+  "/fixtures/subdir/subfile.txt",
+  "/fixtures/subdir-symlink",
+  "/test.zip"
+]
+`;
+
+exports[`file structure - no follow symlinks > programmatic: {\"cwd\":\"test/\",\"source\":\"fixtures/\",\"followSymLinks\":false} 1`] = `
+[
+  "/fixtures",
+  "/fixtures/.dotfile",
+  "/fixtures/file-symlink.txt",
+  "/fixtures/file.txt",
+  "/fixtures/multiline.txt",
+  "/fixtures/obama.jpg",
+  "/fixtures/subdir",
+  "/fixtures/subdir/subfile.txt",
+  "/fixtures/subdir-symlink",
+  "/test.zip"
+]
+`;
+
+exports[`file structure - no follow symlinks > programmatic: {\"cwd\":\"test/\",\"source\":\"fixtures/subdir/subfile.txt\",\"followSymLinks\":false} 1`] = `
+[
+  "/fixtures",
+  "/fixtures/subdir",
+  "/fixtures/subdir/subfile.txt",
+  "/test.zip"
+]
+`;
+
+exports[`file structure - no follow symlinks > programmatic: {\"cwd\":\"test/fixtures/\",\"source\":\"*\",\"followSymLinks\":false} 1`] = `
+[
+  "/file-symlink.txt",
+  "/file.txt",
+  "/multiline.txt",
+  "/obama.jpg",
+  "/subdir",
+  "/subdir/subfile.txt",
+  "/subdir-symlink",
+  "/test.zip"
+]
+`;
+
+exports[`file structure - no follow symlinks > programmatic: {\"cwd\":\"test/fixtures/\",\"source\":\"./\",\"followSymLinks\":false} 1`] = `
+[
+  "/.dotfile",
+  "/file-symlink.txt",
+  "/file.txt",
+  "/multiline.txt",
+  "/obama.jpg",
+  "/subdir",
+  "/subdir/subfile.txt",
+  "/subdir-symlink",
+  "/test.zip"
+]
+`;
+
+exports[`file structure - no follow symlinks > programmatic: {\"cwd\":\"test/fixtures/\",\"source\":\"file-symlink.txt\",\"followSymLinks\":false} 1`] = `
+[
+  "/file-symlink.txt",
+  "/test.zip"
+]
+`;
+
+exports[`file structure - no follow symlinks > programmatic: {\"cwd\":\"test/fixtures/subdir\",\"source\":\"../file.txt\",\"followSymLinks\":false} 1`] = `
+[
+  "/file.txt",
+  "/test.zip"
+]
+`;
+
+exports[`file structure - no follow symlinks > programmatic: {\"cwd\":\"test/fixtures\",\"source\":[\"file.txt\",\".dotfile\"],\"followSymLinks\":false} 1`] = `
+[
+  "/.dotfile",
+  "/file.txt",
+  "/test.zip"
+]
+`;
+
+exports[`file structure - no follow symlinks > programmatic: {\"cwd\":\"test/fixtures\",\"source\":[\"file.txt\",\"obama.jpg\"],\"followSymLinks\":false} 1`] = `
+[
+  "/file.txt",
+  "/obama.jpg",
+  "/test.zip"
+]
+`;
+
+exports[`file structure - no follow symlinks > programmatic: {\"cwd\":\"test/fixtures\",\"source\":[\"file.txt\",\"subdir\"],\"followSymLinks\":false} 1`] = `
+[
+  "/file.txt",
+  "/subdir",
+  "/subdir/subfile.txt",
+  "/test.zip"
+]
+`;
+
+exports[`file structure - no follow symlinks > programmatic: {\"cwd\":\"test/fixtures\",\"source\":\"file.txt\",\"followSymLinks\":false} 1`] = `
+[
+  "/file.txt",
+  "/test.zip"
+]
+`;
+
+exports[`file structure - no follow symlinks > programmatic: {\"cwd\":\"test/fixtures\",\"source\":\"obama.jpg\",\"followSymLinks\":false} 1`] = `
+[
+  "/obama.jpg",
+  "/test.zip"
+]
+`;
+
+exports[`file structure - no follow symlinks > programmatic: {\"cwd\":\"test/fixtures\",\"source\":\"subdir/subfile.txt\",\"followSymLinks\":false} 1`] = `
 [
   "/subdir",
   "/subdir/subfile.txt",
