@@ -28,7 +28,9 @@ jobs:
       - run: npm run unit-test
 
   publish-npm:
-    needs: test
+    needs: 
+      - test
+      - test-native-zip-windows
     if: startsWith(github.ref, 'refs/tags/v')
     runs-on: ubuntu-latest
     permissions:
