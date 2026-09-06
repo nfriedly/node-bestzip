@@ -19,7 +19,6 @@ exports[`file structure > cli with --force=node: {\"cwd\":\"test/\",\"source\":\
   "/fixtures/subdir",
   "/fixtures/subdir/subfile.txt",
   "/fixtures/subdir-symlink",
-  "/fixtures/subdir-symlink/subfile.txt",
   "/test.zip"
 ]
 `;
@@ -35,7 +34,6 @@ exports[`file structure > cli with --force=node: {\"cwd\":\"test/\",\"source\":\
   "/fixtures/subdir",
   "/fixtures/subdir/subfile.txt",
   "/fixtures/subdir-symlink",
-  "/fixtures/subdir-symlink/subfile.txt",
   "/test.zip"
 ]
 `;
@@ -58,7 +56,6 @@ exports[`file structure > cli with --force=node: {\"cwd\":\"test/fixtures/\",\"s
   "/subdir",
   "/subdir/subfile.txt",
   "/subdir-symlink",
-  "/subdir-symlink/subfile.txt",
   "/test.zip"
 ]
 `;
@@ -73,7 +70,6 @@ exports[`file structure > cli with --force=node: {\"cwd\":\"test/fixtures/\",\"s
   "/subdir",
   "/subdir/subfile.txt",
   "/subdir-symlink",
-  "/subdir-symlink/subfile.txt",
   "/test.zip"
 ]
 `;
@@ -160,7 +156,6 @@ exports[`file structure > cli: {\"cwd\":\"test/\",\"source\":\"fixtures/*\"} 1`]
   "/fixtures/subdir",
   "/fixtures/subdir/subfile.txt",
   "/fixtures/subdir-symlink",
-  "/fixtures/subdir-symlink/subfile.txt",
   "/test.zip"
 ]
 `;
@@ -176,7 +171,6 @@ exports[`file structure > cli: {\"cwd\":\"test/\",\"source\":\"fixtures/\"} 1`] 
   "/fixtures/subdir",
   "/fixtures/subdir/subfile.txt",
   "/fixtures/subdir-symlink",
-  "/fixtures/subdir-symlink/subfile.txt",
   "/test.zip"
 ]
 `;
@@ -199,7 +193,6 @@ exports[`file structure > cli: {\"cwd\":\"test/fixtures/\",\"source\":\"*\"} 1`]
   "/subdir",
   "/subdir/subfile.txt",
   "/subdir-symlink",
-  "/subdir-symlink/subfile.txt",
   "/test.zip"
 ]
 `;
@@ -214,7 +207,6 @@ exports[`file structure > cli: {\"cwd\":\"test/fixtures/\",\"source\":\"./\"} 1`
   "/subdir",
   "/subdir/subfile.txt",
   "/subdir-symlink",
-  "/subdir-symlink/subfile.txt",
   "/test.zip"
 ]
 `;
@@ -301,7 +293,6 @@ exports[`file structure > programmatic with nodeZip: {\"cwd\":\"test/\",\"source
   "/fixtures/subdir",
   "/fixtures/subdir/subfile.txt",
   "/fixtures/subdir-symlink",
-  "/fixtures/subdir-symlink/subfile.txt",
   "/test.zip"
 ]
 `;
@@ -317,7 +308,6 @@ exports[`file structure > programmatic with nodeZip: {\"cwd\":\"test/\",\"source
   "/fixtures/subdir",
   "/fixtures/subdir/subfile.txt",
   "/fixtures/subdir-symlink",
-  "/fixtures/subdir-symlink/subfile.txt",
   "/test.zip"
 ]
 `;
@@ -340,7 +330,6 @@ exports[`file structure > programmatic with nodeZip: {\"cwd\":\"test/fixtures/\"
   "/subdir",
   "/subdir/subfile.txt",
   "/subdir-symlink",
-  "/subdir-symlink/subfile.txt",
   "/test.zip"
 ]
 `;
@@ -355,7 +344,6 @@ exports[`file structure > programmatic with nodeZip: {\"cwd\":\"test/fixtures/\"
   "/subdir",
   "/subdir/subfile.txt",
   "/subdir-symlink",
-  "/subdir-symlink/subfile.txt",
   "/test.zip"
 ]
 `;
@@ -442,7 +430,6 @@ exports[`file structure > programmatic: {\"cwd\":\"test/\",\"source\":\"fixtures
   "/fixtures/subdir",
   "/fixtures/subdir/subfile.txt",
   "/fixtures/subdir-symlink",
-  "/fixtures/subdir-symlink/subfile.txt",
   "/test.zip"
 ]
 `;
@@ -458,7 +445,6 @@ exports[`file structure > programmatic: {\"cwd\":\"test/\",\"source\":\"fixtures
   "/fixtures/subdir",
   "/fixtures/subdir/subfile.txt",
   "/fixtures/subdir-symlink",
-  "/fixtures/subdir-symlink/subfile.txt",
   "/test.zip"
 ]
 `;
@@ -481,7 +467,6 @@ exports[`file structure > programmatic: {\"cwd\":\"test/fixtures/\",\"source\":\
   "/subdir",
   "/subdir/subfile.txt",
   "/subdir-symlink",
-  "/subdir-symlink/subfile.txt",
   "/test.zip"
 ]
 `;
@@ -496,7 +481,6 @@ exports[`file structure > programmatic: {\"cwd\":\"test/fixtures/\",\"source\":\
   "/subdir",
   "/subdir/subfile.txt",
   "/subdir-symlink",
-  "/subdir-symlink/subfile.txt",
   "/test.zip"
 ]
 `;

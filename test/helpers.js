@@ -73,7 +73,6 @@ function canCreateSymlinks() {
   }
   return canCreateSymlinksCache;
 }
-
 const init = (name, copyFixtures = false) => {
   const tmpdir = path.join(os.tmpdir(), `bestzip_${name}`);
   const destination = path.join(tmpdir, "test.zip");
