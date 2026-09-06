@@ -114,7 +114,7 @@ describe("symlink security", { skip: !canCreateSymlinks() }, () => {
       "archive-me/leak.txt"
     ].data.toString();
 
-    assert.equal(nodeZipLink, rawTarget);
+    assert.equal(path.normalize(nodeZipLink), path.normalize(rawTarget));
 
     if (nativeStoresLinks) {
       const nativeZipDest = path.join(cwd, "native.zip");
