@@ -13,7 +13,7 @@
   "scripts": {
     "lint": "eslint .",
     "lint-fix": "eslint --fix .",
-    "unit-test": "node --experimental-test-snapshots --test",
+    "unit-test": "node --experimental-test-snapshots --test \"test/**/*.test.js\"",
     "update-snapshot": "npm run unit-test -- --test-update-snapshots",
     "test": "npm run lint && npm run unit-test"
   },

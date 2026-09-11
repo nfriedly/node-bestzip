@@ -195,7 +195,10 @@ describe("symlink option", { skip: !canCreateSymlinks() }, () => {
       const result = spawnSync(
         process.execPath,
         [
-          path.join(import.meta.dirname, "../symlink_option_fixture.mjs"),
+          path.join(
+            import.meta.dirname,
+            "js-fixtures/symlink-option-fixture.mjs"
+          ),
           cwd,
           mode,
         ],

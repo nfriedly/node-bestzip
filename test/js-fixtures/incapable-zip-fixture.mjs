@@ -1,10 +1,12 @@
 // Runs bestzip scenarios in a fresh process where PATH points at an "incapable"
 // native zip (one that rejects --symlinks), simulating the Windows Info-ZIP
-// build. Kept out of test/fixtures so fixture-copying tests don't pick it up.
+// build. Lives under test/js-fixtures/ — the unit-test glob is
+// test/**/*.test.js, so it isn't picked up as a test file — and kept out of
+// test/fixtures so fixture-copying tests don't copy it.
 import path from "node:path";
 
-import * as bestzip from "./lib/bestzip.js";
-import { readZipEntries } from "./test/helpers.js";
+import * as bestzip from "../../lib/bestzip.js";
+import { readZipEntries } from "../helpers.js";
 
 const [cwd, mode] = process.argv.slice(2);
 const destination = path.join(cwd, "out.zip");

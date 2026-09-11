@@ -270,7 +270,10 @@ describe("symlink security", { skip: !canCreateSymlinks() }, () => {
       const result = spawnSync(
         process.execPath,
         [
-          path.join(import.meta.dirname, "../incapable-zip-fixture.mjs"),
+          path.join(
+            import.meta.dirname,
+            "js-fixtures/incapable-zip-fixture.mjs"
+          ),
           cwd,
           mode,
         ],

@@ -1,0 +1,1 @@
+These files are used by tests but are not themselves tests. (Some tests need to have full control of the environment without the modifications that the test runner does, so they run these files in a separate process.)

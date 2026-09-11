@@ -2,13 +2,13 @@
 // zip that cannot store symlinks as links (simulating the Windows Info-ZIP
 // build). Used to deterministically exercise the "native zip can't store
 // symlinks" path regardless of whether a capable native zip is installed.
-// Lives at the repo root (not under test/) so the test runner doesn't pick it
-// up as a test file, and kept out of test/fixtures so fixture-copying tests
-// don't copy it.
+// Lives under test/js-fixtures/ — the unit-test glob is test/**/*.test.js, so
+// it isn't picked up as a test file — and kept out of test/fixtures so
+// fixture-copying tests don't copy it.
 import path from "node:path";
 
-import * as bestzip from "./lib/bestzip.js";
-import { readZipEntries } from "./test/helpers.js";
+import * as bestzip from "../../lib/bestzip.js";
+import { readZipEntries } from "../helpers.js";
 
 const [cwd, mode] = process.argv.slice(2);
 const destination = path.join(cwd, "out.zip");
