@@ -1,6 +1,6 @@
-// Runs bestzip scenarios in a fresh process where PATH points at an "incapable"
-// native zip (one that rejects --symlinks), simulating the Windows Info-ZIP
-// build. Lives under test/js-fixtures/ — the unit-test glob is
+// Runs bestzip scenarios in a fresh process where BESTZIP_ZIP_PATH points at
+// an "incapable" native zip (one that rejects --symlinks), simulating the
+// Windows Info-ZIP build. Lives under test/js-fixtures/ — the unit-test glob is
 // test/**/*.test.js, so it isn't picked up as a test file — and kept out of
 // test/fixtures so fixture-copying tests don't copy it.
 import path from "node:path";

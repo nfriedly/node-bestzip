@@ -26,6 +26,11 @@ const argv = yargs(preprocessed)
       "Follow symbolic links and include their target contents in the archive",
     type: "boolean",
   })
+  .option("zip-path", {
+    describe:
+      "Path to a zip executable or a directory to find one in. Overrides the default trusted system locations. Can also be set via the BESTZIP_ZIP_PATH environment variable.",
+    type: "string",
+  })
   .demand(2).argv;
 
 const destination = argv._.shift();
@@ -49,6 +54,7 @@ zip({
   verbose: !!argv.verbose,
   level: argv.level,
   followSymLinks: argv.followSymLinks,
+  zipPath: argv.zipPath,
   viaCli: true,
 })
   .then(function () {

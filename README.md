@@ -45,6 +45,7 @@ package.json:
 * `--follow-sym-links` / `--no-follow-sym-links`: Follow symbolic links and include their target contents in the archive, or don't follow and instead include the link itself (the default). If symlinks are encountered when the flag is not set, a warning will be logged.
 * `--level N` / `-N`: Level of compression, as with the native `zip` command. `N` must be an integer from 0 (store, no compression) to 9 (maximum compression). Defaults to each implementation's own default when unset.
 * `--force node|native`: Force the Node.js implementation or the native `zip` command instead of letting bestzip pick automatically.
+* `--zip-path <path>`: Path to a `zip` executable (or a directory to search for one) to use for the native fast path, overriding the default trusted system locations. Can also be set with the `BESTZIP_ZIP_PATH` environment variable. Relative paths are resolved against the current working directory.
 
 
 ## Programmatic usage from within Node.js
@@ -79,6 +80,13 @@ await bestZip({
 * `cwd`: Set the Current Working Directory that source and destination paths are relative to. Defaults to `process.cwd()`
 * `level`: Level of compression, as with the native `zip` command. An integer from 0 (store, no compression) to 9 (maximum compression). Defaults to each implementation's own default when unset.
 * `followSymLinks`: Follow symbolic links and include the contents of their targets in the zip file. When set to `true` or `false` the preference is honored and no warning is printed. When left unset, symbolic links are **not** followed and a warning is printed whenever symlinks are detected (see [Symbolic links](#symbolic-links)).
+* `zipPath`: Path to a `zip` executable (or a directory to search for one) to use for the native fast path. Defaults to `BESTZIP_ZIP_PATH`, then to a hardcoded list of trusted system directories. When no native `zip` is found, bestzip falls back to its built-in Node.js implementation.
+
+## Which `zip` does bestzip run?
+
+For the native fast path, bestzip only ever runs a `zip` binary it resolved itself from an explicit allowlist of trusted system locations — `/usr/bin`, `/bin`, `/usr/local/bin`, `/opt/homebrew/bin` and `/opt/local/bin` on macOS/Linux; the `System32` directory, the Windows directory, and the chocolatey and Git-for-Windows `bin` directories on Windows. It never searches `PATH` and never executes an arbitrary file named `zip` from the directory being archived. This keeps a malicious `zip` (committed into the source tree, delivered through a relative `PATH` element, or installed into `node_modules/.bin` by a dependency) from running as the build user.
+
+To use `zip` from a different location — a Nix store, `~/bin`, a custom container image, etc. — point bestzip at it explicitly with `zipPath` or the `BESTZIP_ZIP_PATH` environment variable; both accept either a path to a `zip` executable or a directory to search for one. If an explicitly configured location yields no usable `zip`, bestzip falls back to the built-in Node.js implementation rather than touching `PATH`.
 
 ## How to control the directory structure
 

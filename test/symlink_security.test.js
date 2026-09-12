@@ -251,11 +251,11 @@ describe("symlink security", { skip: !canCreateSymlinks() }, () => {
     assert.equal(typeof bestzip.nativeZipSupportsSymlinks(), "boolean");
   });
 
-  // Runs a bestzip scenario in a fresh process where PATH is prepended with a
-  // fake `zip` that rejects --symlinks (simulating the Windows Info-ZIP build),
-  // so nativeZipSupportsSymlinks() deterministically reports false. The fake
-  // zip is a POSIX shell script, so these tests are skipped on win32 where
-  // that wouldn't execute (the real Info-ZIP there is already incapable).
+  // Runs a bestzip scenario in a fresh process where BESTZIP_ZIP_PATH points
+  // at a fake `zip` that rejects --symlinks (simulating the Windows Info-ZIP
+  // build), so nativeZipSupportsSymlinks() deterministically reports false.
+  // The fake zip is a POSIX shell script, so these tests are skipped on win32
+  // where that wouldn't execute (the real Info-ZIP there is already incapable).
   const runWithIncapableZip = (mode) => {
     const bin = fs.mkdtempSync(path.join(os.tmpdir(), "bestzip-fakezip-"));
     const realZip = which.sync("zip");
@@ -264,8 +264,8 @@ describe("symlink security", { skip: !canCreateSymlinks() }, () => {
       `#!/bin/sh\nfor a in "$@"; do\n  if [ "$a" = "--symlinks" ]; then\n    echo "zip error: --symlinks not supported" >&2\n    exit 1\n  fi\ndone\nexec "${realZip}" "$@"\n`
     );
     fs.chmodSync(path.join(bin, "zip"), 0o755);
-    const oldPath = process.env.PATH;
-    process.env.PATH = bin + path.delimiter + oldPath;
+    const oldZipPath = process.env.BESTZIP_ZIP_PATH;
+    process.env.BESTZIP_ZIP_PATH = bin;
     try {
       const result = spawnSync(
         process.execPath,
@@ -277,7 +277,11 @@ describe("symlink security", { skip: !canCreateSymlinks() }, () => {
           cwd,
           mode,
         ],
-        { cwd: import.meta.dirname, encoding: "utf8" }
+        {
+          cwd: import.meta.dirname,
+          encoding: "utf8",
+          env: process.env,
+        }
       );
       assert.equal(
         result.status,
@@ -286,7 +290,7 @@ describe("symlink security", { skip: !canCreateSymlinks() }, () => {
       );
       return JSON.parse(result.stdout);
     } finally {
-      process.env.PATH = oldPath;
+      process.env.BESTZIP_ZIP_PATH = oldZipPath;
       fs.rmSync(bin, { recursive: true, force: true });
     }
   };

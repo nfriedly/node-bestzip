@@ -107,24 +107,51 @@ describe("untrusted search path and silent failures", () => {
   );
 
   test(
-    "falls back to nodeZip when PATH only offers a node_modules/.bin/zip shim",
+    "falls back to nodeZip when no trusted zip is found even with an explicit location set",
     posixSkip,
     () => {
       const root = reset();
-      const repo = path.join(root, "repo");
-      const binDir = path.join(repo, "node_modules", ".bin");
+      const workDir = path.join(root, "work");
+      const emptyBin = path.join(root, "empty-bin");
+      fs.mkdirSync(workDir, { recursive: true });
+      fs.mkdirSync(emptyBin, { recursive: true });
+      fs.writeFileSync(path.join(workDir, "app.js"), "console.log('app')");
+
+      const out = runFixture(workDir, path.join(root, "out.zip"), {
+        ...process.env,
+        // An explicit zip location that contains no zip: bestzip must not run
+        // anything, so it falls back to its node implementation. PATH is also
+        // cleared, since resolution never consults it.
+        BESTZIP_ZIP_PATH: emptyBin,
+        PATH: path.join(root, "no-such-directory"),
+      });
+
+      assert.equal(out.pwnedExists, false);
+      assert.equal(out.rejected, false, out.message);
+      assert.equal(out.archiveExists, true);
+      assert.ok(out.archiveSize > 0);
+    }
+  );
+
+  test(
+    "uses the system zip, never a `zip` reachable only through PATH",
+    posixSkip,
+    () => {
+      const root = reset();
+      const workDir = path.join(root, "work");
+      const binDir = path.join(root, "bin");
+      fs.mkdirSync(workDir, { recursive: true });
       fs.mkdirSync(binDir, { recursive: true });
-      fs.writeFileSync(path.join(repo, "app.js"), "console.log('app')");
+      fs.writeFileSync(path.join(workDir, "app.js"), "console.log('app')");
       writeFakeZip(binDir);
 
-      const out = runFixture(repo, path.join(root, "out.zip"), {
+      const out = runFixture(workDir, path.join(root, "out.zip"), {
         ...process.env,
-        // All that bestzip sees is npm's node_modules/.bin entry.
+        // The fake zip is the only one reachable through PATH, but PATH is
+        // never consulted: the system zip (or nodeZip fallback) must run.
         PATH: binDir,
       });
 
-      // No dependency-supplied zip was found, so bestzip builds the archive
-      // with its own node implementation instead of running the shim.
       assert.equal(out.pwnedExists, false);
       assert.equal(out.rejected, false, out.message);
       assert.equal(out.archiveExists, true);
@@ -142,17 +169,21 @@ describe("untrusted search path and silent failures", () => {
       fs.mkdirSync(workDir, { recursive: true });
       fs.mkdirSync(binDir, { recursive: true });
       fs.writeFileSync(path.join(workDir, "app.js"), "console.log('app')");
-      // A "zip" that claims success but produces nothing.
+      // A "zip" that claims success but produces nothing. Such a file can only
+      // run if the user explicitly opts into it; this test does that via
+      // BESTZIP_ZIP_PATH so the silent-failure guard is exercised.
       writeFakeZip(binDir);
 
       const out = runFixture(workDir, path.join(root, "out.zip"), {
         ...process.env,
-        PATH: binDir + path.delimiter + process.env.PATH,
+        BESTZIP_ZIP_PATH: binDir,
       });
 
       assert.equal(out.rejected, true);
       assert.ok(out.message.includes("did not create the archive"));
       assert.equal(out.archiveExists, false);
+      // Confirms the fake zip really was the one executed.
+      assert.equal(out.pwnedExists, true);
     }
   );
 });
