@@ -88,6 +88,8 @@ For the native fast path, bestzip only ever runs a `zip` binary it resolved itse
 
 To use `zip` from a different location — a Nix store, `~/bin`, a custom container image, etc. — point bestzip at it explicitly with `zipPath` or the `BESTZIP_ZIP_PATH` environment variable; both accept either a path to a `zip` executable or a directory to search for one. If an explicitly configured location yields no usable `zip`, bestzip falls back to the built-in Node.js implementation rather than touching `PATH`.
 
+When no trusted `zip` is usable but a `zip` is reachable through `PATH`, bestzip does not run it (as above) and logs a warning that names the path it declined and shows the `zipPath` / `--zip-path` / `BESTZIP_ZIP_PATH` options for opting back into it. If that location is a standard system directory bestzip should trust by default, please open an issue or pull request so it can be added to the allowlist.
+
 ## How to control the directory structure
 
 The directory structure in the .zip is going to match your input files, but the exact details depend on how the command is called. For example:

@@ -186,4 +186,101 @@ describe("untrusted search path and silent failures", () => {
       assert.equal(out.pwnedExists, true);
     }
   );
+
+  test("never presents node_modules, relative, or empty PATH entries as trusted zips", () => {
+    const root = reset();
+    const nmBin = path.join(root, "node_modules", ".bin");
+    const plainBin = path.join(root, "plain");
+    fs.mkdirSync(nmBin, { recursive: true });
+    fs.mkdirSync(plainBin, { recursive: true });
+    writeFakeZip(nmBin);
+    writeFakeZip(plainBin);
+
+    assert.equal(bestzip.findZipCommandOnUntrustedPath(nmBin), null);
+    assert.equal(bestzip.findZipCommandOnUntrustedPath("relative/bin"), null);
+    assert.equal(bestzip.findZipCommandOnUntrustedPath(""), null);
+    assert.equal(
+      bestzip.findZipCommandOnUntrustedPath(plainBin),
+      path.join(plainBin, "zip")
+    );
+  });
+
+  test("warns about a refused zip with its path and how to opt in, once per path", () => {
+    const root = reset();
+    const binDir = path.join(root, "bin");
+    fs.mkdirSync(binDir, { recursive: true });
+    writeFakeZip(binDir);
+
+    const messages = [];
+    const oldWarn = console.warn;
+    console.warn = (...args) => messages.push(args.join(" "));
+    try {
+      const first = bestzip.maybeWarnAboutRefusedZip(binDir);
+      assert.equal(first, path.join(binDir, "zip"));
+      assert.equal(messages.length, 1);
+      const message = messages[0];
+      // The declined path and the way to trust it deliberately...
+      assert.ok(message.includes(path.join(binDir, "zip")));
+      assert.ok(message.includes("--zip-path"));
+      assert.ok(message.includes("zipPath"));
+      assert.ok(message.includes("BESTZIP_ZIP_PATH"));
+      // ...and where to ask for a new default-trusted location.
+      assert.ok(message.includes("pull request"));
+
+      // The same path is never warned about twice in one process.
+      assert.equal(bestzip.maybeWarnAboutRefusedZip(binDir), null);
+      assert.equal(messages.length, 1);
+    } finally {
+      console.warn = oldWarn;
+    }
+  });
+
+  test(
+    "warns and falls back to nodeZip when the only zip is an untrusted PATH entry",
+    { skip: process.platform === "win32" },
+    () => {
+      const root = reset();
+      const workDir = path.join(root, "work");
+      const binDir = path.join(root, "bin");
+      fs.mkdirSync(workDir, { recursive: true });
+      fs.mkdirSync(binDir, { recursive: true });
+      fs.writeFileSync(path.join(workDir, "app.js"), "console.log('app')");
+      writeFakeZip(binDir);
+
+      const result = spawnSync(
+        process.execPath,
+        [fixture, path.join(root, "out.zip")],
+        {
+          cwd: workDir,
+          env: { ...process.env, PATH: binDir },
+          encoding: "utf8",
+        }
+      );
+      assert.equal(
+        result.status,
+        0,
+        `fixture failed:\nstdout: ${result.stdout}\nstderr: ${result.stderr}`
+      );
+      const out = JSON.parse(result.stdout);
+
+      // The untrusted zip never runs, and the archive is still produced either
+      // by the trusted system zip (when one exists) or by the node fallback.
+      assert.equal(out.pwnedExists, false);
+      assert.equal(out.rejected, false, out.message);
+      assert.equal(out.archiveExists, true);
+
+      if (RUNS_NATIVE) {
+        // A trusted system zip exists and is used, so nothing is refused and
+        // no warning is printed.
+        assert.ok(!result.stderr.includes("trusted system directories"));
+      } else {
+        // No trusted zip is available; the PATH zip was refused and bestzip
+        // must have explained how to opt back into it.
+        assert.ok(result.stderr.includes(path.join(binDir, "zip")));
+        assert.ok(result.stderr.includes("--zip-path"));
+        assert.ok(result.stderr.includes("BESTZIP_ZIP_PATH"));
+        assert.ok(result.stderr.includes("pull request"));
+      }
+    }
+  );
 });
