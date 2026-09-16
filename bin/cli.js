@@ -26,17 +26,20 @@ const argv = yargs(preprocessed)
       "Follow symbolic links and include their target contents in the archive",
     type: "boolean",
   })
-  .option("zip-path", {
+  .option("quiet", {
+    alias: "q",
     describe:
-      "Path to a zip executable or a directory to find one in. Overrides the default trusted system locations. Can also be set via the BESTZIP_ZIP_PATH environment variable.",
-    type: "string",
+      "Suppress warnings and progress output. Only errors are printed. Useful in CI or environments where the default behaviors (and their warnings) are expected.",
+    type: "boolean",
   })
   .demand(2).argv;
 
 const destination = argv._.shift();
 const source = argv._;
 
-console.log("Writing %s to %s...", source.join(", "), destination);
+if (!argv.quiet) {
+  console.log("Writing %s to %s...", source.join(", "), destination);
+}
 
 let zip;
 
@@ -51,14 +54,15 @@ if (argv.force === "node") {
 zip({
   source,
   destination,
-  verbose: !!argv.verbose,
   level: argv.level,
   followSymLinks: argv.followSymLinks,
-  zipPath: argv.zipPath,
+  quiet: !!argv.quiet,
   viaCli: true,
 })
   .then(function () {
-    console.log("zipped!");
+    if (!argv.quiet) {
+      console.log("zipped!");
+    }
   })
   .catch(function (err) {
     console.error(err);

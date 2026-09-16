@@ -120,7 +120,7 @@ const symlinkStyles = [
 
 for (const { name, cli, testCases } of symlinkStyles) {
   describe("file structure - " + name, () => {
-    const hasNativeZip = bestzip.hasNativeZip();
+    const hasNativeZip = bestzip.hasNativeZip({ quiet: true });
 
     before(createSymlink);
     beforeEach(reset);

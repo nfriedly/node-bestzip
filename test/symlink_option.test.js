@@ -53,8 +53,8 @@ const setup = () => {
 };
 
 describe("symlink option", { skip: !canCreateSymlinks() }, () => {
-  const hasNativeZip = bestzip.hasNativeZip();
-  const nativeStoresLinks = bestzip.nativeZipSupportsSymlinks();
+  const hasNativeZip = bestzip.hasNativeZip({ quiet: true });
+  const nativeStoresLinks = bestzip.nativeZipSupportsSymlinks({ quiet: true });
 
   beforeEach(() => {
     fs.rmSync(tmpdir, { recursive: true, force: true });
@@ -226,6 +226,22 @@ describe("symlink option", { skip: !canCreateSymlinks() }, () => {
     const entries = readZipEntries(destination);
     assert.equal(entries["archive-me/link.txt"].type, S_IFLNK);
     assert.deepEqual(entries["archive-me/vendor/vendored.txt"], undefined);
+  });
+
+  // With the symlink flag unset, the CLI would normally print the symlink
+  // default-behavior warning and the "Writing..." / "zipped!" progress lines;
+  // --quiet must suppress all of it while still producing the archive.
+  test("cli: --quiet archives with no progress output or warnings", () => {
+    const result = spawnSync(
+      process.execPath,
+      [cli, "--quiet", destination, "archive-me/"],
+      { cwd, encoding: "utf8" }
+    );
+    assert.equal(result.status, 0, result.stderr);
+    assert.equal(result.stdout, "");
+    assert.ok(!result.stderr.includes("Symbolic links"));
+    assert.ok(!result.stderr.includes("trusted system directories"));
+    assert.ok(Object.keys(readZipEntries(destination)).length > 0);
   });
 
   // Note: there's intentionally no "default (no flag)" CLI assertion here. The

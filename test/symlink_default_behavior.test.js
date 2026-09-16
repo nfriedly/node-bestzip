@@ -96,5 +96,20 @@ describe(
       assert.deepEqual(entries["vendor-link/vendored.txt"], undefined);
       assert.ok(warn.mock.calls.length > 0);
     });
+
+    test("quiet: true stores symlinks as links without warning", async (t) => {
+      const warn = t.mock.method(console, "warn", () => {});
+      const dest = path.join(cwd, "quiet.zip");
+      await bestzip.nodeZip({
+        cwd,
+        source: "archive-me/",
+        destination: dest,
+        quiet: true,
+      });
+      const entries = readZipEntries(dest);
+      assert.equal(entries["archive-me/link.txt"].type, S_IFLNK);
+      assert.equal(entries["archive-me/vendor"].type, S_IFLNK);
+      assert.equal(warn.mock.calls.length, 0);
+    });
   }
 );

@@ -11,7 +11,7 @@ const fixture = path.join(
   import.meta.dirname,
   "js-fixtures/search-path-fixture.mjs"
 );
-const RUNS_NATIVE = bestzip.hasNativeZip();
+const RUNS_NATIVE = bestzip.hasNativeZip({ quiet: true });
 
 // The planted fake `zip` is a POSIX script and Windows executable lookup
 // doesn't follow the same chdir+execvp behavior, so these regressions only
@@ -245,20 +245,80 @@ describe("untrusted search path and silent failures", () => {
     fs.mkdirSync(binDir, { recursive: true });
     writeFakeZip(binDir);
 
-    const first = bestzip.maybeWarnAboutRefusedZip(binDir);
+    // Called without viaCli, so the API option names are used.
+    const first = bestzip.maybeWarnAboutRefusedZip({ pathEnv: binDir });
     assert.equal(first, path.join(binDir, "zip"));
     assert.equal(console.warn.mock.calls.length, 1);
     const message = console.warn.mock.calls[0].arguments[0];
     // The declined path and the way to trust it deliberately...
     assert.ok(message.includes(path.join(binDir, "zip")));
-    assert.ok(message.includes("--zip-path"));
     assert.ok(message.includes("zipPath"));
     assert.ok(message.includes("BESTZIP_ZIP_PATH"));
+    // ...the API quiet option...
+    assert.ok(message.includes("quiet: true"));
     // ...and where to ask for a new default-trusted location.
     assert.ok(message.includes("pull request"));
+    // The message is scoped to the API: the CLI flag is not mentioned.
+    assert.ok(!message.includes("--zip-path"));
 
     // The same path is never warned about twice in one process.
-    assert.equal(bestzip.maybeWarnAboutRefusedZip(binDir), null);
+    assert.equal(bestzip.maybeWarnAboutRefusedZip({ pathEnv: binDir }), null);
+    assert.equal(console.warn.mock.calls.length, 1);
+  });
+
+  test("scopes the refusal warning to CLI or API usage", (t) => {
+    t.mock.method(console, "warn");
+
+    const root = reset();
+    const cliBinDir = path.join(root, "cli-bin");
+    const apiBinDir = path.join(root, "api-bin");
+    fs.mkdirSync(cliBinDir, { recursive: true });
+    fs.mkdirSync(apiBinDir, { recursive: true });
+    writeFakeZip(cliBinDir);
+    writeFakeZip(apiBinDir);
+
+    // CLI users have no --zip-path flag (a build argument could otherwise
+    // smuggle in an executable path), so the remedy is the env var only.
+    assert.equal(
+      bestzip.maybeWarnAboutRefusedZip({ pathEnv: cliBinDir, viaCli: true }),
+      path.join(cliBinDir, "zip")
+    );
+    const cliMessage = console.warn.mock.calls[0].arguments[0];
+    assert.ok(cliMessage.includes("BESTZIP_ZIP_PATH"));
+    assert.ok(cliMessage.includes("--quiet"));
+    // The CLI message does not name the programmatic option or a --zip-path flag.
+    assert.ok(!cliMessage.includes("zipPath"));
+
+    assert.equal(
+      bestzip.maybeWarnAboutRefusedZip({ pathEnv: apiBinDir }),
+      path.join(apiBinDir, "zip")
+    );
+    const apiMessage = console.warn.mock.calls[1].arguments[0];
+    assert.ok(apiMessage.includes("zipPath"));
+    assert.ok(apiMessage.includes("BESTZIP_ZIP_PATH"));
+    assert.ok(apiMessage.includes("quiet: true"));
+    assert.ok(!apiMessage.includes("--zip-path"));
+  });
+
+  test("quiet: true suppresses the refused-zip warning", (t) => {
+    t.mock.method(console, "warn");
+
+    const root = reset();
+    const binDir = path.join(root, "bin");
+    fs.mkdirSync(binDir, { recursive: true });
+    writeFakeZip(binDir);
+
+    // No warning and no path returned, but the suppressed path is not marked
+    // warned: a later non-quiet probe still reports it.
+    assert.equal(
+      bestzip.maybeWarnAboutRefusedZip({ pathEnv: binDir, quiet: true }),
+      null
+    );
+    assert.equal(console.warn.mock.calls.length, 0);
+    assert.equal(
+      bestzip.maybeWarnAboutRefusedZip({ pathEnv: binDir }),
+      path.join(binDir, "zip")
+    );
     assert.equal(console.warn.mock.calls.length, 1);
   });
 
@@ -305,11 +365,38 @@ describe("untrusted search path and silent failures", () => {
       assert.ok(out.archiveSize > 0);
 
       // bestzip must explain the refusal: the declined path, the opt-in
-      // knobs, and where to request a default-trusted location.
+      // knobs (API wording — the fixture calls bestzip programmatically), the
+      // quiet option, and where to request a default-trusted location.
       assert.ok(result.stderr.includes(path.join(binDir, "zip")));
-      assert.ok(result.stderr.includes("--zip-path"));
+      assert.ok(result.stderr.includes("zipPath"));
       assert.ok(result.stderr.includes("BESTZIP_ZIP_PATH"));
+      assert.ok(result.stderr.includes("quiet: true"));
       assert.ok(result.stderr.includes("pull request"));
     }
   );
+
+  test("cli: ignores an injected --zip-path instead of running its zip", () => {
+    const cli = path.join(import.meta.dirname, "../bin/cli.js");
+    const root = reset();
+    const workDir = path.join(root, "work");
+    const binDir = path.join(root, "bin");
+    fs.mkdirSync(workDir, { recursive: true });
+    fs.mkdirSync(binDir, { recursive: true });
+    fs.writeFileSync(path.join(workDir, "app.js"), "console.log('app')");
+    writeFakeZip(binDir);
+
+    // There is no --zip-path flag anymore, so yargs parses it as an unknown
+    // option and it must not point bestzip at the fake executable (this is the
+    // injection vector the flag removal is meant to close).
+    const result = spawnSync(
+      process.execPath,
+      [cli, "--zip-path", binDir, path.join(root, "out.zip"), "app.js"],
+      { cwd: workDir, encoding: "utf8" }
+    );
+    assert.equal(result.status, 0, result.stderr);
+    // The fake never ran...
+    assert.equal(fs.existsSync(path.join(workDir, "PWNED.txt")), false);
+    // ...and the archive was still produced by a trusted zip / node fallback.
+    assert.ok(fs.existsSync(path.join(root, "out.zip")));
+  });
 });

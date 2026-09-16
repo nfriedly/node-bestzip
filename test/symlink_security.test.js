@@ -45,12 +45,13 @@ const setup = () => {
 };
 
 describe("symlink security", { skip: !canCreateSymlinks() }, () => {
-  const hasNativeZip = bestzip.hasNativeZip();
+  const hasNativeZip = bestzip.hasNativeZip({ quiet: true });
   // The native zip on Windows (Info-ZIP) can't store symlinks as links, so the
   // not-follow nativeZip variants (which call nativeZip without followSymLinks,
   // or with followSymLinks: false) would throw there. Skip those variants on
   // such platforms; the follow-mode (followSymLinks: true) variants still run.
-  const nativeStoresLinks = hasNativeZip && bestzip.nativeZipSupportsSymlinks();
+  const nativeStoresLinks =
+    hasNativeZip && bestzip.nativeZipSupportsSymlinks({ quiet: true });
 
   const runOnBothZips = (title, body, nativeSkip = !hasNativeZip) => {
     test(`${title} (nodeZip)`, async (t) => body(bestzip.nodeZip, t));
