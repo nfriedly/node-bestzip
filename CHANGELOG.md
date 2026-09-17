@@ -13,7 +13,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ### Fixed
 
-- Only exit/return successfully when the .zip file was actually created.
+- Only exit/return successfully when the destination.zip file was actually created or replaced.
 
 ### Added
 

@@ -216,7 +216,7 @@ describe("untrusted search path and silent failures", () => {
 
       // A stale archive from a previous build already sits at the destination
       // when the compromised zip runs. The stale artifact must not pass the
-      // "was the archive written?" check.
+      // "was the archive (re)written?" check.
       const dest = path.join(root, "out.zip");
       fs.writeFileSync(dest, "stale content from a previous build");
 
@@ -226,10 +226,15 @@ describe("untrusted search path and silent failures", () => {
       });
 
       assert.equal(out.rejected, true);
-      assert.ok(out.message.includes("did not create the archive"));
-      // The stale archive was removed up front; it is not reported as success
-      // nor left in place as a plausible new artifact.
-      assert.equal(out.archiveExists, false);
+      assert.ok(out.message.includes("did not modify the archive"));
+      // bestzip doesn't delete the destination — it compares the before/after
+      // mtime — so the stale archive is still there, untouched, and is not
+      // reported as a successful build.
+      assert.equal(out.archiveExists, true);
+      assert.equal(
+        fs.readFileSync(dest, "utf8"),
+        "stale content from a previous build"
+      );
       // Confirms the fake zip really was the one executed.
       assert.equal(out.pwnedExists, true);
     }
