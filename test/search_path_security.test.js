@@ -202,7 +202,40 @@ describe("untrusted search path and silent failures", () => {
     }
   );
 
-  test("never presents node_modules, relative, or empty PATH entries as trusted zips", () => {
+  test(
+    "rejects a 0 exit despite a stale archive at the destination",
+    posixSkip,
+    () => {
+      const root = reset();
+      const workDir = path.join(root, "work");
+      const binDir = path.join(root, "bin");
+      fs.mkdirSync(workDir, { recursive: true });
+      fs.mkdirSync(binDir, { recursive: true });
+      fs.writeFileSync(path.join(workDir, "app.js"), "console.log('app')");
+      writeFakeZip(binDir);
+
+      // A stale archive from a previous build already sits at the destination
+      // when the compromised zip runs. The stale artifact must not pass the
+      // "was the archive written?" check.
+      const dest = path.join(root, "out.zip");
+      fs.writeFileSync(dest, "stale content from a previous build");
+
+      const out = runFixture(workDir, dest, {
+        ...process.env,
+        BESTZIP_ZIP_PATH: binDir,
+      });
+
+      assert.equal(out.rejected, true);
+      assert.ok(out.message.includes("did not create the archive"));
+      // The stale archive was removed up front; it is not reported as success
+      // nor left in place as a plausible new artifact.
+      assert.equal(out.archiveExists, false);
+      // Confirms the fake zip really was the one executed.
+      assert.equal(out.pwnedExists, true);
+    }
+  );
+
+  test("reports node_modules, relative, and empty PATH entries as declined zips", () => {
     const root = reset();
     const nmBin = path.join(root, "node_modules", ".bin");
     const plainBin = path.join(root, "plain");
@@ -213,21 +246,28 @@ describe("untrusted search path and silent failures", () => {
     writeFakeZip(nmBin);
     writeFakeZip(plainBin);
     // Plant zips where a relative PATH entry ("relative/bin") and an empty one
-    // ("") would resolve against the cwd, so the exclusions are asserted
-    // against real files rather than plain absence.
+    // ("") would resolve against the cwd, so the reporting is asserted against
+    // real files rather than plain absence.
     writeFakeZip(relativeBin);
     writeFakeZip(root);
 
     const oldCwd = process.cwd();
     process.chdir(root);
     try {
-      // Under a node_modules tree: skipped even though a zip is there.
-      assert.equal(bestzip.findZipCommandOnUntrustedPath(nmBin), null);
-      // Relative and empty entries: skipped even though they resolve to one of
-      // the planted zips above.
-      assert.equal(bestzip.findZipCommandOnUntrustedPath("relative/bin"), null);
-      assert.equal(bestzip.findZipCommandOnUntrustedPath(""), null);
-      // A trusted absolute, non-node_modules entry is still found.
+      // The scan exists to warn about the `zip` bestzip refuses to run, so
+      // it reports anything on PATH — a node_modules/.bin shim...
+      assert.equal(
+        bestzip.findZipCommandOnUntrustedPath(nmBin),
+        path.join(nmBin, "zip")
+      );
+      // ...a relative entry that resolves against the cwd...
+      assert.equal(
+        bestzip.findZipCommandOnUntrustedPath("relative/bin"),
+        path.join("relative", "bin", "zip")
+      );
+      // ...an empty entry that resolves against the cwd...
+      assert.equal(bestzip.findZipCommandOnUntrustedPath(""), "zip");
+      // ...and a plain absolute entry.
       assert.equal(
         bestzip.findZipCommandOnUntrustedPath(plainBin),
         path.join(plainBin, "zip")

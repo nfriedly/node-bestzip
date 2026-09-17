@@ -11,6 +11,10 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 - Native zip commands are only executed in allowlisted locations. Defaults added for Windows, Linux, and Mac; may be overridden via configuration.
 
+### Fixed
+
+- Only exit/return successfully when the .zip file was actually created.
+
 ### Added
 
 - `zipPath` config option and `BESTZIP_ZIP_PATH` environment property - configure an explicit path to the native zip command rather than using built-in set of trusted paths.
