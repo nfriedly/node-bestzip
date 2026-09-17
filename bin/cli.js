@@ -28,8 +28,7 @@ const argv = yargs(preprocessed)
   })
   .option("quiet", {
     alias: "q",
-    describe:
-      "Suppress warnings and progress output. Only errors are printed. Useful in CI or environments where the default behaviors (and their warnings) are expected.",
+    describe: "Suppress warnings and progress output. Only errors are printed.",
     type: "boolean",
   })
   .demand(2).argv;
