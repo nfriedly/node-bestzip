@@ -367,6 +367,56 @@ describe("untrusted search path and silent failures", () => {
     assert.equal(console.warn.mock.calls.length, 1);
   });
 
+  test("warn: false suppresses the refused-zip warning", (t) => {
+    t.mock.method(console, "warn");
+
+    const root = reset();
+    const binDir = path.join(root, "bin");
+    fs.mkdirSync(binDir, { recursive: true });
+    writeFakeZip(binDir);
+
+    // warn: false is a narrower knob than quiet — it silences only warnings,
+    // and (like quiet) does not mark the path as warned, so a later probe with
+    // warnings on still reports it.
+    assert.equal(
+      bestzip.maybeWarnAboutRefusedZip({ pathEnv: binDir, warn: false }),
+      null
+    );
+    assert.equal(console.warn.mock.calls.length, 0);
+    assert.equal(
+      bestzip.maybeWarnAboutRefusedZip({ pathEnv: binDir }),
+      path.join(binDir, "zip")
+    );
+    assert.equal(console.warn.mock.calls.length, 1);
+  });
+
+  test("quiet with an explicit warn: true still warns (quiet --warn)", (t) => {
+    t.mock.method(console, "warn");
+
+    const root = reset();
+    const binDir = path.join(root, "bin");
+    fs.mkdirSync(binDir, { recursive: true });
+    writeFakeZip(binDir);
+
+    // An explicit warn: true overrides quiet for warnings only — "run quietly,
+    // but warn me" — and the path is marked warned (it was reported).
+    assert.equal(
+      bestzip.maybeWarnAboutRefusedZip({
+        pathEnv: binDir,
+        quiet: true,
+        warn: true,
+      }),
+      path.join(binDir, "zip")
+    );
+    assert.equal(console.warn.mock.calls.length, 1);
+    // A later probe repeats nothing: already warned.
+    assert.equal(
+      bestzip.maybeWarnAboutRefusedZip({ pathEnv: binDir, quiet: true }),
+      null
+    );
+    assert.equal(console.warn.mock.calls.length, 1);
+  });
+
   test(
     "logs the refused-zip warning when no trusted zip exists and only an untrusted PATH zip is present",
     // Runs only where a trusted native zip is NOT available (e.g. the plain

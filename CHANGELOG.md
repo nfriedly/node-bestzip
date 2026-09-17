@@ -19,6 +19,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 - `zipPath` config option and `BESTZIP_ZIP_PATH` environment property - configure an explicit path to the native zip command rather than using built-in set of trusted paths.
 - `--quiet` / `-q` on the command line and `quiet: true` in the programmatic API to suppress bestzip's progress output and advisory warnings (the untrusted native `zip` warning and the symlink default-behavior warning). Errors are still printed for command-line usage.
+- `--no-warn` on the command line and `warn: false` in the programmatic API to suppress just the advisory warnings while keeping the progress output. An explicit `warn: true` (or `--warn`) re-enables the warnings even under `quiet` / `--quiet`, so `--quiet --warn` logs warnings but not other output.
 - `hasNativeZip()` now accepts an optional `options` argument (e.g. `hasNativeZip({ quiet: true })`) and threads it through to the native-zip lookup.
 
 ## [4.0.0](https://github.com/nfriedly/node-bestzip/releases/tag/v4.0.0) - 2026-10-06

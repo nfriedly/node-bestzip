@@ -45,7 +45,9 @@ package.json:
 * `--follow-sym-links` / `--no-follow-sym-links`: Follow symbolic links and include their target contents in the archive, or don't follow and instead include the link itself (the default). If symlinks are encountered when the flag is not set, a warning will be logged.
 * `--level N` / `-N`: Level of compression, as with the native `zip` command. `N` must be an integer from 0 (store, no compression) to 9 (maximum compression). Defaults to each implementation's own default when unset.
 * `--force node|native`: Force the Node.js implementation or the native `zip` command instead of letting bestzip pick automatically.
-* `--quiet` / `-q`: Suppress advisory warnings and progress output; only errors are printed. Useful in CI or scripts where a missing native `zip` or the default symlink behavior (and their warnings) are expected. See [Suppressing warnings](#suppressing-warnings).
+* `--quiet` / `-q`: Suppress advisory warnings and progress output; only errors are printed. 
+* `--warn` / `--no-warn`: Print bestzip's advisory warnings (the default), or silence just the warnings while keeping the progress output (`Writing ... to ...`, `zipped!`).
+  * Pass `--quiet --warn` to keep the warnings while suppressing everything else. See [Suppressing warnings](#suppressing-warnings).
 
 
 ## Programmatic usage from within Node.js
@@ -81,24 +83,8 @@ await bestZip({
 * `level`: Level of compression, as with the native `zip` command. An integer from 0 (store, no compression) to 9 (maximum compression). Defaults to each implementation's own default when unset.
 * `followSymLinks`: Follow symbolic links and include the contents of their targets in the zip file. When set to `true` or `false` the preference is honored and no warning is printed. When left unset, symbolic links are **not** followed and a warning is printed whenever symlinks are detected (see [Symbolic links](#symbolic-links)).
 * `zipPath`: Path to a `zip` executable (or a directory to search for one) to use for the native fast path. Defaults to `BESTZIP_ZIP_PATH`, then to a hardcoded list of trusted system directories. When no native `zip` is found, bestzip falls back to its built-in Node.js implementation.
-* `quiet`: Suppress bestzip's advisory warnings (the refused-`zip` warning and the symlink default-behavior warning) and skip the symlink detection scan. Errors are still reported. See [Suppressing warnings](#suppressing-warnings).
-
-## Which `zip` does bestzip run?
-
-For the native fast path, bestzip only ever runs a `zip` binary it resolved itself from an explicit allowlist of trusted system locations — `/usr/bin`, `/bin`, `/usr/local/bin`, `/opt/homebrew/bin` and `/opt/local/bin` on macOS/Linux; the `System32` directory, the Windows directory, and the chocolatey and Git-for-Windows `bin` directories on Windows. It never searches `PATH` and never executes an arbitrary file named `zip` from the directory being archived. This keeps a malicious `zip` (committed into the source tree, delivered through a relative `PATH` element, or installed into `node_modules/.bin` by a dependency) from running as the build user.
-
-To use `zip` from a different location — a Nix store, `~/bin`, a custom container image, etc. — point bestzip at it explicitly with the `zipPath` option in code or the `BESTZIP_ZIP_PATH` environment variable; both accept either a path to a `zip` executable or a directory to search for one. Note that the command line has **no** `--zip-path` flag, by design: a flag reachable through a build argument could be injected to point bestzip at an arbitrary executable, so CLI users opt in with `BESTZIP_ZIP_PATH` instead (set it in the environment, e.g. `BESTZIP_ZIP_PATH=/nix/store/xyz/bin bestzip out.zip build/*`). If an explicitly configured location yields no usable `zip`, bestzip falls back to the built-in Node.js implementation rather than touching `PATH`.
-
-When no trusted `zip` is usable but a `zip` is reachable through `PATH`, bestzip does not run it (as above) and logs a warning that names the path it declined and shows how to opt back into it deliberately — `zipPath` in code, or `BESTZIP_ZIP_PATH` in the environment (there is no CLI flag, so a build argument can't point bestzip at an arbitrary executable) — and mentions `--quiet` / `quiet: true` for suppressing it where the situation is expected. If that location is a standard system directory bestzip should trust by default, please open an issue or pull request so it can be added to the allowlist.
-
-## Suppressing warnings
-
-bestzip reports its advisory warnings on stderr. They are non-fatal — a failed build throws and exits non-zero — and two of them are expected side effects of secure defaults, so in CI or container builds they can be permanent, harmless noise:
-
-- The refused-`zip` warning above (fired when no trusted `zip` exists but one is reachable through `PATH`).
-- The symlink default-behavior warning (fired when symlinks are present and `followSymLinks` is unset).
-
-Where the underlying situation is just expected, pass `--quiet` (or `-q`) on the command line, or set `quiet: true` in code. This suppresses those warnings (and any other advisory scanner/archive warnings) and skips the symlink detection scan; it does **not** change the resulting archive, and errors are still reported. Progress output (`Writing ... to ...`, `zipped!`) is suppressed too. Keep in mind that `--quiet` hides the refusal, not the reason for it — if a `zip` is being skipped unexpectedly, prefer fixing the cause with `zipPath` / `BESTZIP_ZIP_PATH`.
+* `quiet`: Suppress bestzip's advisory warnings (the refused-`zip` warning and the symlink default-behavior warning) and skip the symlink detection scan. Errors are still reported.
+* `warn:`: Whether to print bestzip's advisory warnings (default: `true`). `warn: false` silences just the warnings while keeping everything else; an explicit `warn: true` re-enables warnings even under `quiet: true`. See [Suppressing warnings](#suppressing-warnings).
 
 ## How to control the directory structure
 
@@ -135,3 +121,29 @@ To follow symlinks, set `followSymLinks: true` (programmatic API) or pass `--fol
 
 When archiving symlinks without following them, bestzip uses the native `zip` command when available. Some native `zip` builds (notably the Windows build of Info-ZIP) cannot store symlinks as link entries at all, so bestzip falls back to its built-in Node.js implementation in that case. 
 Note that calling `nativeZip()` directly with `followSymLinks` unset/false on such a platform throws an error; use the `bestZip()` entry point, which routes to the Node.js implementation automatically. Use `nativeZipSupportsSymlinks()` to check whether the available native `zip` can store symlinks as links; it accepts the same options as the other entry points (e.g. `zipPath`), returns `true`/`false`, and caches its result after the first call. `bestzip.hasNativeZip()` checks whether a native `zip` is installed at all.
+
+## Which `zip` does bestzip run?
+
+For the native fast path, bestzip only ever runs a `zip` binary it resolved itself from an explicit allowlist of trusted system locations — `/usr/bin`, `/bin`, `/usr/local/bin`, `/opt/homebrew/bin` and `/opt/local/bin` on macOS/Linux; the `System32` directory, the Windows directory, and the chocolatey and Git-for-Windows `bin` directories on Windows.
+
+To use `zip` from a different location, point bestzip at it explicitly with the `zipPath:` option in code or the `BESTZIP_ZIP_PATH` environment variable (code or cli). Both accept either a path to a `zip` executable or a directory to search for one. This replaces the built-in allowlist.
+
+Note that the command line has **no** `--zip-path` flag, in order to avoid a malicious user slipping one in as a file name and tricking bestzip into executing it. Use the `BESTZIP_ZIP_PATH`env var instead (e.g. `BESTZIP_ZIP_PATH=/nix/store/xyz/bin bestzip out.zip build/*`). If an explicitly configured location yields no usable `zip`, bestzip falls back to the built-in Node.js implementation.
+
+When no trusted `zip` is found, but an untrusted `zip` is reachable through `PATH`, bestzip logs a warning with additional information.
+
+## Suppressing warnings
+
+bestzip reports the following non-fatal warnings via `console.warn()`:
+
+- The symlink default-behavior warning (fired when symlinks are present and `followSymLinks` is unset).
+- The refused-`zip` warning above (fired when no trusted `zip` exists but one is reachable through `PATH` at an untrusted location).
+- Any warnings emitted bu the underlying archiver dependency.
+
+Warnings have their own setting, independent of the progress output:
+
+- `--no-warn` on the command line, or `warn: false` in code silences *only* the warnings; progress output (`Writing ... to ...`, `zipped!`) still prints when used via the cli.
+- `--quiet` / `-q`, or `quiet: true` in code silences *both* the warnings and the progress output; only errors are printed.
+- `--quiet --warn` prints warnings but not progress output.
+
+Disabling warnings also disables the related scans (for symlinks and untrusted zip executables).

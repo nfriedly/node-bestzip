@@ -111,5 +111,36 @@ describe(
       assert.equal(entries["archive-me/vendor"].type, S_IFLNK);
       assert.equal(warn.mock.calls.length, 0);
     });
+
+    test("warn: false stores symlinks as links without warning", async (t) => {
+      const warn = t.mock.method(console, "warn", () => {});
+      const dest = path.join(cwd, "nowarn.zip");
+      await bestzip.nodeZip({
+        cwd,
+        source: "archive-me/",
+        destination: dest,
+        warn: false,
+      });
+      const entries = readZipEntries(dest);
+      assert.equal(entries["archive-me/link.txt"].type, S_IFLNK);
+      assert.equal(entries["archive-me/vendor"].type, S_IFLNK);
+      assert.equal(warn.mock.calls.length, 0);
+    });
+
+    test("quiet with an explicit warn: true still warns", async (t) => {
+      const warn = t.mock.method(console, "warn", () => {});
+      const dest = path.join(cwd, "quiet-warn.zip");
+      await bestzip.nodeZip({
+        cwd,
+        source: "archive-me/",
+        destination: dest,
+        quiet: true,
+        warn: true,
+      });
+      const entries = readZipEntries(dest);
+      assert.equal(entries["archive-me/link.txt"].type, S_IFLNK);
+      assert.equal(entries["archive-me/vendor"].type, S_IFLNK);
+      assert.ok(warn.mock.calls.length > 0);
+    });
   }
 );

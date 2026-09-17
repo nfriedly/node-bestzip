@@ -244,6 +244,44 @@ describe("symlink option", { skip: !canCreateSymlinks() }, () => {
     assert.ok(Object.keys(readZipEntries(destination)).length > 0);
   });
 
+  // --no-warn is a narrower knob than --quiet: warnings are suppressed but the
+  // progress output ("Writing...", "zipped!") stays on.
+  test("cli: --no-warn suppresses warnings but keeps progress output", () => {
+    const result = spawnSync(
+      process.execPath,
+      [cli, "--no-warn", destination, "archive-me/"],
+      { cwd, encoding: "utf8" }
+    );
+    assert.equal(result.status, 0, result.stderr);
+    assert.ok(result.stdout.includes("Writing "));
+    assert.ok(result.stdout.includes("zipped!"));
+    assert.ok(!result.stderr.includes("Symbolic links"));
+    assert.ok(Object.keys(readZipEntries(destination)).length > 0);
+  });
+
+  // An explicit --warn overrides quiet for warnings only: "run quietly, but
+  // warn me". The two orderings must behave identically, including the symlink
+  // detection scan that quiet would otherwise skip.
+  const warnOptions = [
+    ["--quiet", "--warn"],
+    ["--warn", "--quiet"],
+  ];
+  for (const flags of warnOptions) {
+    test(`cli: ${flags.join(
+      " "
+    )} prints warnings but no progress output`, () => {
+      const result = spawnSync(
+        process.execPath,
+        [cli, ...flags, destination, "archive-me/"],
+        { cwd, encoding: "utf8" }
+      );
+      assert.equal(result.status, 0, result.stderr);
+      assert.equal(result.stdout, "");
+      assert.ok(result.stderr.includes("Symbolic links"));
+      assert.ok(Object.keys(readZipEntries(destination)).length > 0);
+    });
+  }
+
   // Note: there's intentionally no "default (no flag)" CLI assertion here. The
   // unset default diverges by backend: the native zip follows symlinks, while
   // the node implementation stores an in-directory symlink as a link. That
