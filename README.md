@@ -124,11 +124,11 @@ Note that calling `nativeZip()` directly with `followSymLinks` unset/false on su
 
 ## Which `zip` does bestzip run?
 
-For the native fast path, bestzip only ever runs a `zip` binary it resolved itself from an explicit allowlist of trusted system locations — `/usr/bin`, `/bin`, `/usr/local/bin`, `/opt/homebrew/bin` and `/opt/local/bin` on macOS/Linux; the `System32` directory, the Windows directory, and the chocolatey and Git-for-Windows `bin` directories on Windows.
+For the native fast path, bestzip only ever runs a `zip` binary it resolved itself from an explicit allowlist of trusted system locations. (See `DEFAULT_ZIP_DIRS` in `lib/bestzip.js` for the full list.)
 
-To use `zip` from a different location, point bestzip at it explicitly with the `zipPath:` option in code or the `BESTZIP_ZIP_PATH` environment variable (code or cli). Both accept either a path to a `zip` executable or a directory to search for one. This replaces the built-in allowlist.
+To use `zip` from a different location, point bestzip at it explicitly with the `zipPath:` option in code or the `BESTZIP_ZIP_PATH` environment variable (code or cli). Both accept either a path to a `zip` executable or a directory to search for one. This is checked before the built-in allowlist.
 
-Note that the command line has **no** `--zip-path` flag, in order to avoid a malicious user slipping one in as a file name and tricking bestzip into executing it. Use the `BESTZIP_ZIP_PATH`env var instead (e.g. `BESTZIP_ZIP_PATH=/nix/store/xyz/bin bestzip out.zip build/*`). If an explicitly configured location yields no usable `zip`, bestzip falls back to the built-in Node.js implementation.
+Note that the **command line has no flag to set the zip path**, in order to avoid a malicious user slipping one in as a file name and tricking bestzip into executing it. Use the `BESTZIP_ZIP_PATH`env var instead (e.g. `BESTZIP_ZIP_PATH=/nix/store/xyz/bin bestzip out.zip build/*`). If an explicitly configured location yields no usable `zip`, bestzip falls back to the built-in Node.js implementation.
 
 When no trusted `zip` is found, but an untrusted `zip` is reachable through `PATH`, bestzip logs a warning with additional information.
 
