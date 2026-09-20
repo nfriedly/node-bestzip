@@ -53,8 +53,8 @@ const setup = () => {
 };
 
 describe("symlink option", { skip: !canCreateSymlinks() }, () => {
-  const hasNativeZip = bestzip.hasNativeZip({ quiet: true });
-  const nativeStoresLinks = bestzip.nativeZipSupportsSymlinks({ quiet: true });
+  const hasNativeZip = bestzip.hasNativeZip();
+  const nativeStoresLinks = bestzip.nativeZipSupportsSymlinks();
 
   beforeEach(() => {
     fs.rmSync(tmpdir, { recursive: true, force: true });
@@ -180,8 +180,8 @@ describe("symlink option", { skip: !canCreateSymlinks() }, () => {
     }
   );
 
-  // Runs bestzip in a fresh process where BESTZIP_ZIP_PATH points at a fake
-  // `zip` that rejects --symlinks, so nativeZipSupportsSymlinks() reports false.
+  // Runs bestzip in a fresh process where PATH is prepended with a fake `zip`
+  // that rejects --symlinks, so nativeZipSupportsSymlinks() reports false.
   const runWithIncapableZip = (mode) => {
     const bin = fs.mkdtempSync(path.join(os.tmpdir(), "bestzip-fakezip-"));
     fs.writeFileSync(
@@ -189,8 +189,8 @@ describe("symlink option", { skip: !canCreateSymlinks() }, () => {
       `#!/bin/sh\necho "zip error: --symlinks not supported" >&2\nexit 1\n`
     );
     fs.chmodSync(path.join(bin, "zip"), 0o755);
-    const oldZipPath = process.env.BESTZIP_ZIP_PATH;
-    process.env.BESTZIP_ZIP_PATH = bin;
+    const oldPath = process.env.PATH;
+    process.env.PATH = bin + path.delimiter + oldPath;
     try {
       const result = spawnSync(
         process.execPath,
@@ -202,7 +202,7 @@ describe("symlink option", { skip: !canCreateSymlinks() }, () => {
           cwd,
           mode,
         ],
-        { cwd: import.meta.dirname, encoding: "utf8", env: process.env }
+        { cwd: import.meta.dirname, encoding: "utf8" }
       );
       assert.equal(
         result.status,
@@ -211,7 +211,7 @@ describe("symlink option", { skip: !canCreateSymlinks() }, () => {
       );
       return JSON.parse(result.stdout);
     } finally {
-      process.env.BESTZIP_ZIP_PATH = oldZipPath;
+      process.env.PATH = oldPath;
       fs.rmSync(bin, { recursive: true, force: true });
     }
   };
@@ -227,60 +227,6 @@ describe("symlink option", { skip: !canCreateSymlinks() }, () => {
     assert.equal(entries["archive-me/link.txt"].type, S_IFLNK);
     assert.deepEqual(entries["archive-me/vendor/vendored.txt"], undefined);
   });
-
-  // With the symlink flag unset, the CLI would normally print the symlink
-  // default-behavior warning and the "Writing..." / "zipped!" progress lines;
-  // --quiet must suppress all of it while still producing the archive.
-  test("cli: --quiet archives with no progress output or warnings", () => {
-    const result = spawnSync(
-      process.execPath,
-      [cli, "--quiet", destination, "archive-me/"],
-      { cwd, encoding: "utf8" }
-    );
-    assert.equal(result.status, 0, result.stderr);
-    assert.equal(result.stdout, "");
-    assert.ok(!result.stderr.includes("Symbolic links"));
-    assert.ok(!result.stderr.includes("trusted system directories"));
-    assert.ok(Object.keys(readZipEntries(destination)).length > 0);
-  });
-
-  // --no-warn is a narrower knob than --quiet: warnings are suppressed but the
-  // progress output ("Writing...", "zipped!") stays on.
-  test("cli: --no-warn suppresses warnings but keeps progress output", () => {
-    const result = spawnSync(
-      process.execPath,
-      [cli, "--no-warn", destination, "archive-me/"],
-      { cwd, encoding: "utf8" }
-    );
-    assert.equal(result.status, 0, result.stderr);
-    assert.ok(result.stdout.includes("Writing "));
-    assert.ok(result.stdout.includes("zipped!"));
-    assert.ok(!result.stderr.includes("Symbolic links"));
-    assert.ok(Object.keys(readZipEntries(destination)).length > 0);
-  });
-
-  // An explicit --warn overrides quiet for warnings only: "run quietly, but
-  // warn me". The two orderings must behave identically, including the symlink
-  // detection scan that quiet would otherwise skip.
-  const warnOptions = [
-    ["--quiet", "--warn"],
-    ["--warn", "--quiet"],
-  ];
-  for (const flags of warnOptions) {
-    test(`cli: ${flags.join(
-      " "
-    )} prints warnings but no progress output`, () => {
-      const result = spawnSync(
-        process.execPath,
-        [cli, ...flags, destination, "archive-me/"],
-        { cwd, encoding: "utf8" }
-      );
-      assert.equal(result.status, 0, result.stderr);
-      assert.equal(result.stdout, "");
-      assert.ok(result.stderr.includes("Symbolic links"));
-      assert.ok(Object.keys(readZipEntries(destination)).length > 0);
-    });
-  }
 
   // Note: there's intentionally no "default (no flag)" CLI assertion here. The
   // unset default diverges by backend: the native zip follows symlinks, while

@@ -5,7 +5,7 @@ import * as bestzip from "../lib/bestzip.js";
 import { init } from "./helpers.js";
 
 describe("command injection", () => {
-  const hasNativeZip = bestzip.hasNativeZip({ quiet: true });
+  const hasNativeZip = bestzip.hasNativeZip();
   // These destination-as-flag vectors only make sense against the native zip
   // command. When the platform's native zip can't store symlinks, bestzip.zip()
   // routes to nodeZip, which doesn't use "--" but instead may try to open the
