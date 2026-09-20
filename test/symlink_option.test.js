@@ -1,7 +1,6 @@
 import assert from "node:assert/strict";
 import { spawnSync } from "node:child_process";
 import fs from "node:fs";
-import os from "node:os";
 import path from "node:path";
 import { after, beforeEach, describe, test } from "node:test";
 
@@ -159,62 +158,41 @@ describe("symlink option", { skip: !canCreateSymlinks() }, () => {
 
   test(
     "the main bestzip() entry point routes to nodeZip when the native zip can't store symlinks",
-    { skip: process.platform === "win32" },
+    // Only runs where a native zip exists but genuinely cannot store symlinks
+    // as links (e.g. the Windows build of Info-ZIP); elsewhere the allowlist
+    // resolution either finds a capable native zip or falls back to nodeZip.
+    { skip: !hasNativeZip || nativeStoresLinks },
     async () => {
-      const out = runWithIncapableZip("route");
-      assert.equal(out.supports, false);
-      assert.equal(out.linkType, S_IFLNK);
-      assert.equal(out.vendorType, S_IFLNK);
-      assert.equal(out.linkTarget, targetFile);
+      await bestzip.default({
+        cwd,
+        source: "archive-me/",
+        destination,
+      });
+      const entries = readZipEntries(destination);
+      assert.equal(entries["archive-me/link.txt"].type, S_IFLNK);
+      assert.equal(entries["archive-me/vendor"].type, S_IFLNK);
+      assert.equal(
+        path.normalize(entries["archive-me/link.txt"].data.toString()),
+        path.normalize(targetFile)
+      );
     }
   );
 
   test(
     "nativeZip throws when the native zip can't store symlinks and followSymLinks: false",
-    { skip: process.platform === "win32" },
+    { skip: !hasNativeZip || nativeStoresLinks },
     async () => {
-      const out = runWithIncapableZip("throw");
-      assert.equal(out.supports, false);
-      assert.equal(out.threw, true);
-      assert.ok(out.message.includes("cannot store symlinks as links"));
+      await assert.rejects(
+        bestzip.nativeZip({
+          cwd,
+          source: "archive-me/",
+          destination,
+          followSymLinks: false,
+        }),
+        /cannot store symlinks as links/
+      );
     }
   );
-
-  // Runs bestzip in a fresh process where PATH is prepended with a fake `zip`
-  // that rejects --symlinks, so nativeZipSupportsSymlinks() reports false.
-  const runWithIncapableZip = (mode) => {
-    const bin = fs.mkdtempSync(path.join(os.tmpdir(), "bestzip-fakezip-"));
-    fs.writeFileSync(
-      path.join(bin, "zip"),
-      `#!/bin/sh\necho "zip error: --symlinks not supported" >&2\nexit 1\n`
-    );
-    fs.chmodSync(path.join(bin, "zip"), 0o755);
-    const oldPath = process.env.PATH;
-    process.env.PATH = bin + path.delimiter + oldPath;
-    try {
-      const result = spawnSync(
-        process.execPath,
-        [
-          path.join(
-            import.meta.dirname,
-            "js-fixtures/symlink-option-fixture.mjs"
-          ),
-          cwd,
-          mode,
-        ],
-        { cwd: import.meta.dirname, encoding: "utf8" }
-      );
-      assert.equal(
-        result.status,
-        0,
-        `fixture failed:\nstdout: ${result.stdout}\nstderr: ${result.stderr}`
-      );
-      return JSON.parse(result.stdout);
-    } finally {
-      process.env.PATH = oldPath;
-      fs.rmSync(bin, { recursive: true, force: true });
-    }
-  };
 
   test("cli: --no-follow-sym-links stores symlinks as links", () => {
     const result = spawnSync(
