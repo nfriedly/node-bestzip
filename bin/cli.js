@@ -26,25 +26,12 @@ const argv = yargs(preprocessed)
       "Follow symbolic links and include their target contents in the archive",
     type: "boolean",
   })
-  .option("quiet", {
-    alias: "q",
-    describe:
-      "Suppress warnings and progress output. Only errors are printed. Pass --warn to re-enable warnings (progress stays suppressed).",
-    type: "boolean",
-  })
-  .option("warn", {
-    describe:
-      "Print advisory warnings (the default). --no-warn suppresses just the warnings while keeping progress output. An explicit --warn re-enables warnings even under --quiet.",
-    type: "boolean",
-  })
   .demand(2).argv;
 
 const destination = argv._.shift();
 const source = argv._;
 
-if (!argv.quiet) {
-  console.log("Writing %s to %s...", source.join(", "), destination);
-}
+console.log("Writing %s to %s...", source.join(", "), destination);
 
 let zip;
 
@@ -59,16 +46,13 @@ if (argv.force === "node") {
 zip({
   source,
   destination,
+  verbose: !!argv.verbose,
   level: argv.level,
   followSymLinks: argv.followSymLinks,
-  quiet: !!argv.quiet,
-  warn: argv.warn,
   viaCli: true,
 })
   .then(function () {
-    if (!argv.quiet) {
-      console.log("zipped!");
-    }
+    console.log("zipped!");
   })
   .catch(function (err) {
     console.error(err);
