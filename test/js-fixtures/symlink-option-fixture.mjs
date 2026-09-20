@@ -1,7 +1,7 @@
-// Runs bestzip scenarios in a fresh process where PATH points at a fake native
-// zip that cannot store symlinks as links (simulating the Windows Info-ZIP
-// build). Used to deterministically exercise the "native zip can't store
-// symlinks" path regardless of whether a capable native zip is installed.
+// Runs bestzip scenarios in a fresh process where BESTZIP_ZIP_PATH points at a
+// fake native zip that cannot store symlinks as links (simulating the Windows
+// Info-ZIP build). Used to deterministically exercise the "native zip can't
+// store symlinks" path regardless of whether a capable native zip is installed.
 // Lives under test/js-fixtures/ — the unit-test glob is test/**/*.test.js, so
 // it isn't picked up as a test file — and kept out of test/fixtures so
 // fixture-copying tests don't copy it.

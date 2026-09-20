@@ -30,7 +30,7 @@ describe("Performance", () => {
     "zip complete project (including node_modules)",
     { timeout: 2 * 60 * 1000 },
     async () => {
-      const hasNativeZip = bestzip.hasNativeZip();
+      const hasNativeZip = bestzip.hasNativeZip({ quiet: true });
       const nodeStats = await getPerf(bestzip.nodeZip);
       console.log(
         `nodeZip took ${nodeStats.duration}ms to generate a file of ${nodeStats.size} bytes`
