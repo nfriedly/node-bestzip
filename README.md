@@ -114,4 +114,5 @@ When symlinks are present and the `followSymLinks` option has not been set expli
 To follow symlinks, set `followSymLinks: true` (programmatic API) or pass `--follow-sym-links` on the command line. To keep the link entries (the default behavior) while suppressing the warning, set `followSymLinks: false` or pass `--no-follow-sym-links` on the command line.
 
 When archiving symlinks without following them, bestzip uses the native `zip` command when available. Some native `zip` builds (notably the Windows build of Info-ZIP) cannot store symlinks as link entries at all, so bestzip falls back to its built-in Node.js implementation in that case. 
+
 Note that calling `nativeZip()` directly with `followSymLinks` unset/false on such a platform throws an error; use the `bestZip()` entry point, which routes to the Node.js implementation automatically. Use `nativeZipSupportsSymlinks()` to check whether the available native `zip` can store symlinks as links; it returns `true`/`false` and caches its result after the first call. `bestzip.hasNativeZip()` checks whether a native `zip` is installed at all.

@@ -7,6 +7,17 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 [Unreleased]
 
+## [4.0.1](https://github.com/nfriedly/node-bestzip/releases/tag/v4.0.0) - 2026-10-21
+
+### Security
+
+- Native zip commands are only executed in from a hard-coded list of known safe locations ([GHSA-8gjm-2jjj-ff9x](https://github.com/nfriedly/node-bestzip/security/advisories/GHSA-8gjm-2jjj-ff9x))
+
+### Fixed
+
+- Only exit/return successfully when the destination.zip file was actually created or updated.
+
+
 ## [4.0.0](https://github.com/nfriedly/node-bestzip/releases/tag/v4.0.0) - 2026-10-06
 
 ### Security
