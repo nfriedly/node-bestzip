@@ -75,7 +75,7 @@ await bestZip({
 ### API Options
 
 * `source`: Path or paths to files and folders to include in the zip file. String or Array of Strings.
-* `destination`: Path to generated .zip file.
+* `destination`: Path to generated .zip file. bestzip excludes the destination from the archive, so it is safe to write it inside a folder that is also being zipped.
 * `cwd`: Set the Current Working Directory that source and destination paths are relative to. Defaults to `process.cwd()`
 * `level`: Level of compression, as with the native `zip` command. An integer from 0 (store, no compression) to 9 (maximum compression). Defaults to each implementation's own default when unset.
 * `followSymLinks`: Follow symbolic links and include the contents of their targets in the zip file. When set to `true` or `false` the preference is honored and no warning is printed. When left unset, symbolic links are **not** followed and a warning is printed whenever symlinks are detected (see [Symbolic links](#symbolic-links)).
