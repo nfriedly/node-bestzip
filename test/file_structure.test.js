@@ -34,6 +34,9 @@ const testCases = [
   { cwd: "test/fixtures", source: "file.txt" },
 ];
 
+// ensure the empty directory exists (git does not allow empty directories, but zip files do)
+fs.mkdirSync(path.join("test/fixtures", "empty-dir"), { recursive: true });
+
 // Test cases whose expected output includes symlink entries; they only run when
 // symlinks can actually be created on the host.
 const symlinkKey = (source, cwd) => JSON.stringify({ cwd, source });
@@ -126,9 +129,6 @@ for (const { name, cli, testCases } of symlinkStyles) {
     beforeEach(reset);
     after(cleanup);
 
-    // these tests have known good snapshots
-    // so, it's run once for bestzip against the snapshot
-    // and, if bestzip used
     for (const testCase of testCases) {
       test(
         `cli: ${JSON.stringify(testCase)}`,

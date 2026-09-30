@@ -12,6 +12,7 @@ exports[`file structure - default follow symlinks > cli with --force=node: {\"cw
 exports[`file structure - default follow symlinks > cli with --force=node: {\"cwd\":\"test/\",\"source\":\"fixtures/*\"} 1`] = `
 [
   "/fixtures",
+  "/fixtures/empty-dir",
   "/fixtures/file-symlink.txt",
   "/fixtures/file.txt",
   "/fixtures/multiline.txt",
@@ -27,6 +28,7 @@ exports[`file structure - default follow symlinks > cli with --force=node: {\"cw
 [
   "/fixtures",
   "/fixtures/.dotfile",
+  "/fixtures/empty-dir",
   "/fixtures/file-symlink.txt",
   "/fixtures/file.txt",
   "/fixtures/multiline.txt",
@@ -49,6 +51,7 @@ exports[`file structure - default follow symlinks > cli with --force=node: {\"cw
 
 exports[`file structure - default follow symlinks > cli with --force=node: {\"cwd\":\"test/fixtures/\",\"source\":\"*\"} 1`] = `
 [
+  "/empty-dir",
   "/file-symlink.txt",
   "/file.txt",
   "/multiline.txt",
@@ -63,6 +66,7 @@ exports[`file structure - default follow symlinks > cli with --force=node: {\"cw
 exports[`file structure - default follow symlinks > cli with --force=node: {\"cwd\":\"test/fixtures/\",\"source\":\"./\"} 1`] = `
 [
   "/.dotfile",
+  "/empty-dir",
   "/file-symlink.txt",
   "/file.txt",
   "/multiline.txt",
@@ -149,6 +153,7 @@ exports[`file structure - default follow symlinks > cli: {\"cwd\":\"test/\",\"so
 exports[`file structure - default follow symlinks > cli: {\"cwd\":\"test/\",\"source\":\"fixtures/*\"} 1`] = `
 [
   "/fixtures",
+  "/fixtures/empty-dir",
   "/fixtures/file-symlink.txt",
   "/fixtures/file.txt",
   "/fixtures/multiline.txt",
@@ -164,6 +169,7 @@ exports[`file structure - default follow symlinks > cli: {\"cwd\":\"test/\",\"so
 [
   "/fixtures",
   "/fixtures/.dotfile",
+  "/fixtures/empty-dir",
   "/fixtures/file-symlink.txt",
   "/fixtures/file.txt",
   "/fixtures/multiline.txt",
@@ -186,6 +192,7 @@ exports[`file structure - default follow symlinks > cli: {\"cwd\":\"test/\",\"so
 
 exports[`file structure - default follow symlinks > cli: {\"cwd\":\"test/fixtures/\",\"source\":\"*\"} 1`] = `
 [
+  "/empty-dir",
   "/file-symlink.txt",
   "/file.txt",
   "/multiline.txt",
@@ -200,6 +207,7 @@ exports[`file structure - default follow symlinks > cli: {\"cwd\":\"test/fixture
 exports[`file structure - default follow symlinks > cli: {\"cwd\":\"test/fixtures/\",\"source\":\"./\"} 1`] = `
 [
   "/.dotfile",
+  "/empty-dir",
   "/file-symlink.txt",
   "/file.txt",
   "/multiline.txt",
@@ -286,6 +294,7 @@ exports[`file structure - default follow symlinks > programmatic with nodeZip: {
 exports[`file structure - default follow symlinks > programmatic with nodeZip: {\"cwd\":\"test/\",\"source\":\"fixtures/*\"} 1`] = `
 [
   "/fixtures",
+  "/fixtures/empty-dir",
   "/fixtures/file-symlink.txt",
   "/fixtures/file.txt",
   "/fixtures/multiline.txt",
@@ -301,6 +310,7 @@ exports[`file structure - default follow symlinks > programmatic with nodeZip: {
 [
   "/fixtures",
   "/fixtures/.dotfile",
+  "/fixtures/empty-dir",
   "/fixtures/file-symlink.txt",
   "/fixtures/file.txt",
   "/fixtures/multiline.txt",
@@ -323,6 +333,7 @@ exports[`file structure - default follow symlinks > programmatic with nodeZip: {
 
 exports[`file structure - default follow symlinks > programmatic with nodeZip: {\"cwd\":\"test/fixtures/\",\"source\":\"*\"} 1`] = `
 [
+  "/empty-dir",
   "/file-symlink.txt",
   "/file.txt",
   "/multiline.txt",
@@ -337,6 +348,7 @@ exports[`file structure - default follow symlinks > programmatic with nodeZip: {
 exports[`file structure - default follow symlinks > programmatic with nodeZip: {\"cwd\":\"test/fixtures/\",\"source\":\"./\"} 1`] = `
 [
   "/.dotfile",
+  "/empty-dir",
   "/file-symlink.txt",
   "/file.txt",
   "/multiline.txt",
@@ -423,6 +435,7 @@ exports[`file structure - default follow symlinks > programmatic: {\"cwd\":\"tes
 exports[`file structure - default follow symlinks > programmatic: {\"cwd\":\"test/\",\"source\":\"fixtures/*\"} 1`] = `
 [
   "/fixtures",
+  "/fixtures/empty-dir",
   "/fixtures/file-symlink.txt",
   "/fixtures/file.txt",
   "/fixtures/multiline.txt",
@@ -438,6 +451,7 @@ exports[`file structure - default follow symlinks > programmatic: {\"cwd\":\"tes
 [
   "/fixtures",
   "/fixtures/.dotfile",
+  "/fixtures/empty-dir",
   "/fixtures/file-symlink.txt",
   "/fixtures/file.txt",
   "/fixtures/multiline.txt",
@@ -460,6 +474,7 @@ exports[`file structure - default follow symlinks > programmatic: {\"cwd\":\"tes
 
 exports[`file structure - default follow symlinks > programmatic: {\"cwd\":\"test/fixtures/\",\"source\":\"*\"} 1`] = `
 [
+  "/empty-dir",
   "/file-symlink.txt",
   "/file.txt",
   "/multiline.txt",
@@ -474,6 +489,7 @@ exports[`file structure - default follow symlinks > programmatic: {\"cwd\":\"tes
 exports[`file structure - default follow symlinks > programmatic: {\"cwd\":\"test/fixtures/\",\"source\":\"./\"} 1`] = `
 [
   "/.dotfile",
+  "/empty-dir",
   "/file-symlink.txt",
   "/file.txt",
   "/multiline.txt",
@@ -560,6 +576,7 @@ exports[`file structure - follow symlinks > cli with --force=node: {\"cwd\":\"te
 exports[`file structure - follow symlinks > cli with --force=node: {\"cwd\":\"test/\",\"source\":\"fixtures/*\",\"followSymLinks\":true} 1`] = `
 [
   "/fixtures",
+  "/fixtures/empty-dir",
   "/fixtures/file-symlink.txt",
   "/fixtures/file.txt",
   "/fixtures/multiline.txt",
@@ -576,6 +593,7 @@ exports[`file structure - follow symlinks > cli with --force=node: {\"cwd\":\"te
 [
   "/fixtures",
   "/fixtures/.dotfile",
+  "/fixtures/empty-dir",
   "/fixtures/file-symlink.txt",
   "/fixtures/file.txt",
   "/fixtures/multiline.txt",
@@ -599,6 +617,7 @@ exports[`file structure - follow symlinks > cli with --force=node: {\"cwd\":\"te
 
 exports[`file structure - follow symlinks > cli with --force=node: {\"cwd\":\"test/fixtures/\",\"source\":\"*\",\"followSymLinks\":true} 1`] = `
 [
+  "/empty-dir",
   "/file-symlink.txt",
   "/file.txt",
   "/multiline.txt",
@@ -614,6 +633,7 @@ exports[`file structure - follow symlinks > cli with --force=node: {\"cwd\":\"te
 exports[`file structure - follow symlinks > cli with --force=node: {\"cwd\":\"test/fixtures/\",\"source\":\"./\",\"followSymLinks\":true} 1`] = `
 [
   "/.dotfile",
+  "/empty-dir",
   "/file-symlink.txt",
   "/file.txt",
   "/multiline.txt",
@@ -701,6 +721,7 @@ exports[`file structure - follow symlinks > cli: {\"cwd\":\"test/\",\"source\":\
 exports[`file structure - follow symlinks > cli: {\"cwd\":\"test/\",\"source\":\"fixtures/*\",\"followSymLinks\":true} 1`] = `
 [
   "/fixtures",
+  "/fixtures/empty-dir",
   "/fixtures/file-symlink.txt",
   "/fixtures/file.txt",
   "/fixtures/multiline.txt",
@@ -717,6 +738,7 @@ exports[`file structure - follow symlinks > cli: {\"cwd\":\"test/\",\"source\":\
 [
   "/fixtures",
   "/fixtures/.dotfile",
+  "/fixtures/empty-dir",
   "/fixtures/file-symlink.txt",
   "/fixtures/file.txt",
   "/fixtures/multiline.txt",
@@ -740,6 +762,7 @@ exports[`file structure - follow symlinks > cli: {\"cwd\":\"test/\",\"source\":\
 
 exports[`file structure - follow symlinks > cli: {\"cwd\":\"test/fixtures/\",\"source\":\"*\",\"followSymLinks\":true} 1`] = `
 [
+  "/empty-dir",
   "/file-symlink.txt",
   "/file.txt",
   "/multiline.txt",
@@ -755,6 +778,7 @@ exports[`file structure - follow symlinks > cli: {\"cwd\":\"test/fixtures/\",\"s
 exports[`file structure - follow symlinks > cli: {\"cwd\":\"test/fixtures/\",\"source\":\"./\",\"followSymLinks\":true} 1`] = `
 [
   "/.dotfile",
+  "/empty-dir",
   "/file-symlink.txt",
   "/file.txt",
   "/multiline.txt",
@@ -842,6 +866,7 @@ exports[`file structure - follow symlinks > programmatic with nodeZip: {\"cwd\":
 exports[`file structure - follow symlinks > programmatic with nodeZip: {\"cwd\":\"test/\",\"source\":\"fixtures/*\",\"followSymLinks\":true} 1`] = `
 [
   "/fixtures",
+  "/fixtures/empty-dir",
   "/fixtures/file-symlink.txt",
   "/fixtures/file.txt",
   "/fixtures/multiline.txt",
@@ -858,6 +883,7 @@ exports[`file structure - follow symlinks > programmatic with nodeZip: {\"cwd\":
 [
   "/fixtures",
   "/fixtures/.dotfile",
+  "/fixtures/empty-dir",
   "/fixtures/file-symlink.txt",
   "/fixtures/file.txt",
   "/fixtures/multiline.txt",
@@ -881,6 +907,7 @@ exports[`file structure - follow symlinks > programmatic with nodeZip: {\"cwd\":
 
 exports[`file structure - follow symlinks > programmatic with nodeZip: {\"cwd\":\"test/fixtures/\",\"source\":\"*\",\"followSymLinks\":true} 1`] = `
 [
+  "/empty-dir",
   "/file-symlink.txt",
   "/file.txt",
   "/multiline.txt",
@@ -896,6 +923,7 @@ exports[`file structure - follow symlinks > programmatic with nodeZip: {\"cwd\":
 exports[`file structure - follow symlinks > programmatic with nodeZip: {\"cwd\":\"test/fixtures/\",\"source\":\"./\",\"followSymLinks\":true} 1`] = `
 [
   "/.dotfile",
+  "/empty-dir",
   "/file-symlink.txt",
   "/file.txt",
   "/multiline.txt",
@@ -983,6 +1011,7 @@ exports[`file structure - follow symlinks > programmatic: {\"cwd\":\"test/\",\"s
 exports[`file structure - follow symlinks > programmatic: {\"cwd\":\"test/\",\"source\":\"fixtures/*\",\"followSymLinks\":true} 1`] = `
 [
   "/fixtures",
+  "/fixtures/empty-dir",
   "/fixtures/file-symlink.txt",
   "/fixtures/file.txt",
   "/fixtures/multiline.txt",
@@ -999,6 +1028,7 @@ exports[`file structure - follow symlinks > programmatic: {\"cwd\":\"test/\",\"s
 [
   "/fixtures",
   "/fixtures/.dotfile",
+  "/fixtures/empty-dir",
   "/fixtures/file-symlink.txt",
   "/fixtures/file.txt",
   "/fixtures/multiline.txt",
@@ -1022,6 +1052,7 @@ exports[`file structure - follow symlinks > programmatic: {\"cwd\":\"test/\",\"s
 
 exports[`file structure - follow symlinks > programmatic: {\"cwd\":\"test/fixtures/\",\"source\":\"*\",\"followSymLinks\":true} 1`] = `
 [
+  "/empty-dir",
   "/file-symlink.txt",
   "/file.txt",
   "/multiline.txt",
@@ -1037,6 +1068,7 @@ exports[`file structure - follow symlinks > programmatic: {\"cwd\":\"test/fixtur
 exports[`file structure - follow symlinks > programmatic: {\"cwd\":\"test/fixtures/\",\"source\":\"./\",\"followSymLinks\":true} 1`] = `
 [
   "/.dotfile",
+  "/empty-dir",
   "/file-symlink.txt",
   "/file.txt",
   "/multiline.txt",
@@ -1124,6 +1156,7 @@ exports[`file structure - no follow symlinks > cli with --force=node: {\"cwd\":\
 exports[`file structure - no follow symlinks > cli with --force=node: {\"cwd\":\"test/\",\"source\":\"fixtures/*\",\"followSymLinks\":false} 1`] = `
 [
   "/fixtures",
+  "/fixtures/empty-dir",
   "/fixtures/file-symlink.txt",
   "/fixtures/file.txt",
   "/fixtures/multiline.txt",
@@ -1139,6 +1172,7 @@ exports[`file structure - no follow symlinks > cli with --force=node: {\"cwd\":\
 [
   "/fixtures",
   "/fixtures/.dotfile",
+  "/fixtures/empty-dir",
   "/fixtures/file-symlink.txt",
   "/fixtures/file.txt",
   "/fixtures/multiline.txt",
@@ -1161,6 +1195,7 @@ exports[`file structure - no follow symlinks > cli with --force=node: {\"cwd\":\
 
 exports[`file structure - no follow symlinks > cli with --force=node: {\"cwd\":\"test/fixtures/\",\"source\":\"*\",\"followSymLinks\":false} 1`] = `
 [
+  "/empty-dir",
   "/file-symlink.txt",
   "/file.txt",
   "/multiline.txt",
@@ -1175,6 +1210,7 @@ exports[`file structure - no follow symlinks > cli with --force=node: {\"cwd\":\
 exports[`file structure - no follow symlinks > cli with --force=node: {\"cwd\":\"test/fixtures/\",\"source\":\"./\",\"followSymLinks\":false} 1`] = `
 [
   "/.dotfile",
+  "/empty-dir",
   "/file-symlink.txt",
   "/file.txt",
   "/multiline.txt",
@@ -1261,6 +1297,7 @@ exports[`file structure - no follow symlinks > cli: {\"cwd\":\"test/\",\"source\
 exports[`file structure - no follow symlinks > cli: {\"cwd\":\"test/\",\"source\":\"fixtures/*\",\"followSymLinks\":false} 1`] = `
 [
   "/fixtures",
+  "/fixtures/empty-dir",
   "/fixtures/file-symlink.txt",
   "/fixtures/file.txt",
   "/fixtures/multiline.txt",
@@ -1276,6 +1313,7 @@ exports[`file structure - no follow symlinks > cli: {\"cwd\":\"test/\",\"source\
 [
   "/fixtures",
   "/fixtures/.dotfile",
+  "/fixtures/empty-dir",
   "/fixtures/file-symlink.txt",
   "/fixtures/file.txt",
   "/fixtures/multiline.txt",
@@ -1298,6 +1336,7 @@ exports[`file structure - no follow symlinks > cli: {\"cwd\":\"test/\",\"source\
 
 exports[`file structure - no follow symlinks > cli: {\"cwd\":\"test/fixtures/\",\"source\":\"*\",\"followSymLinks\":false} 1`] = `
 [
+  "/empty-dir",
   "/file-symlink.txt",
   "/file.txt",
   "/multiline.txt",
@@ -1312,6 +1351,7 @@ exports[`file structure - no follow symlinks > cli: {\"cwd\":\"test/fixtures/\",
 exports[`file structure - no follow symlinks > cli: {\"cwd\":\"test/fixtures/\",\"source\":\"./\",\"followSymLinks\":false} 1`] = `
 [
   "/.dotfile",
+  "/empty-dir",
   "/file-symlink.txt",
   "/file.txt",
   "/multiline.txt",
@@ -1398,6 +1438,7 @@ exports[`file structure - no follow symlinks > programmatic with nodeZip: {\"cwd
 exports[`file structure - no follow symlinks > programmatic with nodeZip: {\"cwd\":\"test/\",\"source\":\"fixtures/*\",\"followSymLinks\":false} 1`] = `
 [
   "/fixtures",
+  "/fixtures/empty-dir",
   "/fixtures/file-symlink.txt",
   "/fixtures/file.txt",
   "/fixtures/multiline.txt",
@@ -1413,6 +1454,7 @@ exports[`file structure - no follow symlinks > programmatic with nodeZip: {\"cwd
 [
   "/fixtures",
   "/fixtures/.dotfile",
+  "/fixtures/empty-dir",
   "/fixtures/file-symlink.txt",
   "/fixtures/file.txt",
   "/fixtures/multiline.txt",
@@ -1435,6 +1477,7 @@ exports[`file structure - no follow symlinks > programmatic with nodeZip: {\"cwd
 
 exports[`file structure - no follow symlinks > programmatic with nodeZip: {\"cwd\":\"test/fixtures/\",\"source\":\"*\",\"followSymLinks\":false} 1`] = `
 [
+  "/empty-dir",
   "/file-symlink.txt",
   "/file.txt",
   "/multiline.txt",
@@ -1449,6 +1492,7 @@ exports[`file structure - no follow symlinks > programmatic with nodeZip: {\"cwd
 exports[`file structure - no follow symlinks > programmatic with nodeZip: {\"cwd\":\"test/fixtures/\",\"source\":\"./\",\"followSymLinks\":false} 1`] = `
 [
   "/.dotfile",
+  "/empty-dir",
   "/file-symlink.txt",
   "/file.txt",
   "/multiline.txt",
@@ -1535,6 +1579,7 @@ exports[`file structure - no follow symlinks > programmatic: {\"cwd\":\"test/\",
 exports[`file structure - no follow symlinks > programmatic: {\"cwd\":\"test/\",\"source\":\"fixtures/*\",\"followSymLinks\":false} 1`] = `
 [
   "/fixtures",
+  "/fixtures/empty-dir",
   "/fixtures/file-symlink.txt",
   "/fixtures/file.txt",
   "/fixtures/multiline.txt",
@@ -1550,6 +1595,7 @@ exports[`file structure - no follow symlinks > programmatic: {\"cwd\":\"test/\",
 [
   "/fixtures",
   "/fixtures/.dotfile",
+  "/fixtures/empty-dir",
   "/fixtures/file-symlink.txt",
   "/fixtures/file.txt",
   "/fixtures/multiline.txt",
@@ -1572,6 +1618,7 @@ exports[`file structure - no follow symlinks > programmatic: {\"cwd\":\"test/\",
 
 exports[`file structure - no follow symlinks > programmatic: {\"cwd\":\"test/fixtures/\",\"source\":\"*\",\"followSymLinks\":false} 1`] = `
 [
+  "/empty-dir",
   "/file-symlink.txt",
   "/file.txt",
   "/multiline.txt",
@@ -1586,6 +1633,7 @@ exports[`file structure - no follow symlinks > programmatic: {\"cwd\":\"test/fix
 exports[`file structure - no follow symlinks > programmatic: {\"cwd\":\"test/fixtures/\",\"source\":\"./\",\"followSymLinks\":false} 1`] = `
 [
   "/.dotfile",
+  "/empty-dir",
   "/file-symlink.txt",
   "/file.txt",
   "/multiline.txt",
