@@ -1,0 +1,40 @@
+name: Issue 48 probe
+on: [push]
+
+jobs:
+  probe:
+    strategy:
+      fail-fast: false
+      matrix:
+        os: [windows-latest, ubuntu-latest]
+    runs-on: ${{ matrix.os }}
+    steps:
+      - uses: actions/checkout@de0fac2e4500dabe0009e67214ff5f5447ce83dd
+      - uses: actions/setup-node@48b55a011bda9f5d6aeb4c2d9c7362e8dae4041e
+        with:
+          node-version: lts/*
+      - run: npm ci
+      - name: run the #48 test and report entry names as annotations
+        shell: bash
+        run: |
+          set +e
+          node --test-reporter=tap --test test/entry_name_prefix.test.js > out.tap 2>&1
+          status=$?
+          echo "exit status: $status"
+          grep -E "^\s*not ok|^\s*ok |actual:|expected:|'\\./" out.tap | head -40
+          while IFS= read -r line; do
+            echo "::error::$line"
+          done < <(grep -E "'\\./[a-z]" out.tap | sort -u | head -8)
+          echo "$status" > status.txt
+      - name: summary
+        if: always()
+        shell: bash
+        run: |
+          {
+            echo "### entry names seen on ${{ matrix.os }}"
+            echo '```'
+            cat out.tap
+            echo '```'
+          } >> "$GITHUB_STEP_SUMMARY"
+      - name: fail if the test failed
+        run: exit $(cat status.txt)
