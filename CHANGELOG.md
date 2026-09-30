@@ -7,7 +7,14 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 [Unreleased]
 
-## [4.0.1](https://github.com/nfriedly/node-bestzip/releases/tag/v4.0.0) - 2026-10-21
+## [4.0.2](https://github.com/nfriedly/node-bestzip/releases/tag/v4.0.2) - 2026-10-29
+
+### Fixed
+
+- nodeZip now correctly includes empty directories, matching the behavior of nativeZip
+
+
+## [4.0.1](https://github.com/nfriedly/node-bestzip/releases/tag/v4.0.2) - 2026-10-21
 
 ### Security
 
