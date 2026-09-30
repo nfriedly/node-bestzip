@@ -97,16 +97,35 @@ describe("#48: a source of . should not add a ./ prefix to entry names", () => {
   });
 
   // Regression guard: an explicitly named directory keeps its name as the
-  // prefix, so a fix for #48 must not strip prefixes that are real.
-  test("nodeZip: an explicit directory source still prefixes entries", async () => {
-    await bestzip.nodeZip({
-      cwd: tmpdir,
-      source: "dist",
-      destination,
+  // prefix, so a fix for #48 must not strip prefixes that are real. `./dist` is
+  // the same directory and must land in the same place, since native zip
+  // normalizes the leading "./" rather than storing it.
+  for (const source of ["dist", "./dist", "./dist/"]) {
+    test(`nodeZip: source ${JSON.stringify(
+      source
+    )} still prefixes entries`, async () => {
+      await bestzip.nodeZip({ cwd: tmpdir, source, destination });
+      assert.deepEqual(Object.keys(readZipEntries(destination)).sort(), [
+        "dist/build/a.js",
+        "dist/index.js",
+      ]);
     });
-    assert.deepEqual(Object.keys(readZipEntries(destination)).sort(), [
-      "dist/build/a.js",
-      "dist/index.js",
-    ]);
-  });
+
+    test(
+      `nativeZip: source ${JSON.stringify(source)} still prefixes entries`,
+      { skip: NATIVE_SKIP },
+      async () => {
+        await bestzip.nativeZip({
+          cwd: tmpdir,
+          source,
+          destination,
+          ...NATIVE_OPTIONS,
+        });
+        assert.deepEqual(Object.keys(readZipEntries(destination)).sort(), [
+          "dist/build/a.js",
+          "dist/index.js",
+        ]);
+      }
+    );
+  }
 });
