@@ -7,6 +7,8 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 [Unreleased]
 
+## [4.0.3](https://github.com/nfriedly/node-bestzip/releases/tag/v4.0.3) - 2026-10-30
+
 ### Fixed
 
 - nodeZip now excludes the destination from the inputs, matching the native zip behavior ([#94](https://github.com/nfriedly/node-bestzip/issues/94), [#39](https://github.com/nfriedly/node-bestzip/issues/39)).
