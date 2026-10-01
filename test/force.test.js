@@ -16,7 +16,16 @@ const source = "file.txt";
 // the native zip exits non-zero and bestzip reports its exit code. The
 // archives they produce are otherwise identical by design, so this is what
 // tells us which implementation actually ran.
-const options = { cwd, source: "missing.txt", destination };
+//
+// followSymLinks is set so that the native zip actually runs: without it, a
+// platform whose native zip can't store symlinks as links (e.g. Windows)
+// throws before it ever gets to the zip.
+const options = {
+  cwd,
+  source: "missing.txt",
+  destination,
+  followSymLinks: true,
+};
 const assertNodeRan = (zipFn) =>
   assert.rejects(zipFn(options), { code: "ENOENT" });
 const assertNativeRan = (zipFn) =>
@@ -82,9 +91,9 @@ describe("force option", () => {
     );
   });
 
-  test("invalid force values throw", () => {
+  test("invalid force values reject", async () => {
     for (const force of [true, "nope", "Node", 1, null]) {
-      assert.throws(
+      await assert.rejects(
         () => bestzip.zip({ cwd, source, destination, force }),
         /bestzip: force should be 'node' or 'native'/
       );

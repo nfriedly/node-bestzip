@@ -69,7 +69,6 @@ await bestZip({
 })
 
 // Promises also work: zip({source, destination}).then(...).catch(...)
-// Callbacks also work: zip(destination, sources, callback)
 ```
 
 ### API Options

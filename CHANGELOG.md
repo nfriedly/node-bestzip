@@ -14,6 +14,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ### Changed
 
 - `nodeZip` and `nativeZip` functions are now soft-deprecated" undocumented but remain functional for backwards compatibility.
+- Callback form (`zip(destination, sources, callback)`) is also soft-deprecated
 
 ## [4.0.3](https://github.com/nfriedly/node-bestzip/releases/tag/v4.0.3) - 2026-10-30
 
