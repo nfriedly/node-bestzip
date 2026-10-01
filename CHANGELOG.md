@@ -7,6 +7,14 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 [Unreleased]
 
+### Added
+
+- New `force` option (`'node'` or `'native'`) on the programmatic API, matching the `--force` command line flag.
+
+### Changed
+
+- `nodeZip` and `nativeZip` functions are now soft-deprecated" undocumented but remain functional for backwards compatibility.
+
 ## [4.0.3](https://github.com/nfriedly/node-bestzip/releases/tag/v4.0.3) - 2026-10-30
 
 ### Fixed

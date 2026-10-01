@@ -79,6 +79,7 @@ await bestZip({
 * `cwd`: Set the Current Working Directory that source and destination paths are relative to. Defaults to `process.cwd()`
 * `level`: Level of compression, as with the native `zip` command. An integer from 0 (store, no compression) to 9 (maximum compression). Defaults to each implementation's own default when unset.
 * `followSymLinks`: Follow symbolic links and include the contents of their targets in the zip file. When set to `true` or `false` the preference is honored and no warning is printed. When left unset, symbolic links are **not** followed and a warning is printed whenever symlinks are detected (see [Symbolic links](#symbolic-links)).
+* `force`: `'node'` or `'native'` - Force the Node.js implementation or the native `zip` command instead of letting bestzip pick automatically.
 
 ## How to control the directory structure
 
@@ -94,7 +95,7 @@ Alternatively:
 
 This will not include the build/ folder, it's contents will be top-level.
 
-*Note: some tools, including the Archive Utility built into macOS, will automatically create a top-level folder to group everything together when extracting a .zip archive that contains multiple top-level files.*
+*Note: some unzip tools, including the Archive Utility built into macOS, will automatically create a top-level folder to group everything together when extracting a .zip archive that contains multiple top-level files.*
 
 When using the programmatic API, the same effect may be achieved by passing in the `cwd` option.
 
@@ -115,4 +116,4 @@ To follow symlinks, set `followSymLinks: true` (programmatic API) or pass `--fol
 
 When archiving symlinks without following them, bestzip uses the native `zip` command when available. Some native `zip` builds (notably the Windows build of Info-ZIP) cannot store symlinks as link entries at all, so bestzip falls back to its built-in Node.js implementation in that case. 
 
-Note that calling `nativeZip()` directly with `followSymLinks` unset/false on such a platform throws an error; use the `bestZip()` entry point, which routes to the Node.js implementation automatically. Use `nativeZipSupportsSymlinks()` to check whether the available native `zip` can store symlinks as links; it returns `true`/`false` and caches its result after the first call. `bestzip.hasNativeZip()` checks whether a native `zip` is installed at all.
+Note that forcing the native implementation with `force: 'native'` while `followSymLinks` is unset/false throws an error on such a platform; leave `force` unset to let bestzip route to the Node.js implementation automatically. Use `nativeZipSupportsSymlinks()` to check whether the available native `zip` can store symlinks as links; it returns `true`/`false` and caches its result after the first call. `bestzip.hasNativeZip()` checks whether a native `zip` is installed at all.
