@@ -128,4 +128,26 @@ describe("#48: a source of . should not add a ./ prefix to entry names", () => {
       }
     );
   }
+
+  // A source of `..` names the source's own root entry `..`, which archiver
+  // strips to an empty name. That produced a nameless entry in the archive,
+  // which extractors reject (EISDIR from unzip-stream) and `unzip -t` flags as
+  // a mismatched local/central filename. Native zip stores `../` instead; that
+  // name can't survive archiver's sanitizing, so the entry is dropped instead.
+  // readZipEntries skips directory names but not an empty one, so a nameless
+  // entry would show up here as the "" key.
+  for (const source of ["..", "../"]) {
+    test(`nodeZip: source ${JSON.stringify(
+      source
+    )} emits no nameless entry`, async () => {
+      await bestzip.nodeZip({ cwd, source, destination });
+      const names = Object.keys(readZipEntries(destination)).sort();
+      assert.ok(
+        !names.includes(""),
+        `nameless entry in ${JSON.stringify(names)}`
+      );
+      // cwd is <tmpdir>/dist, so `..` is <tmpdir> and its one child is dist/
+      assert.deepEqual(names, ["dist/build/a.js", "dist/index.js"]);
+    });
+  }
 });
