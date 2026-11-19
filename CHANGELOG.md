@@ -7,6 +7,12 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 [Unreleased]
 
+## [4.0.4](https://github.com/nfriedly/node-bestzip/releases/tag/v4.0.4) - 2026-11-19
+
+### Fixed
+
+- Fixed a double-close bug that could cause an error to be thrown after successfully creating the archive ([#115](https://github.com/nfriedly/node-bestzip/issues/115)).
+
 ## [4.0.3](https://github.com/nfriedly/node-bestzip/releases/tag/v4.0.3) - 2026-10-30
 
 ### Fixed
